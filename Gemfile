@@ -29,4 +29,5 @@ group :test do
 	gem 'factory_girl_rails', '4.0.0'
 	gem 'capybara-screenshot'
 	gem 'launchy'
+	gem 'capybara-webkit'
 end
