@@ -3,37 +3,49 @@ Given /^a user visits the sign in page$/ do
 end
 
 Given /^the user has an account$/ do
-  pending # express the regexp above with the code you wish you had
+  @user = FactoryGirl.create(:user)
 end
 
 When /^the user submits valid signing information$/ do
-  pending # express the regexp above with the code you wish you had
+  fill_in "Email",    :with => @user[:email]
+  fill_in "Password", :with => '314159'
+  click_button "Sign in"
 end
 
 Then /^the user should see his dashboard page$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_selector('h1', text: 'Dashboard')
 end
 
 Then /^the user should see a sign out link$/ do
-  pending # express the regexp above with the code you wish you had
+  should have_link('Sign out', href: destroy_user_session_path)
 end
 
 When /^the user submits invalid sign in information$/ do
-  pending # express the regexp above with the code you wish you had
+  fill_in "Email",    :with => 'example@example.com'
+  fill_in "Password", :with => 'WRONG PASSWORD'
+  click_button "Sign in"
 end
 
 Then /^the user should see the sign in page$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_selector('h2', text: 'Sign in')
 end
 
 Then /^the user should not be signed in$/ do
-  pending # express the regexp above with the code you wish you had
+  should_not have_link('Sign out', href: destroy_user_session_path)
 end
 
 Given /^a signed in user$/ do
-  pending # express the regexp above with the code you wish you had
+  visit new_user_session_path
+  @user = FactoryGirl.create(:user)
+  fill_in "Email",    :with => @user[:email]
+  fill_in "Password", :with => '314159'
+  click_button "Sign in"
 end
 
 When /^the user sign out$/ do
-  pending # express the regexp above with the code you wish you had
+  click_link 'Sign out'
+end
+
+Then /^there is an error message$/ do
+  page.should have_selector('.alert')
 end
