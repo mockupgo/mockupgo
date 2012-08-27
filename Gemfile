@@ -6,7 +6,7 @@ gem 'rails', '3.2.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,8 +23,8 @@ end
 gem 'jquery-rails'
 
 group :test do
-	gem 'cucumber-rails', '1.2.1' 
+	gem 'cucumber-rails', '1.2.1', :require => false
 	gem 'rspec-rails', '2.11.0'
 	gem 'database_cleaner', '0.8.0'
-	gem 'factory_girl', '4.0.0'
+	gem 'factory_girl_rails', '4.0.0'
 end

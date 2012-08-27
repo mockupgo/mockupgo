@@ -1,4 +1,10 @@
 MockupGo::Application.routes.draw do
+  get "static_pages/help"
+
+  devise_for :users
+
+  root :to => "static_pages#home"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
