@@ -3,12 +3,14 @@ Given /^a user visits the sign in page$/ do
 end
 
 Given /^the user has an account$/ do
-  @user = FactoryGirl.create(:user)
+  @user = User.create(email: 'example@example.com',
+                        password: '314159',
+                        password_confirmation: '314159')
 end
 
 When /^the user submits valid signing information$/ do
-  fill_in "Email",    :with => @user[:email]
-  fill_in "Password", :with => '314159'
+  fill_in "Email",    :with => @user.email
+  fill_in "Password", :with => @user.password
   click_button "Sign in"
 end
 
