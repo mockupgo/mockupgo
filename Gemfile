@@ -28,4 +28,5 @@ group :test do
 	gem 'database_cleaner', '0.8.0'
 	gem 'factory_girl_rails', '4.0.0'
 	gem 'capybara-screenshot'
+	gem 'launchy'
 end
