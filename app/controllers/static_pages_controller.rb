@@ -5,4 +5,9 @@ class StaticPagesController < ApplicationController
 
   def help
   end
+
+  def dashboard
+  	@projects = current_user.projects
+  end
+
 end

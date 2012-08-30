@@ -1,9 +1,13 @@
 MockupGo::Application.routes.draw do
   get "static_pages/help"
 
+  match 'dashboard',  to: 'static_pages#dashboard'
+
   devise_for :users
 
   root :to => "static_pages#home"
+
+  resources :projects
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -3,12 +3,15 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'bootstrap-sass', '2.0.4'
 gem 'devise'
+gem 'cancan'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development do
 	gem 'sqlite3'
+	gem 'guard-rspec', '0.5.5'
+	gem 'rspec-rails', '2.11.0'
 end
 
 group :production do
@@ -38,5 +41,11 @@ group :test do
 	gem 'factory_girl_rails', '4.0.0'
 	gem 'capybara-screenshot'
 	gem 'launchy'
+  gem 'capybara'
 	gem 'capybara-webkit'
+	gem 'rb-fsevent', :require => false
+	gem 'growl'
+	gem 'guard-spork'
+	gem 'spork'
+	gem 'guard-cucumber'
 end
