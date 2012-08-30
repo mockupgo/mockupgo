@@ -9,12 +9,6 @@ describe ProjectsController do
         sign_in @user  
       end
 
-      it "creates a new project" do
-        project = mock_model('Project').as_null_object
-        ######## Project.should_receive(:new).with("name" => "project name").and_return(project)
-        post :create, :project => { "name" => "project name" }
-      end
-
       it "should save the project" do
         expect do
           post :create, :project => { "name" => "project name" }
