@@ -1,4 +1,8 @@
 MockupGo::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   get "static_pages/help"
 
   match 'dashboard',  to: 'static_pages#dashboard'
