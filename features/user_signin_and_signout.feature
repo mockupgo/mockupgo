@@ -23,12 +23,12 @@ Feature: User sign in and sign out
 		Then the user should see the sign in page
 		And the user should not be signed in
 
-	Scenario: visiting the home page when not signed in
+	Scenario: visiting the home page when not signed in redirects to signin page
 		Given a non signed in person
 		When he visits the home page
 		Then he should be redirected to the sign in page
 
-	Scenario: visiting the home page when signed in
+	Scenario: visiting the home page when signed in redirects to dashboard
 		Given a signed in user
 		When he visits the home page
 		Then he should be redirected to his dashboard
