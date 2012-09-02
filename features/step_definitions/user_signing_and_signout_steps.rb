@@ -30,7 +30,7 @@ end
 
 Then /^the user should see the sign in page$/ do
   page.current_path.should == new_user_session_path
-  page.should have_selector('h2', text: 'Sign in')
+  page.should have_selector('legend', text: 'Sign in')
 end
 
 Then /^the user should not be signed in$/ do
