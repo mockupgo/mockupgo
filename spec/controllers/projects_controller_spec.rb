@@ -51,7 +51,7 @@ describe ProjectsController do
       end
     end
 
-    context "when no signed in" do
+    context "when not signed in" do
       it "should not save the project" do
         expect do
           post :create, :project => { "name" => "project name" }
@@ -62,7 +62,7 @@ describe ProjectsController do
         post :create
         response.should redirect_to new_user_session_path
       end
-      
+
     end
   end
 end
