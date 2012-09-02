@@ -29,6 +29,7 @@ When /^the user submits invalid sign in information$/ do
 end
 
 Then /^the user should see the sign in page$/ do
+  page.current_path.should == new_user_session_path
   page.should have_selector('h2', text: 'Sign in')
 end
 
@@ -51,3 +52,23 @@ end
 Then /^there is an error message$/ do
   page.should have_selector('.alert')
 end
+
+Given /^a non signed in person$/ do
+  # What should I do here ? 
+end
+
+When /^he visits the home page$/ do
+  visit root_path
+end
+
+Then /^he should be redirected to the sign in page$/ do
+  page.current_path.should == new_user_session_path
+  page.status_code.should == 200
+end
+
+Then /^he should be redirected to his dashboard$/ do
+  page.current_path.should == dashboard_path
+  page.status_code.should == 200
+end
+
+

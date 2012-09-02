@@ -7,3 +7,6 @@
 </ul>
 
 <%= render :partial => "projects/form", :locals => { :project => Project.new } %>
+
+
+<%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>   
