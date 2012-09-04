@@ -15,3 +15,7 @@
 .navbar .container {
     width: 960px;
 }
+
+.content {
+    margin-top: 60px;
+}

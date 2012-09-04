@@ -15,7 +15,9 @@
 <div class="alert alert-<%= key == :notice ? "success" : "error" %>"><%= value %></div>
 <% end %>
 
-<%= yield %>
+<div class="content">
+  <%= yield %>
+</div>
 
 </body>
 </html>
