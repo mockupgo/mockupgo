@@ -14,3 +14,10 @@ Feature: User can manage there projects
 		And the user visits his dashboard page
 		When the user create a new project
 		Then he should see a new project on the page
+
+	Scenario: display a project page
+		Given a signed in user
+		And the user as a project named "My Cool Project"
+		When the user visits his dashboard page
+		And he click on the link "My Cool Project"
+		Then he should see a project page named "My Cool Project"

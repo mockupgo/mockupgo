@@ -2,6 +2,11 @@ class ProjectsController < ApplicationController
 
   before_filter :authenticate_user!
 
+  def show
+    @project = current_user.projects.find_by_id(params[:id])
+  end
+
+
 	def create
 		project = current_user.projects.build(params[:project])
 

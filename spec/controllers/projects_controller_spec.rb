@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe ProjectsController do
 
+  describe "POST show" do
+    
+    context "when not signed in" do
+
+      it "should redirect to the sign in page when when accessing a project page" do
+        @project = FactoryGirl.create(:project)
+        post :show, id: @project.id
+        response.should redirect_to new_user_session_path
+      end
+    end
+  end
+
   describe "POST create" do
   
     context "when signed in as a user" do
@@ -33,7 +45,6 @@ describe ProjectsController do
         before(:each) do
           controller.stub(:current_user => @user)
 
-          # new_project = double('new project')
           new_project = Project.new(name: "test project")
           new_project.stub(:save => false)
 
