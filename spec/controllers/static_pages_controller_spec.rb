@@ -24,7 +24,7 @@ describe StaticPagesController do
         assigns(:projects).should include(p2)
       end
 
-      it "should should not show other user's projects" do
+      it "should not show other user's projects" do
         get :dashboard
         assigns(:projects).should_not include(q1)
         assigns(:projects).should_not include(q2)
