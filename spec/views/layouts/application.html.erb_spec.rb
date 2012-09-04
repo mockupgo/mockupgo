@@ -8,7 +8,12 @@ describe "layouts/application.html.erb" do
 
     it "should contain a link to the dashboard" do
       render
-      rendered.should have_css("a[href=\"#{dashboard_path}\"]")
+      rendered.should have_link("Dashboard", href: dashboard_path)
+    end
+
+    it "should contain a sign out link" do
+      render
+      rendered.should have_link("Sign out", href: destroy_user_session_path)
     end
 
     context "there is an flash[:notice]" do
