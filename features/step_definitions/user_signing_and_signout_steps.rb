@@ -61,12 +61,12 @@ When /^he visits the home page$/ do
   visit root_path
 end
 
-Then /^he should be redirected to the sign in page$/ do
+Then /^(?:I|he|the user) should be redirected to the sign in page$/ do
   page.current_path.should == new_user_session_path
   page.status_code.should == 200
 end
 
-Then /^he should be redirected to his dashboard$/ do
+Then /^(?:I|he|the user) should be redirected to his dashboard$/ do
   page.current_path.should == dashboard_path
   page.status_code.should == 200
 end

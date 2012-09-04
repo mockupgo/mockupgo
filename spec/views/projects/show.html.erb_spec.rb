@@ -6,4 +6,7 @@ describe "projects/show.html.erb" do
   	render
   	rendered.should have_selector('h1', content: 'My cool project')
   end
+
+  it "display flash messages"
+  
 end

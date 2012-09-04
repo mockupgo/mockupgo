@@ -16,7 +16,7 @@ class StaticPagesController < ApplicationController
   end
 
   def dashboard
-  	@projects = current_user.projects
+    @projects = current_user.projects
   end
 
 end

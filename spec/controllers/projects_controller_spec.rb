@@ -3,9 +3,8 @@ require 'spec_helper'
 describe ProjectsController do
 
   describe "POST show" do
-    
-    context "when not signed in" do
 
+    context "when not signed in" do
       it "should redirect to the sign in page when when accessing a project page" do
         @project = FactoryGirl.create(:project)
         post :show, id: @project.id
@@ -59,6 +58,21 @@ describe ProjectsController do
           flash[:notice].should eq('Project failed to save.')
         end
 
+      end
+
+      describe "when trying to access another user's project" do
+        let(:another_user) { FactoryGirl.create(:user, email: "another_user@example.com") }
+        let(:another_user_project) { FactoryGirl.create(:project, user: another_user) }
+        
+        before { post :show, id: another_user_project.id }
+
+        it "should redirect to the dashboard" do
+          response.should redirect_to dashboard_path
+        end
+
+        it "should display an error flash message" do
+          flash[:alert].should eq("You can't access this project.")
+        end
       end
     end
 
