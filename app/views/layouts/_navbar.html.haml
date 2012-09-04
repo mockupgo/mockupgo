@@ -5,7 +5,7 @@
       - if user_signed_in?
         .nav-collapse
           %ul.nav
-            %li.active
+            %li{class: request.fullpath == dashboard_path ? "active" : ""}
               %a{:href => dashboard_path} Dashboard
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
