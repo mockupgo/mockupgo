@@ -5,7 +5,6 @@ gem 'rails', '3.2.8'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', branch: '2.1-wip'
 gem 'devise'
 gem 'cancan'
-gem 'tlsmail'
 
 gem 'activeadmin'
 gem "meta_search", '>= 1.1.0.pre'
@@ -17,6 +16,7 @@ group :development do
 	gem 'sqlite3'
 	gem 'guard-rspec', '0.5.5'
 	gem 'rspec-rails', '2.11.0'
+  gem 'tlsmail'
 end
 
 group :production do
