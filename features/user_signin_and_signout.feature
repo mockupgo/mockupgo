@@ -32,3 +32,12 @@ Feature: User sign in and sign out
 		Given a signed in user
 		When he visits the home page
 		Then he should be redirected to his dashboard
+
+	Scenario: a non signed in user is redirected to the page he wanted to visit after signing in
+		Given a user matt@example.com
+		And Matt has a project named "Matt's cool project"
+		And he is not signed in
+		When he visits "Matt's cool project" project page
+		Then he should be redirected to the sign in page
+		When Matt submits valid signing information
+		Then he should see "Matt's cool project" project page

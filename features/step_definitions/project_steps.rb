@@ -44,7 +44,7 @@ Given /^Matt has a project named "(.*?)"$/ do |project_name|
   @matt_project = @matt.projects.create!(name: project_name)
 end
 
-Given /^I am not signed in$/ do
+Given /^(?:I am|he is) not signed in$/ do
   # by default I am not signed in, but how can I make sure...
 end
 
@@ -70,7 +70,7 @@ Then /^he should not see "(.*?)"$/ do |content|
   page.should_not have_content(content)
 end
 
-When /^Bob visits "Matt's cool project" project page$/ do
+When /^(?:Bob|he) visits "Matt's cool project" project page$/ do
   visit project_path(@matt_project.id)
 end
 
@@ -78,5 +78,13 @@ Then /^he should see an error message$/ do
   page.should have_selector(".alert-error", :content => "You can't access this project.")
 end
 
+Then /^he should see "Matt's cool project" project page$/ do
+  page.current_path.should == project_path(@matt_project.id)
+  page.status_code.should == 200
+end
 
-
+When /^Matt submits valid signing information$/ do
+  fill_in "Email",    :with => @matt.email
+  fill_in "Password", :with => @matt.password
+  click_button "Sign in"
+end

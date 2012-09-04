@@ -8,7 +8,7 @@ Given /^the user has an account$/ do
                         password_confirmation: '314159')
 end
 
-When /^the user submits valid signing information$/ do
+When /^(?:the user|he) submits valid signing information$/ do
   fill_in "Email",    :with => @user.email
   fill_in "Password", :with => @user.password
   click_button "Sign in"
@@ -70,5 +70,7 @@ Then /^(?:I|he|the user) should be redirected to his dashboard$/ do
   page.current_path.should == dashboard_path
   page.status_code.should == 200
 end
+
+
 
 
