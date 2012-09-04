@@ -6,8 +6,9 @@ gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', br
 gem 'devise'
 gem 'cancan'
 gem 'activeadmin'
-gem "meta_search", '>= 1.1.0.pre'
+gem 'meta_search', '>= 1.1.0.pre'
 gem 'jquery-rails'
+gem 'haml'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
