@@ -9,7 +9,7 @@ gem 'activeadmin'
 gem 'meta_search', '>= 1.1.0.pre'
 gem 'jquery-rails'
 gem 'haml'
-gem 'rack-pjax'
+gem 'pjax_rails'
 
 group :development do
 	gem 'sqlite3'
