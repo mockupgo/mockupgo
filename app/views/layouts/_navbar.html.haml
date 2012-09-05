@@ -12,9 +12,8 @@
                 Projects
                 %b.caret
               %ul.dropdown-menu
-                %li
-                  %a{:href => "#"} Action
-                %li
-                  %a{:href => "#"} Another action
+                - @projects.each do |project|
+                  %li
+                    = link_to project.name, project
           %ul.nav.pull-right
             %li= link_to('Sign out', destroy_user_session_path, :method => :delete)

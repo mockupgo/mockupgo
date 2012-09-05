@@ -4,7 +4,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = current_user.projects.find_by_id(params[:id])
-
+    @projects = current_user.projects
+    
     unless @project
       redirect_to dashboard_path, alert: "You can't access this project."
     end
