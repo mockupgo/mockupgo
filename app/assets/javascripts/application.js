@@ -15,3 +15,4 @@
 //= require pjax
 //= require_tree .
 //= require bootstrap
+//= require_self

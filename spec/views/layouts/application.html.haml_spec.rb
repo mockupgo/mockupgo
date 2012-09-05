@@ -4,7 +4,10 @@ describe "layouts/application.html.haml" do
 
   context "signed in user" do
 
-    before { @view.should_receive(:user_signed_in?).and_return(true) }
+    before do
+      @view.should_receive(:user_signed_in?).and_return(true)
+      assign(:projects, double('projects').as_null_object)
+    end
 
     it "should contain a link to the dashboard" do
       render

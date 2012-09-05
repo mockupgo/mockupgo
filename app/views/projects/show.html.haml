@@ -1,0 +1,8 @@
+%h1
+  = @project.name
+
+- @project.pages.each do |page|
+  %li
+    = page.name
+
+= render :partial => "pages/form", :locals => { :page => @project.pages.new }

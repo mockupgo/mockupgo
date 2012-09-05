@@ -9,7 +9,7 @@ When /^the user create a new project$/ do
 end
 
 Given /^he has already a project$/ do
-  @user.projects.create!(name: 'test project')
+  @project = @user.projects.create!(name: 'test project')
 end
 
 Then /^(?:the user|he) should see his project listed$/ do
