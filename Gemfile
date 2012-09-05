@@ -9,9 +9,7 @@ gem 'activeadmin'
 gem 'meta_search', '>= 1.1.0.pre'
 gem 'jquery-rails'
 gem 'haml'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rack-pjax'
 
 group :development do
 	gem 'sqlite3'
