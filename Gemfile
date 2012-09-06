@@ -16,6 +16,7 @@ group :development do
 	gem 'guard-rspec', '0.5.5'
 	gem 'rspec-rails', '2.11.0'
   gem 'tlsmail'
+  gem 'annotate', ">=2.5.0"
 end
 
 group :production do
