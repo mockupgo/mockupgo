@@ -17,10 +17,23 @@ Feature: User can manage there projects
 
 	Scenario: display a project page
 		Given a signed in user
-		And the user as a project named "My Cool Project"
+		And the user has a project named "My Cool Project"
 		When the user visits his dashboard page
-		And he click on the link "My Cool Project"
+		And he clicks on the link "My Cool Project"
 		Then he should see a project page named "My Cool Project"
+
+	Scenario: a user can delete a project
+		Given a signed in user
+		And the user has a project named "My Cool Project"
+		When he visits "My Cool Project" project page
+		And he clicks on the link "Delete project"
+		# Then he should see an confirmation dialog
+		# When he click ok on the confirmation dialog
+		Then he should be redirected to the dashboard page
+		And he should not see "My Cool Project"
+
+	@wip
+	Scenario: a user can't delete a project when he is not the project's owner
 
 	Scenario: a non signed in user shouldn't access any user's project
 		Given a user matt@example.com

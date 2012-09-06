@@ -25,4 +25,12 @@ class ProjectsController < ApplicationController
 
 		redirect_to dashboard_path
 	end
+
+
+  def destroy
+    @project = current_user.projects.find_by_id(params[:id])
+    @project.destroy
+    redirect_to dashboard_path
+  end
+
 end

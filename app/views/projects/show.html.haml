@@ -6,3 +6,6 @@
     = page.name
 
 = render :partial => "pages/form", :locals => { :page => @project.pages.new }
+
+
+= link_to 'Delete project', @project, confirm: 'Are you sure?', method: :delete

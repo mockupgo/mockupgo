@@ -90,4 +90,33 @@ describe ProjectsController do
 
     end
   end
+
+  describe "DESTROY" do
+    context "when signed in as a user" do
+
+      before(:each) do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+        @project = FactoryGirl.create(:project, user: @user)
+      end
+
+
+      it "should remove the project from the database" do
+        expect { post :destroy, id: @project.id }.to change(Project, :count).by(-1)
+      end
+
+      it "should redirect to the dashboard" do
+        post :destroy, id: @project.id
+        response.should redirect_to dashboard_path
+      end
+
+      it "should delete the Pages connected to it" do
+        # model ? should just check that the proper methods is called ?
+        a_page = FactoryGirl.create(:page, project: @project)
+        post :destroy, id: @project.id
+        Page.find_by_id(a_page.id).should be_nil
+      end
+    end
+  end
 end
