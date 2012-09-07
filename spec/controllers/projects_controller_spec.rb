@@ -19,7 +19,8 @@ describe ProjectsController do
       before(:each) do
         @request.env["devise.mapping"] = Devise.mappings[:user]
         @user = FactoryGirl.create(:user)
-        sign_in @user  
+        sign_in @user
+        controller.stub(:current_user => @user)
       end
 
       context "when the project saves successfully" do
@@ -42,15 +43,9 @@ describe ProjectsController do
 
       context "when the project fails to save" do
         before(:each) do
-          controller.stub(:current_user => @user)
-
           new_project = Project.new(name: "test project")
           new_project.stub(:save => false)
-
-          project_rel = double('projects list')
-          project_rel.stub(:build => new_project)
-
-          @user.stub(:projects => project_rel)
+          @user.stub_chain(:projects, :build).and_return(new_project)
         end
 
         it "sets a flash[:notice] message" do
