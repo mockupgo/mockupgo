@@ -96,9 +96,13 @@ describe ProjectsController do
         @project = FactoryGirl.create(:project, user: @user)
       end
 
+      it "call #destroy on the model" do
+        @user.stub_chain(:projects, :find_by_id).and_return(@project)
+        controller.stub(:current_user => @user)
 
-      it "should remove the project from the database" do
-        expect { post :destroy, id: @project.id }.to change(Project, :count).by(-1)
+        @project.should_receive(:destroy)
+
+        post :destroy, id: @project.id
       end
 
       it "should redirect to the dashboard" do
@@ -106,12 +110,6 @@ describe ProjectsController do
         response.should redirect_to dashboard_path
       end
 
-      it "should delete the Pages connected to it" do
-        # model ? should just check that the proper methods is called ?
-        a_page = FactoryGirl.create(:page, project: @project)
-        post :destroy, id: @project.id
-        Page.find_by_id(a_page.id).should be_nil
-      end
     end
   end
 end
