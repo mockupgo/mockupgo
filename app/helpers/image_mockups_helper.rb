@@ -1,0 +1,2 @@
+module ImageMockupsHelper
+end

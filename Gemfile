@@ -11,6 +11,9 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'pjax_rails'
 
+gem 'rmagick'
+gem 'carrierwave'
+
 group :development do
 	gem 'sqlite3'
 	gem 'guard-rspec', '0.5.5'

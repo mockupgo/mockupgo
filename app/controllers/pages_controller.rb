@@ -14,6 +14,7 @@ class PagesController < ApplicationController
     @projects = current_user.projects.all
     @project = current_user.projects.find_by_id(params[:project_id])
     @page = @project.pages.find_by_id(params[:id])
+    puts @page.inspect
   end
 
 

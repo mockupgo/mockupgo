@@ -10,8 +10,10 @@
 #
 
 class Page < ActiveRecord::Base
-  attr_accessible :name, :project_id
+  attr_accessible :name, :project_id, :image_mockups
 
   belongs_to :project
+
+  has_many :image_mockups, :dependent => :destroy
 
 end
