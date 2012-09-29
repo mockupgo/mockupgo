@@ -31,3 +31,21 @@ end
 Then /^I should see a page named "(.*?)"$/ do |page_title|
   page.should have_css('h1', :text => page_title)
 end
+
+When /^I click on "(.*?)"$/ do |name|
+  click_on name
+end
+
+Then /^I should see a confirmation message "(.*?)"$/ do |msg|
+  page.should have_css('.alert-success', :text => msg)
+end
+
+Then /^I should be redirected to the "(.*?)" project page$/ do |project_name|
+  project = @user.projects.find_by_name(project_name)
+  page.current_path.should == project_path(project)
+  page.status_code.should == 200
+end
+
+Then /^I should not see a link "(.*?)"$/ do |anchor_text|
+  page.should_not have_selector('a', text: anchor_text)
+end
