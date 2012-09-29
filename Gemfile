@@ -13,6 +13,7 @@ gem 'pjax_rails'
 
 gem 'rmagick'
 gem 'carrierwave'
+gem 'fog'
 
 group :development do
 	gem 'sqlite3'
