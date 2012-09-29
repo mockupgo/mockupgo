@@ -5,11 +5,12 @@
 = form_for @page.image_mockups.build, :html => {:multipart => true} do |f|
   = f.hidden_field :page_id
   %p
-    = f.file_field :image
+    = f.file_field :image, multiple: true, name: "image_mockup[image]"
   %p
     = f.submit
 
-- @page.image_mockups.each do |mockup|
-  = image_tag mockup.image_url(:thumb_top) if mockup.image?
+#mockups
+  - @page.image_mockups.each do |mockup|
+    = image_tag mockup.image_url(:thumb_top) if mockup.image?
 
 
