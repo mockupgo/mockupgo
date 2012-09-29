@@ -3,7 +3,7 @@
 
 - @project.pages.each do |page|
   %li
-    = page.name
+    = link_to page.name, [@project, page]
 
 = render :partial => "pages/form", :locals => { :page => @project.pages.new }
 
