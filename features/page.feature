@@ -19,7 +19,7 @@ Feature: a user can manage Page in a Project
         Then I should see a page named "home page"
 
 
-    Scenario: I can visit delete a "page"
+    Scenario: I can delete a "page"
         Given a signed in user
         And I have a project named "My website"
         And I the project "My website" has a page named "home page"
