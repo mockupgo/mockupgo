@@ -1,4 +1,4 @@
-class ImageMockup < ActiveRecord::Base
+class ImageVersion < ActiveRecord::Base
   attr_accessible :page_id, :image
 
   belongs_to :page

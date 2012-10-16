@@ -1,5 +1,5 @@
 <% if @mockup.new_record? %>
   alert("Failed to upload painting: <%= j @mockup.errors.full_messages.join(', ').html_safe %>");
 <% else %>
-  $("#mockups").append("<%= j render(@mockup) %>");
+  $("#images").append("<%= j render(@mockup) %>");
 <% end %>
