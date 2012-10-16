@@ -15,7 +15,7 @@ MockupGo::Application.routes.draw do
     resources :pages
   end
 
-  resources :image_mockups
+  resources :image_versions
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
