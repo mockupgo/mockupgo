@@ -2,7 +2,11 @@ class PagesController < ApplicationController
 
   def create
     @project = current_user.projects.find_by_id(params[:project_id])
-    @page = @project.pages.build(params[:page])
+
+    @image = ImageVersion.create(params[:image_version])
+
+    @page = @project.pages.build(name: PagesHelper.guess_name_from_filename(@image.image.identifier))
+    @page.image_versions << @image
 
     @page.save
 

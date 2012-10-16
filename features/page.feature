@@ -1,12 +1,5 @@
 Feature: a user can manage Page in a Project
 
-    Scenario: I can create a new page in a project
-        Given a signed in user
-        And he has already a project
-        When he visits the project page
-        And he creates a new Page
-        Then he should see the Page in the list
-
 
     Scenario: I can visit the "page" page
         Given a signed in user
@@ -31,3 +24,16 @@ Feature: a user can manage Page in a Project
         Then I should see a confirmation message "The page has been deleted"
         And I should be redirected to the "My website" project page
         And I should not see a link "home page"
+
+
+    Scenario: I can create a new page by just uploading a new image mockup
+        Given a signed in user
+        And I have a project named "My website"
+
+        And I visit the page for project "My website"
+
+        When I choose the file "Hokusai.jpg" to import
+        And I click on "Import"
+
+        Then I should see a link "Hokusai"
+

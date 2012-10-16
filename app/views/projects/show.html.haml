@@ -5,6 +5,16 @@
   %li
     = link_to page.name, [@project, page]
 
+
+.well
+  = form_for [@project, @project.pages.build], :html => {:multipart => true} do |f|
+    %p
+      = f.file_field :image_versions, multiple: true, name: "image_version[image]"
+    %p
+      = f.submit "Import"
+
+
+
 = render :partial => "pages/form", :locals => { :page => @project.pages.new }
 
 

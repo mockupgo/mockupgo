@@ -12,7 +12,6 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
 
-  puts "======================>>>>>"
   if ENV["RAILS_ENV"] == "production"
     storage :fog
   else

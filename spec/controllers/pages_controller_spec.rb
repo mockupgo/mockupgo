@@ -13,15 +13,19 @@ describe PagesController do
 
       let!(:project) {  FactoryGirl.create(:project, user: @user) }
 
-      it "should create a new page" do
-        expect do
-          post :create, project_id: project.id, name: 'My Home Page'
-        end.to change(Page, :count).by(1)
+
+      before do
+        @image_filename = "Hokusai.jpg"
+        @image_file_src = Rails.root. + "features/fixtures/" + @image_filename
+        @request.env['CONTENT_TYPE'] = 'multipart/form-data'
+        @image_file = Rack::Test::UploadedFile.new(@image_file_src)
       end
 
-
-
+      it "should create a new page" do
+        expect do
+          post :create, :project_id => project.id, :image_version => {image: @image_file}
+        end.to change(Page, :count).by(1)
+      end
     end
   end
-
 end
