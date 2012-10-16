@@ -2,21 +2,13 @@
   = @page.name
   = link_to 'Delete page', [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn"
   
+
+= image_tag @page.image_versions.last.image.url
+
+
 = form_for @page.image_versions.build, :html => {:multipart => true} do |f|
   = f.hidden_field :page_id
   %p
     = f.file_field :image, multiple: true, name: "image_version[image]"
   %p
     = f.submit
-
-#images
-  - @page.image_versions.each do |mockup|
-    = image_tag mockup.image_url(:thumb_top) if mockup.image?
-
-
-<script id="template-upload" type="text/x-tmpl">
-<div class="upload">
-{%=o.name%}
-<div class="progress"><div class="bar" style="width: 0%"></div></div>
-</div>
-</script>

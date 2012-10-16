@@ -1,9 +1,15 @@
 %h1
   = @project.name
 
-- @project.pages.each do |page|
-  %li
-    = link_to page.name, [@project, page]
+
+
+%ul#images
+  - @project.pages.each do |page|
+    %li
+      - latest_version = page.image_versions.last
+      = image_tag latest_version.image_url(:thumb_top) if latest_version and latest_version.image?
+      = link_to page.name, [@project, page]
+
 
 
 .well
@@ -19,3 +25,13 @@
 
 
 = link_to 'Delete project', @project, confirm: 'Are you sure?', method: :delete
+
+
+
+
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+{%=o.name%}
+<div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>
