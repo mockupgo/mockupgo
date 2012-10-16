@@ -1,1 +1,4 @@
-= image_tag image_version.image_url(:thumb_top) if image_version.image?
+%li
+  = image_tag image_version.image_url(:thumb_top) if image_version.image?
+  = link_to page.name, [page.project, page]
+

@@ -2,8 +2,8 @@
   = @page.name
   = link_to 'Delete page', [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn"
   
-
-= image_tag @page.image_versions.last.image.url
+- if @page.latest_version
+  = image_tag @page.latest_version.image.url
 
 
 = form_for @page.image_versions.build, :html => {:multipart => true} do |f|

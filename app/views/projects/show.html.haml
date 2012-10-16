@@ -6,8 +6,7 @@
 %ul#images
   - @project.pages.each do |page|
     %li
-      - latest_version = page.image_versions.last
-      = image_tag latest_version.image_url(:thumb_top) if latest_version and latest_version.image?
+      = image_tag page.latest_version.image_url(:thumb_top) if page.latest_version and page.latest_version.image?
       = link_to page.name, [@project, page]
 
 

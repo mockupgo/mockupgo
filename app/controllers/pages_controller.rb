@@ -10,7 +10,13 @@ class PagesController < ApplicationController
 
     @page.save
 
-    redirect_to project_path(@project)
+  respond_to do |format|
+    format.html { redirect_to project_path(@project) }
+    format.js
+  end
+
+
+    # redirect_to project_path(@project)
   end
 
 
@@ -18,7 +24,6 @@ class PagesController < ApplicationController
     @projects = current_user.projects.all
     @project = current_user.projects.find_by_id(params[:project_id])
     @page = @project.pages.find_by_id(params[:id])
-    puts @page.inspect
   end
 
 

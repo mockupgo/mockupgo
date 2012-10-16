@@ -16,4 +16,8 @@ class Page < ActiveRecord::Base
 
   has_many :image_versions, :dependent => :destroy
 
+  def latest_version
+    image_versions.last
+  end
+
 end
