@@ -13,6 +13,10 @@
     %i{class: "icon-trash"}
     Delete
 
-- if @page.latest_version
-  = link_to preview_image_version_path(@page.latest_version) do
-    = image_tag @page.latest_version.image.url
+.row
+  .span8
+    - if @page.latest_version
+      = link_to preview_image_version_path(@page.latest_version) do
+        = image_tag @page.latest_version.image.url
+  .span4
+    Comments here
