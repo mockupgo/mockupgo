@@ -5,9 +5,13 @@
 
   = @page.name
 
+  = link_to edit_project_page_path(@project, @page), class: "btn btn-mini" do
+    %i{class: "icon-edit"}
+    Edit
+
   = link_to [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
     %i{class: "icon-trash"}
-    Delete page
+    Delete
 
 - if @page.latest_version
   = link_to preview_image_version_path(@page.latest_version) do

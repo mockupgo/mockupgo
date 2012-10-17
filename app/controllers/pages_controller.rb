@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
 
+  before_filter :get_all_projects
+
   def create
     @project = current_user.projects.find_by_id(params[:project_id])
 
@@ -19,11 +21,26 @@ class PagesController < ApplicationController
 
 
   def show
-    @projects = current_user.projects.all
+    
     @project = current_user.projects.find_by_id(params[:project_id])
     @page = @project.pages.find_by_id(params[:id])
   end
 
+  def edit
+    @project = current_user.projects.find_by_id(params[:project_id])
+    @page = @project.pages.find_by_id(params[:id])
+  end
+
+  def update
+    @project = current_user.projects.find_by_id(params[:project_id])
+    @page = @project.pages.find_by_id(params[:id])
+
+    if @page.update_attributes(params[:page])
+      redirect_to [@project, @page], notice: "Successfully updated data."
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @project = current_user.projects.find_by_id(params[:project_id])
@@ -34,6 +51,12 @@ class PagesController < ApplicationController
     flash[:notice] = "The page has been deleted"
     
     redirect_to project_path(@project)
+  end
+
+
+
+  def get_all_projects
+    @projects = current_user.projects.all
   end
 
 end
