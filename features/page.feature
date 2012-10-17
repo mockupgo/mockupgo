@@ -19,7 +19,7 @@ Feature: a user can manage Page in a Project
         And I visit the page for project "My website"
         And I click on the link "home page"
 
-        When I click on "Delete page"
+        When I click on "Delete"
 
         Then I should see a confirmation message "The page has been deleted"
         And I should be redirected to the "My website" project page

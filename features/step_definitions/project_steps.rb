@@ -6,7 +6,7 @@ end
 When /^the user create a new project$/ do
   # click_button 'New project'
   fill_in "Name",    :with => 'new project name'
-  click_button 'Create project'
+  click_button 'Create Project'
 end
 
 

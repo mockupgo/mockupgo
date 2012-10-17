@@ -1,0 +1,20 @@
+.row
+  .span4.offset4
+    .well
+      %legend Sign in to MockupGo
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name) ) do |f|
+        = f.label :email, class: 'control-label', style: "display:none"
+        = f.email_field :email, :placeholder => "Email"
+
+        = f.label :password, class: 'control-label', style: "display:none"
+        = f.password_field :password, :placeholder => "Password"
+
+        - if devise_mapping.rememberable?
+          .control-group
+            .controls
+              %label.checkbox
+                = f.check_box :remember_me
+                Remember me
+              %div= f.submit "Sign in", class: 'btn btn-info'
+              %br/
+              = render "devise/shared/links"
