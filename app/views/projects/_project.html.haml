@@ -4,6 +4,7 @@
 
     - project.pages.each do |page| 
       - if page.latest_version
-        = link_to preview_image_version_path(page.latest_version) do
+        = link_to project_page_path(project, page) do
           %span.thumb
             = image_tag page.latest_version.image_url(:thumb_top)
+
