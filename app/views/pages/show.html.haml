@@ -8,6 +8,7 @@
   = link_to [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
     %i{class: "icon-trash"}
     Delete page
-  
+
 - if @page.latest_version
-  = image_tag @page.latest_version.image.url
+  = link_to preview_image_version_path(@page.latest_version) do
+    = image_tag @page.latest_version.image.url
