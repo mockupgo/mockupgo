@@ -10,13 +10,11 @@ class PagesController < ApplicationController
 
     @page.save
 
-  respond_to do |format|
-    format.html { redirect_to project_path(@project) }
-    format.js
-  end
+    respond_to do |format|
+      format.html { redirect_to project_path(@project) }
+      format.js
+    end
 
-
-    # redirect_to project_path(@project)
   end
 
 

@@ -1,3 +1,28 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+#images {
+    li {
+        list-style: none;
+
+        float: left;
+        margin-right: 18px;
+        margin-bottom: 30px;
+
+        .page-preview {
+
+            .project-name {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+}

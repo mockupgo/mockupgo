@@ -3,15 +3,12 @@
 
 
 
-%ul#images
-  - @project.pages.each do |page|
-    %li
-      = image_tag page.latest_version.image_url(:thumb_top) if page.latest_version and page.latest_version.image?
-      = link_to page.name, [@project, page]
+%ul#images.clearfix
+  = render @project.pages
 
 
 
-.well
+.well.clearfix
   = form_for [@project, @project.pages.build], :html => {:multipart => true} do |f|
     %p
       = f.file_field :image_versions, multiple: true, name: "image_version[image]"
