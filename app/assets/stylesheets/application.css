@@ -19,3 +19,8 @@
 .content {
     margin-top: 50px;
 }
+
+body {
+    background: url('backgroung.png');
+    background-color: white;
+}
