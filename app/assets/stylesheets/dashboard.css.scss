@@ -5,5 +5,15 @@ ul.project-list {
     .project {
         margin: 20px;
 
+        .thumb {
+            img {
+                width: 80px;
+                height: 80px;
+            }
+            overflow: hidden;
+
+
+        }
+
     }
 }
