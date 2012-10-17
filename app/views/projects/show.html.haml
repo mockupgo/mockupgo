@@ -1,6 +1,8 @@
 %h1
   = @project.name
-
+  = link_to @project, confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
+    %i{class: "icon-trash"}
+    Delete project
 
 
 %ul#images.clearfix
@@ -9,19 +11,10 @@
 
 
 .well.clearfix
+  %h4 Import new mockups
   = form_for [@project, @project.pages.build], :html => {:multipart => true} do |f|
-    %p
-      = f.file_field :image_versions, multiple: true, name: "image_version[image]"
-    %p
-      = f.submit "Import"
-
-
-
-= render :partial => "pages/form", :locals => { :page => @project.pages.new }
-
-
-= link_to 'Delete project', @project, confirm: 'Are you sure?', method: :delete
-
+    = f.file_field :image_versions, multiple: true, name: "image_version[image]"
+    = f.submit "Import"
 
 
 

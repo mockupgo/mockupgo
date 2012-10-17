@@ -1,14 +1,13 @@
 %h1
+  =link_to project_url(@project), :class => "btn btn-large" do 
+    %i{class: "icon-home"}
+    = @project.name
+
   = @page.name
-  = link_to 'Delete page', [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn"
+
+  = link_to [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
+    %i{class: "icon-trash"}
+    Delete page
   
 - if @page.latest_version
   = image_tag @page.latest_version.image.url
-
-
-= form_for @page.image_versions.build, :html => {:multipart => true} do |f|
-  = f.hidden_field :page_id
-  %p
-    = f.file_field :image, multiple: true, name: "image_version[image]"
-  %p
-    = f.submit
