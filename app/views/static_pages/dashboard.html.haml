@@ -1,6 +1,13 @@
 %h1 Dashboard
 
 %ul.project-list
-	= render @projects
+  = render @projects
 
 = render :partial => "projects/form", :locals => { :project => Project.new }
+
+
+
+
+%ul
+  %li put in full colors the image that needs attention
+  %li put in "greyed" the image that are already reviewed
