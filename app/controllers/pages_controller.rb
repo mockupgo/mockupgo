@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
 
+  before_filter :authenticate_user!
+
+
   before_filter :get_all_projects
 
   def create

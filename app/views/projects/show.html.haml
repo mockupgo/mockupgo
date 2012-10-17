@@ -1,8 +1,13 @@
 %h1
   = @project.name
+
+  = link_to edit_project_path(@project), class: "btn btn-mini" do
+    %i{class: "icon-edit"}
+    Edit
+
   = link_to @project, confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
     %i{class: "icon-trash"}
-    Delete project
+    Delete
 
 
 %ul#images.clearfix
