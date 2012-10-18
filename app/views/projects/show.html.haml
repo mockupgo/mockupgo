@@ -7,7 +7,9 @@
 
   = @project.name
 
-  = link_to edit_project_path(@project), class: "btn btn-mini" do
+
+
+  = link_to edit_project_path(@project), class: "btn btn-mini", :data => { :toggle => 'modal', :target => '#edit-modal', :remote => 'false' } do
     %i{class: "icon-edit"}
     Edit
 
@@ -23,6 +25,18 @@
     = f.file_field :image_versions, multiple: true, name: "image_version[image]"
     = f.submit "Import"
 
+
+
+#edit-modal.modal.hide.fade
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Edit project
+  .modal-body
+    = render :partial => "form", :locals => { :project => @project }
+    %hr
+    = link_to @project, confirm: 'Are you sure?', method: :delete, class: "btn btn-danger" do
+      %i{class: "icon-trash"}
+      Delete Project "#{@project.name}"
 
 
 <script id="template-upload" type="text/x-tmpl">

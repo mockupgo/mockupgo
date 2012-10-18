@@ -11,13 +11,10 @@
 %h1
   = @page.name
 
-  = link_to edit_project_page_path(@project, @page), class: "btn btn-mini" do
+  = link_to edit_project_page_path(@project, @page), class: "btn btn-mini", :data => { :toggle => 'modal', :target => '#edit-modal', :remote => 'false' } do
     %i{class: "icon-edit"}
     Edit
-
-  = link_to [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
-    %i{class: "icon-trash"}
-    Delete
+    
 
 .row
   .span8
@@ -26,3 +23,15 @@
         = image_tag @page.latest_version.image.url
   .span4
     Comments here
+
+
+#edit-modal.modal.hide.fade
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Edit page
+  .modal-body
+    = render :partial => "form", :locals => { :page => @page }
+    %hr
+    = link_to [@project, @page], confirm: 'Are you sure?', method: :delete, class: "btn btn-danger" do
+      %i{class: "icon-trash"}
+      Delete page "#{@page.name}"
