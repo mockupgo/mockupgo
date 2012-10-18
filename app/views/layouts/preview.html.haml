@@ -12,6 +12,9 @@
           %ul.nav
             %li
               = yield :link_back
+            %li
+              %h4
+                = yield :page_name
 
     .content
       = yield

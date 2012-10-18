@@ -1,5 +1,7 @@
 - content_for :link_back do
   = link_to "back to page", [@image_version.page.project, @image_version.page]
+- content_for :page_name do
+  = @image_version.page.name
 
 .image-container
   = image_tag @image_version.image.url
