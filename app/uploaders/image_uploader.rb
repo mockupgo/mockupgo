@@ -43,6 +43,9 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :resize_and_keep_top => [200, 200]
   end
 
+  version :medium do
+    process :resize_to_width => [620, 9999]
+  end
 
   def resize_and_keep_top(width, height)
     manipulate! do |img|
@@ -52,6 +55,13 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  def resize_to_width(width, height)
+    manipulate! do |img|
+      img.resize_to_fit!(width, height)
+      img = yield(img) if block_given?
+      img
+    end
+  end
 
 
   # Add a white list of extensions which are allowed to be uploaded.

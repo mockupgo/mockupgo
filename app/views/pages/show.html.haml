@@ -20,7 +20,10 @@
   .span8
     - if @page.latest_version
       = link_to preview_image_version_path(@page.latest_version) do
-        = image_tag @page.latest_version.image.url
+        - if image_tag @page.latest_version.image_url(:medium)
+          = image_tag @page.latest_version.image_url(:medium)
+        - else
+          = image_tag @page.latest_version.image.url
   .span4
     Comments here
 
