@@ -1,8 +1,15 @@
-%h1
-  =link_to project_url(@project), :class => "btn btn-large" do 
+.navigation
+  =link_to dashboard_url, :class => "" do 
     %i{class: "icon-home"}
+    Dashboard
+  &nbsp;>&nbsp;
+  =link_to project_url(@project), :class => "" do 
+    %i{class: "icon-th"}
+    Dashboard
     = @project.name
 
+
+%h1
   = @page.name
 
   = link_to edit_project_page_path(@project, @page), class: "btn btn-mini" do
