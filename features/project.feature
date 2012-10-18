@@ -26,6 +26,9 @@ Feature: User can manage there projects
 		Given a signed in user
 		And the user has a project named "My Cool Project"
 		When he visits "My Cool Project" project page
+
+		And he clicks on the link "Edit"
+
 		And he clicks on the link "Delete"
 		# Then he should see an confirmation dialog
 		# When he click ok on the confirmation dialog
