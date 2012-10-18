@@ -47,6 +47,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :resize_to_width => [620, 9999]
   end
 
+  version :background do
+    process :crop_left_pixel_column => [1, 9999]
+  end
+
   def resize_and_keep_top(width, height)
     manipulate! do |img|
       img.resize_to_fill!(width, height, ::Magick::NorthGravity)
@@ -63,6 +67,13 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  def crop_left_pixel_column(width, height)
+    manipulate! do |img|
+      img.crop!(::Magick::NorthWestGravity, width, height)
+      img = yield(img) if block_given?
+      img
+    end
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
