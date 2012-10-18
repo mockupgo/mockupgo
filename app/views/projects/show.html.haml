@@ -10,10 +10,6 @@
     %i{class: "icon-edit"}
     Edit
 
-  = link_to @project, confirm: 'Are you sure?', method: :delete, class: "btn btn-danger btn-mini" do
-    %i{class: "icon-trash"}
-    Delete
-
 
 %ul#images.clearfix
   = render @project.pages
