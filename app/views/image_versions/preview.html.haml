@@ -1,13 +1,17 @@
-%ul
-  %li Add one pixel width image as background
-  %li center image
-  %li "slideshow mode" for presentation: navigate between version
-  %li added simples number calls (without the rectangle), might be usefull too
-
 - content_for :link_back do
   = link_to "back to page", [@image_version.page.project, @image_version.page]
 - content_for :page_name do
   = @image_version.page.name
 
-.image-container
+.image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative;"}
   = image_tag @image_version.image.url
+
+  .notes
+    = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+
+
+%ul
+  %li Add one pixel width image as background
+  %li center image
+  %li "slideshow mode" for presentation: navigate between version
+  %li added simples number calls (without the rectangle), might be usefull too

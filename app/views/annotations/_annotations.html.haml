@@ -1,0 +1,11 @@
+- cnt = 0
+- annotations.each do |note|
+  .note{"data-id" => note.id, :style => "top: #{note.top}px; left: #{note.left}px; width: #{note.width}px; height: #{note.height}px; "}
+    %span.black.note-counter
+      = cnt += 1
+    %a.delete-note{:href => "#", :style => "display: block;"} Delete
+    .note-wrapper
+      .note-comment
+        %span#arrow
+        .note-content
+          .comment-text= note.comment

@@ -3,6 +3,8 @@ class ImageVersion < ActiveRecord::Base
 
   belongs_to :page
 
+  has_many :annotations, :dependent => :destroy
+
   mount_uploader :image, ImageUploader
 
 end

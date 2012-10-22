@@ -1,0 +1,94 @@
+// === NOTES ===
+
+div.note { 
+    width: 150px; 
+    height: 150px; 
+    border: 3px solid yellow;
+    -webkit-box-shadow: 0px 0px 4px 1px black, inset 0px 0px 4px 1px black;
+    -moz-box-shadow: 0px 0px 4px 1px black, inset 0px 0px 4px 1px black;
+    box-shadow: 0px 0px 4px 1px black, inset 0px 0px 4px 1px black;
+    background: transparent;
+    color: #333;
+    position: absolute;
+
+}
+
+span#arrow {
+    position: absolute;
+    top: -10px;
+    left: -12px;
+    width: 350px;
+    height: 10px;
+    background: url('/assets/top-arrow-white.png') no-repeat 22px 0;
+}
+
+.ui-selectable-helper{
+    position:absolute;
+    z-index:100;
+    border: 3px solid yellow;
+    box-shadow: 0px 0px 5px #222, inset 0px 0px 5px black;
+} 
+
+.note-comment {
+    // display: none;
+    background-color:rgba(0,0,0,0.7);
+    position: absolute;
+    top: 100%;
+    left: -4px;
+    margin-top: 12px;
+    padding: 4px 8px;
+    -webkit-border-radius: 6px;
+    -mo--border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 0px 10px black;
+    -moz-box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 10px black;
+    top: 100%;
+    color: white;
+    font-size: 12px;
+    border: 2px solid white;
+}
+
+a.delete-note:hover {
+    background: url('/assets/icon_close-red.png') no-repeat -5px -48px;
+}
+
+
+a.delete-note {
+    z-index:500;
+    height: 27px;
+    width: 27px;
+    background: url('/assets/icon_close-red.png') no-repeat -5px -48px;
+    display: block;
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    text-indent: -999em;
+
+}
+
+// Counter on top left corner from Notable
+span.note-counter.black {
+    background-position: -150px 0;
+}
+
+span.note-counter {
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    // z-index: 7;
+    display: block;
+    position: absolute;
+    background: url(/assets/notes-bg.png) no-repeat 0 0;
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 25px;
+    letter-spacing: -1px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .15);
+}
+
