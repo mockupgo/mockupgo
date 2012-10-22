@@ -1,5 +1,12 @@
 // === NOTES ===
 
+.background-container {
+    background-repeat: repeat-x;
+    .image-container {
+        margin: 0 auto;
+    }
+}
+
 div.note { 
     width: 150px; 
     height: 150px; 

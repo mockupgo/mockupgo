@@ -3,11 +3,12 @@
 - content_for :page_name do
   = @image_version.page.name
 
-.image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative;"}
-  = image_tag @image_version.image.url
+.background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
+  .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
+    = image_tag @image_version.image.url
 
-  .notes
-    = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+    .notes
+      = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
 
 
 %ul

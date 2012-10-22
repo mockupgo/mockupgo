@@ -22,10 +22,9 @@
       = link_to preview_image_version_path(@page.latest_version) do
         - if image_tag @page.latest_version.image_url(:medium)
           = image_tag @page.latest_version.image_url(:medium)
-          = image_tag @page.latest_version.image_url(:background)
         - else
           = image_tag @page.latest_version.image.url
-  .span4
+  .span4.aside
     - cnt = 0
     - @page.latest_version.annotations.each do |annotation|
       %p
