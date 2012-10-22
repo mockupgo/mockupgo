@@ -35,6 +35,17 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
+  process :store_geometry
+  def store_geometry
+    if @file
+      img = ::Magick::Image::read(@file.file).first
+      if model
+        model.width  = img.columns
+        model.height = img.rows
+      end
+    end
+  end
+
   version :thumb do
     process :resize_to_limit => [300, 9999]
   end
