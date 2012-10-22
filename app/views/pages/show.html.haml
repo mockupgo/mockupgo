@@ -26,7 +26,12 @@
         - else
           = image_tag @page.latest_version.image.url
   .span4
-    Comments here
+    - cnt = 0
+    - @page.latest_version.annotations.each do |annotation|
+      %p
+        %span.note-counter= cnt += 1
+        = annotation.comment
+      .clear-both
 
 
 #edit-modal.modal.hide.fade
