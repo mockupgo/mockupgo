@@ -1,18 +1,59 @@
-- content_for :link_back do
-  = link_to "back to page", [@image_version.page.project, @image_version.page]
-- content_for :page_name do
-  = @image_version.page.name
+%body.preview
+  .navbar.navbar-fixed-bottom.navbar-inverse
+    .navbar-inner
+      .container
+        %ul.nav
+          %li.divider-vertical
+          %li
+            = link_to project_page_path(@image_version.page.project, @image_version.page) do
+              %i.icon-circle-arrow-left.icon-white
+              Back
 
-.background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
-  .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
-    = image_tag @image_version.image.url
-
-    .notes
-      = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+          %li.divider-vertical
+          %li
+            %a.page-name
+              = @image_version.page.name
 
 
-%ul
-  %li Add one pixel width image as background
-  %li center image
-  %li "slideshow mode" for presentation: navigate between version
-  %li added simples number calls (without the rectangle), might be usefull too
+        %ul.nav.pull-right
+          %li
+            .btn.btn-success
+              %i.icon-ok.icon-white
+              Marquer comme vue
+
+          %li.divider-vertical
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %i.icon-bullhorn.icon-white 
+              Commentaires
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                %a{:href => "#"} Action
+              %li
+                %a{:href => "#"} Another action
+              %li
+                %a{:href => "#"} Something else here
+              %li.divider
+              %li.nav-header Nav header
+              %li
+                %a{:href => "#"} Separated link
+              %li
+                %a{:href => "#"} One more separated link
+
+          %li.divider-vertical
+          %li
+            %a 
+              %i.icon-question-sign.icon-white
+              Aide
+
+          %li.divider-vertical
+
+
+  .content
+    .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
+      .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
+        = image_tag @image_version.image.url
+
+        .notes
+          = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
