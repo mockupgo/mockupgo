@@ -51,3 +51,18 @@
 
         .notes
           = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+
+
+  <-- Help Popup Modal -->
+  #help-popup.modal.hide.fade
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %h3 Comment rajouter une note ?
+    .modal-body
+      %p One fine body…
+    .modal-footer
+      %a.btn.btn-primary{"aria-hidden" => "true", "data-dismiss" => "modal"}  Fermer
+
+  :javascript
+    $('#help-popup').modal('show')
+
