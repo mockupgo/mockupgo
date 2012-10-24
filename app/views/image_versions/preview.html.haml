@@ -63,6 +63,6 @@
     .modal-footer
       %a.btn.btn-primary{"aria-hidden" => "true", "data-dismiss" => "modal"}  Fermer
 
-  :javascript
-    $('#help-popup').modal('show')
-
+  - if @dislay_help_modal_on_load
+    :javascript
+      $('#help-popup').modal('show')
