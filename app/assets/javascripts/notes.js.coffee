@@ -43,6 +43,11 @@ jQuery ->
             et.find('.notes').append('<div class="note-new note draggable"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
             activate_note $('.note') # WHICH NOTES ?
             helper = $("div.ui-selectable-helper")
+            note_width = parseInt(helper.css('width'))
+            note_height = parseInt(helper.css('height'))
+
+            if note_width < 4 and note_height < 4
+                return
 
             offset = et.offset()
             scroll_from_top = parseInt(et.scrollTop())
@@ -50,8 +55,8 @@ jQuery ->
             $('.note-new').css
                 top:    parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
                 left:   parseInt(helper.css('left')) - parseInt(offset.left)
-                width:  helper.css('width')
-                height: helper.css('height')
+                width:  note_width
+                height: note_height
 
             $('.note-new textarea#comment').focus()
 
