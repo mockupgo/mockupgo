@@ -10,9 +10,23 @@
               Back
 
           %li.divider-vertical
-          %li
-            %a.page-name
-              = @image_version.page.name
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Page: #{@image_version.page.name}
+              %b.caret
+            %ul.dropdown-menu.page-navigator-menu
+              - @project = @image_version.page.project
+              %li.nav-header
+                Project: #{@project.name}
+              %li.divider
+              - @project.pages.each do |page| 
+                %li
+                  %a{:href => preview_image_version_path(page.latest_version)} 
+                    = image_tag page.latest_version.image_url(:thumb_top)
+                    = page.name
+                %li.divider
+
+          %li.divider-vertical
 
 
         %ul.nav.pull-right
@@ -20,26 +34,6 @@
             .btn.btn-success
               %i.icon-ok.icon-white
               Marquer comme vue
-
-          %li.divider-vertical
-          %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              %i.icon-bullhorn.icon-white 
-              Commentaires
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                %a{:href => "#"} Action
-              %li
-                %a{:href => "#"} Another action
-              %li
-                %a{:href => "#"} Something else here
-              %li.divider
-              %li.nav-header Nav header
-              %li
-                %a{:href => "#"} Separated link
-              %li
-                %a{:href => "#"} One more separated link
 
           %li.divider-vertical
           %li
