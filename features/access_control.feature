@@ -35,4 +35,18 @@ Feature: Access control
         And I try to access the preview page for "Hokusai"
         Then I should be redirected to the sign in page
 
-        
+    @wip
+    Scenario: I can be automatically signed in and access preview page with a special link
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And Matt has uploaded a page "Hokusai"
+
+        Given a user bob@example.com
+        And Bob has been granted access to "Matt's cool project"
+        And Bob has received a link to access the preview page for "Hokusai"
+
+        Given Bob is not signed in
+        When Bob visit the direct access link he has received
+        Then he should see the preview page for "Hokusai"
+
+
