@@ -84,13 +84,13 @@ jQuery ->
                 new_note = $('div.note-new')
                 new_note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
                 new_note.removeClass('note-new').attr('data-id', data.id)
-                $.ajax '/pages/aside'
-                    type: 'GET'
-                    dataType: 'HTML'
-                    data: 
-                        mockup: screenshot.data('mockup')
-                    success: (data) -> 
-                        $('aside').html(data)
+                # $.ajax '/pages/aside'
+                #     type: 'GET'
+                #     dataType: 'HTML'
+                #     data: 
+                #         mockup: screenshot.data('mockup')
+                #     success: (data) -> 
+                #         $('aside').html(data)
 
     # Setup note deletion
     $(document).on 'click', 'a.delete-note', (event) ->
