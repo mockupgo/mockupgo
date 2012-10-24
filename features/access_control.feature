@@ -26,7 +26,13 @@ Feature: Access control
         Then he should be redirected to his dashboard
         And he should see an error message
 
-
-    @wip
     Scenario: a non signed is redirected to the sign in page when he tries to access an image_version preview
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And Matt has uploaded a page "Hokusai"
+
+        When I am not signed in
+        And I try to access the preview page for "Hokusai"
+        Then I should be redirected to the sign in page
+
         
