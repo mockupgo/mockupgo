@@ -1,0 +1,40 @@
+#help-popup.modal.hide.fade
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3 Comment ajouter des annotations
+  .modal-body
+    %p Vous pouvez donner vos commentaires sur cette page simplement et clairement en ajoutant des annotations directement sur la page&nbsp;:
+    %table.table.table-striped
+      %tr
+        %td 
+          1.
+        %td
+          = image_tag 'preview-help-step1.jpg'
+        %td
+          cliquer en haut à gauche de la zone que vous souhaitez annoter
+      %tr  
+        %td 
+          2.  
+        %td
+          = image_tag 'preview-help-step2.jpg'  
+        %td
+          tout en gardant le bouton appuyez, déplacer vous vers le coin en bas à droite
+      %tr  
+        %td 
+          3.  
+        %td
+          = image_tag 'preview-help-step3.jpg'  
+        %td
+          relacher la souris et commancer à saisir la note
+      %tr    
+        %td 
+          4.  
+        %td
+          = image_tag 'preview-help-step4.jpg'  
+        %td
+          cliquer sur "Add note" pour enregistrer
+
+    %p vous pouvez editer, déplacer et changer la taille des annotations.
+
+  .modal-footer
+    %a.btn.btn-primary{"aria-hidden" => "true", "data-dismiss" => "modal"}  Fermer
