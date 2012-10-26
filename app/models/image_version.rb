@@ -7,4 +7,27 @@ class ImageVersion < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  before_save :detect_device_type
+
+
+  private
+
+  def detect_device_type
+    if image.present?
+      if self.width > 1024
+        self.device = "desktop"
+      elsif self.width == 1024
+        self.device = "ipad-landscape"
+      elsif self.width == 768
+        self.device = "ipad-portrait"
+      elsif self.width == 480
+        self.device = "iphone-landscape"
+      elsif self.width == 320
+        self.device = "iphone-portrait"
+      else
+        self.device = "desktop"
+      end
+    end
+  end
+
 end

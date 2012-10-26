@@ -2,6 +2,7 @@
   %h2
     = link_to project.name, project
 
+  %p
     - project.pages.each do |page| 
       - if page.latest_version
         = link_to project_page_path(project, page) do

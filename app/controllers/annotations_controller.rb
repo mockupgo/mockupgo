@@ -1,3 +1,5 @@
+require 'pusher'
+
 class AnnotationsController < ApplicationController
 
     def index
@@ -33,6 +35,9 @@ class AnnotationsController < ApplicationController
                 format.json { render json: @annotation.errors, status: :unprocessable_entity }
             end
         end
+
+        Pusher['private-rt-update'].trigger('create-note', {:message => @annotation})
+
     end
 
     def update
@@ -59,11 +64,22 @@ class AnnotationsController < ApplicationController
             end
         end
 
+        Pusher['my-channel'].trigger('update-note', 
+                                   {:id      => @annotation.id,
+                                    :top     => @annotation.top,
+                                    :left    => @annotation.left,
+                                    :width   => @annotation.width,
+                                    :height  => @annotation.height,
+                                    :comment => @annotation.comment,
+                                    })
+
     end
 
     def destroy
         @annotation = Annotation.find(params[:id])
         @annotation.destroy
+
+        Pusher['my-channel'].trigger('delete-note', {:message => @annotation.id})
 
         respond_to do |format|
             format.js   { render "destroy"}

@@ -1,0 +1,15 @@
+%body.preview
+  = render "preview_navbar"
+
+  #main-preview.iphone-preview
+    .content-preview
+      .iphone
+        .screenshot.screenshot-portrait.image-container.selectable{"data-image-version" => @image_version.id}
+          = image_tag @image_version.image.url
+          .notes
+            = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+
+    %aside        
+      = render :partial => 'aside', :locals => { :annotations => @image_version.annotations }
+
+%script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}

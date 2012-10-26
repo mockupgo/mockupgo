@@ -54,4 +54,9 @@ MockupGo::Application.configure do
     :password           => 'dsp96k!3'
   }  
   
+
+  require 'pusher'
+  Pusher.app_id = '27194'
+  Pusher.key    = '0f5ad327c0a36a8fe378'
+  Pusher.secret = 'f24408b4a894e34e4ecf'
 end

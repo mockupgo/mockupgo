@@ -5,8 +5,8 @@
 
 
 body.preview {
-    background: none;
-    background-color: white;
+    // background: none;
+    // background-color: white;
 
     .content {
         margin-top: 0px;
@@ -14,7 +14,7 @@ body.preview {
 
 }
 
-.aside {
+aside, .aside {
     span.note-counter {
         display: block;
         float: left;

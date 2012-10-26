@@ -1,0 +1,59 @@
+.navbar.navbar-fixed-bottom.navbar-inverse
+  .navbar-inner
+    .container
+      %ul.nav
+        %li.divider-vertical
+        %li
+          = link_to project_page_path(@image_version.page.project, @image_version.page) do
+            %i.icon-circle-arrow-left.icon-white
+            Back
+
+        %li.divider-vertical
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Page: #{@image_version.page.name}
+            %b.caret
+          %ul.dropdown-menu.page-navigator-menu
+            - @project = @image_version.page.project
+            %li.nav-header
+              Project: #{@project.name}
+            %li.divider
+            - @project.pages.each do |page| 
+              %li
+                %a{:href => preview_image_version_path(page.latest_version)} 
+                  = image_tag page.latest_version.image_url(:thumb_top)
+                  = page.name
+              %li.divider
+
+        %li.divider-vertical
+
+
+      %ul.nav.pull-right
+        %li
+          .btn.btn-success
+            %i.icon-ok.icon-white
+            Mark as reviewed
+
+        %li.divider-vertical
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.icon-share.icon-white
+            Share
+          %ul.dropdown-menu.page-navigator-menu
+            - @project = @image_version.page.project
+            %li.nav-header
+              Project: #{@project.name}
+            %li.divider
+            %li
+              %a
+                Send link to page
+                %input{:placeholder => "http://mockupgo.herokuapp.com/share/4EERTDD64333/", :type => "text"}/
+            %li.divider
+
+        %li.divider-vertical
+        %li
+          %a{"data-toggle" => "modal", :href => "#help-popup"}
+            %i.icon-question-sign.icon-white
+            Help
+
+        %li.divider-vertical

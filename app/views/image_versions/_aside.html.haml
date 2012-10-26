@@ -1,0 +1,9 @@
+
+%h4 Annotations
+
+- cnt = 0
+- annotations.each do |note|
+  %p
+    %span.note-counter= cnt += 1
+    = note.comment
+  .clear-both

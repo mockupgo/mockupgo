@@ -72,7 +72,9 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def resize_to_width(width, height)
     manipulate! do |img|
-      img.resize_to_fit!(width, height)
+      if img.columns > width
+        img.resize_to_fit!(width, height)
+      end
       img = yield(img) if block_given?
       img
     end

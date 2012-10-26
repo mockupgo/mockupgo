@@ -4,6 +4,9 @@
         color: #BBB;
     }
 
+    .content {
+        background: url('backgroung.png');
+    }
 
     .page-navigator-menu {
         img {
@@ -11,4 +14,208 @@
         }
 
     }
+}
+
+
+// Device Preview
+$width: 960px;
+$aside-width: 300px;
+$aside-padding: 10px;
+$content-padding: 10px;
+$content-width: $width - $aside-width - 2*$aside-padding;
+
+
+
+#main-preview {
+    // width: 100%;
+
+    div.content-preview {
+        width: $content-width - 2*$content-padding;
+        float: left;
+        padding: $content-padding;
+        position: relative;
+
+        .iphone {
+            width: 420px;
+            height: 784px;
+            background: url('/assets/iPhone-portrait.png');
+            margin: 0 auto; 
+            position: absolute;
+            left: 300px;
+
+            .version-number {
+                position: absolute;
+                font-size: 20px;
+                left: 124px;
+                top: -10px;
+                opacity: 0;
+                color: grey;
+            }
+
+            // &.previous-version {
+            //  left: 100px;
+            // }
+
+            // &.current-version {
+            //  left: 500px;
+            // }
+
+            .screenshot-portrait {
+                width: 320px;
+                height: 460px;
+                overflow: scroll;
+                margin-left: 52px;
+                margin-top: 173px;
+                position: absolute;
+            }
+
+            .screenshot-landscape {
+                width:  460px;
+                height: 320px;
+                overflow: scroll;
+                margin-left: -18px;
+                margin-top: 243px;
+                position: absolute;
+                opacity: 0;
+                -webkit-transform:rotate(90deg);
+            }
+        }
+
+
+
+        .ipad {
+            width: 1017px;
+            height: 1296px;
+            background: url('/assets/iPad-portrait.png');
+            margin: 0 auto; 
+            position: relative;
+
+            .screenshot-portrait {
+                width: 768px;
+                height: 1024px;
+                overflow: scroll;
+                margin-left: 125px;
+                margin-top: 137px;
+                position: absolute;
+            }
+
+            .screenshot-landscape {
+                width: 1024px;
+                height: 768px;
+                overflow: scroll;
+                margin-left: -3px;
+                margin-top: 264px;
+                position: absolute;
+                opacity: 0;
+                -webkit-transform:rotate(90deg);
+            }
+        }
+
+        .desktop {
+            width: 1017px;
+            height: 1296px;
+            background-color: white;
+            margin: 0 auto; 
+            position: absolute;
+            top: 0;   // Not ok for background management
+            left: 0;
+
+            // .screenshot-portrait {
+            //  width: 768px;
+            //  height: 1024px;
+            //  overflow: scroll;
+            //  margin-left: 125px;
+            //  margin-top: 137px;
+            //  position: absolute;
+            // }
+        }
+    }
+
+    aside {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        width: $aside-width;
+        padding: $aside-padding;
+        float: right;
+        background: rgba(255, 255, 255, 0.5);
+
+        .link-to {
+            margin: 10px 0;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+
+        .comment-group {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            .device-icon {
+                text-align: center;
+                img {
+                    width: 40px;
+                }
+
+            }
+            p img {
+                width: 20px;
+                margin-right: 10px;
+            }
+
+            span.note-counter {
+                // z-index: 7;
+                display: block;
+                float: left;
+                position: relative;
+                top: -4px;
+                left: 0;
+                background: url(/assets/notes-bg.png) no-repeat -150px 0;
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 25px;
+                letter-spacing: -1px;
+                text-align: center;
+                color: white;
+                text-decoration: none;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, .15);
+                margin: 0 10px 3px 0;
+            }
+        }
+    }
+
+    .device-selector {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        background-color: darkgrey;
+        padding: 10px;
+        img {
+            width: 40px;
+            padding-left: 10px;
+        }
+
+        img.tablet-icon  {
+            width: 30px;
+        }
+
+        img.smartphone-icon  {
+            width: 25px;
+            -webkit-transform:rotate(-90deg);
+            padding-right: 10px;
+        }
+
+        img.rotate-icon  {
+            padding-left: 10px;
+            width: 30px;
+        }
+
+    }
+
 }

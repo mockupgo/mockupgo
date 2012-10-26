@@ -1,4 +1,6 @@
 MockupGo::Application.routes.draw do
+  match "pusher/auth",  to: "pusher#auth"
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -17,6 +19,7 @@ MockupGo::Application.routes.draw do
 
   resources :image_versions do
     member do
+      get 'aside'
       get 'preview'
     end
   end
