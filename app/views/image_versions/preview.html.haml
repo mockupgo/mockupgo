@@ -33,13 +33,29 @@
           %li
             .btn.btn-success
               %i.icon-ok.icon-white
-              Marquer comme vue
+              Mark as reviewed
+
+          %li.divider-vertical
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %i.icon-share.icon-white
+              Share
+            %ul.dropdown-menu.page-navigator-menu
+              - @project = @image_version.page.project
+              %li.nav-header
+                Project: #{@project.name}
+              %li.divider
+              %li
+                %a
+                  Send link to page
+                  %input{:placeholder => "http://mockupgo.herokuapp.com/share/4EERTDD64333/", :type => "text"}/
+              %li.divider
 
           %li.divider-vertical
           %li
             %a{"data-toggle" => "modal", :href => "#help-popup"}
               %i.icon-question-sign.icon-white
-              Aide
+              Help
 
           %li.divider-vertical
 

@@ -12,3 +12,38 @@
   .control-group
     .controls
       = f.submit class: "btn btn-primary"
+
+%hr
+%h4 Manage collaborators
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th name
+      %th email
+      %th action
+  %tr
+    %td Bob
+    %td bob.klungloom@example.com
+    %td
+      .btn.btn-small
+        %i.icon-remove
+        remove access to project
+  %tr
+    %td Sébastien
+    %td sgignoux@gmail.com
+    %td
+      .btn.btn-small
+        %i.icon-remove
+        remove access to project
+  %tr
+    %td Albert Einstein
+    %td a.einstein@relativity.org
+    %td
+      .btn.btn-small
+        %i.icon-remove
+        remove access to project
+
+.btn.btn-primary
+  %i.icon-plus
+  Add collaborator
