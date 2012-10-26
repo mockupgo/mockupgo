@@ -64,5 +64,9 @@ module MockupGo
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Necessary in order to have the precompiliation of assets working on Heroku
+    config.assets.initialize_on_precompile = false
+
   end
 end
