@@ -3,7 +3,7 @@ $ ->
       window.console.log message  if window.console and window.console.log
 
     WEB_SOCKET_DEBUG = true
-    pusher = new Pusher("0f5ad327c0a36a8fe378")
+    pusher = new Pusher("<%= Pusher.key %>")
     channel   = pusher.subscribe("my-channel")
     channel_rt = pusher.subscribe("private-rt-update")
     window.channel_rt = channel_rt
