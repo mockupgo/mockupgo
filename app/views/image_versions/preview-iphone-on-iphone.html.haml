@@ -9,7 +9,7 @@
     %meta{:content => "width=device-width; initial-scale=1.0; maximum-scale=1.0;", :name => "viewport"}/
 
   %body
-    .screenshot.selectable{"data-image-version" => @image_version.id}
+    .screenshot.screenshot-portrait.selectable{"data-image-version" => @image_version.id}
       = image_tag @image_version.image.url
       .notes
         = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }

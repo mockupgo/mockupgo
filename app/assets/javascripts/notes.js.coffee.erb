@@ -40,6 +40,10 @@ $ ->
         note.css "width", data.width
         note.css "height", data.height
 
+    channel_rt.bind "client-update-scroll-pos", (data) ->
+        window.current_scroll = data.pos
+        $('.screenshot-portrait').scrollTop(data.pos)
+
 
     channel_rt.bind "create-note", (data) ->
         note = data.message
@@ -113,8 +117,15 @@ stop_realtime_size_update = (note, event) ->
     clearInterval(interval_timer)
     window.console.log("stop realtime update")
     
-
-
+# UPDATE SCROLL
+window.current_scroll = 0
+scroll_interval_timer = setInterval( ->
+        new_scroll = $('.screenshot-portrait').scrollTop()
+        if window.current_scroll != new_scroll
+            window.current_scroll = new_scroll
+            window.channel_rt.trigger "client-update-scroll-pos", 
+                "pos": new_scroll
+    , 200)
 
 
 update_note_comment = (note, comment) ->
