@@ -24,7 +24,7 @@
     // Flash fallback logging - don't include this in production
     WEB_SOCKET_DEBUG = true;
 
-    var pusher = new Pusher('0f5ad327c0a36a8fe378');
+    var pusher = new Pusher('32602e9c5d34eba2a9e3');
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
       alert(data);
