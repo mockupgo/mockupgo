@@ -12,3 +12,19 @@
     .control-group
       .controls
         = f.submit class: "btn btn-primary"
+
+%script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
+:javascript
+  // Enable pusher logging - don't include this in production
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) window.console.log(message);
+  };
+
+  // Flash fallback logging - don't include this in production
+  WEB_SOCKET_DEBUG = true;
+
+  var pusher = new Pusher('32602e9c5d34eba2a9e3');
+  var channel = pusher.subscribe('test_channel');
+  channel.bind('my_event', function(data) {
+    alert(data);
+  });
