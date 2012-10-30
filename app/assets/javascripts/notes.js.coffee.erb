@@ -4,9 +4,6 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    # pusher = new Pusher("32602e9c5d34eba2a9e3") # Heroku
-    pusher = new Pusher("0f5ad327c0a36a8fe378") # local
-
     channel   = pusher.subscribe("my-channel")
     channel_rt = pusher.subscribe("private-rt-update")
     window.channel_rt = channel_rt

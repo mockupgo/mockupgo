@@ -7,9 +7,12 @@
     = csrf_meta_tags
 
     %meta{:content => "width=device-width; initial-scale=1.0; maximum-scale=1.0;", :name => "viewport"}/
+
+
     
   = yield
 
 
 %script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
-
+:javascript
+  var pusher = new Pusher("#{Pusher.key}");
