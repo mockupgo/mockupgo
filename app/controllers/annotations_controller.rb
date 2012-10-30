@@ -36,12 +36,13 @@ class AnnotationsController < ApplicationController
             end
         end
 
-        Pusher['private-rt-update'].trigger('create-note', {:message => @annotation})
+        Pusher["private-rt-update-image-version-#{@image_version.id}"].trigger('create-note', {:message => @annotation})
 
     end
 
     def update
         @annotation = Annotation.find(params[:id])
+        @image_version = @annotation.image_version
         @position = params[:position]
         @comment  = params[:comment]
 
@@ -64,7 +65,7 @@ class AnnotationsController < ApplicationController
             end
         end
 
-        Pusher['my-channel'].trigger('update-note', 
+        Pusher["my-channel-image-version-#{@image_version.id}"].trigger('update-note', 
                                    {:id      => @annotation.id,
                                     :top     => @annotation.top,
                                     :left    => @annotation.left,
@@ -77,9 +78,10 @@ class AnnotationsController < ApplicationController
 
     def destroy
         @annotation = Annotation.find(params[:id])
+        @image_version = @annotation.image_version
         @annotation.destroy
 
-        Pusher['my-channel'].trigger('delete-note', {:message => @annotation.id})
+        Pusher["my-channel-image-version-#{@image_version.id}"].trigger('delete-note', {:message => @annotation.id})
 
         respond_to do |format|
             format.js   { render "destroy"}

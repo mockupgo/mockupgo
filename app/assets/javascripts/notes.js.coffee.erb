@@ -4,8 +4,10 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    channel   = pusher.subscribe("my-channel")
-    channel_rt = pusher.subscribe("private-rt-update")
+    image_version_id = $('div[data-image-version]').attr("data-image-version")
+
+    channel   = pusher.subscribe("my-channel-image-version-" + image_version_id)
+    channel_rt = pusher.subscribe("private-rt-update-image-version-" + image_version_id)
     window.channel_rt = channel_rt
 
 
@@ -44,7 +46,6 @@ $ ->
 
     channel_rt.bind "create-note", (data) ->
         note = data.message
-        sleep(100)
         if $('.note[data-id="' + note.id + '"]').length == 0
             new_note = $(".notes").append "<div class=\"note ui-selectee ui-draggable ui-resizable\" data-id=\"" + note.id + "\" style=\"top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; position: absolute; \"><span class=\"black note-counter ui-selectee\"> x </span> <a class=\"delete-note ui-selectee\" href=\"#\" style=\"display: block; \">Delete</a> <div class=\"note-wrapper ui-selectee\"> <div class=\"note-comment ui-selectee\"> <span id=\"arrow\" class=\"ui-selectee\"></span> <div class=\"note-content ui-selectee\"><div class=\"comment-text ui-selectee\">" + note.comment + "</div></div></div></div><div class=\"ui-resizable-handle ui-resizable-e ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-s ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-selectee\" style=\"z-index: 1000; \"></div></div>"
             activate_note($('.note[data-id="' + note.id + '"]'))
