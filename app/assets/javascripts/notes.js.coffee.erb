@@ -194,6 +194,7 @@ jQuery ->
                     height: helper.css('height')
             success: (data) -> 
                 new_note = $('div.note-new')
+                console.log("received new note")
                 new_note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
                 new_note.removeClass('note-new').attr('data-id', data.id)
                 update_aside(screenshot.data('image-version'))
