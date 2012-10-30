@@ -187,6 +187,7 @@ jQuery ->
             type: 'POST'
             dataType: 'JSON'
             data: 
+                socket_id: pusher.connection.socket_id
                 image_version: screenshot.data('image-version')
                 comment: comment
                 position:

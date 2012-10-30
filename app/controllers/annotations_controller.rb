@@ -17,6 +17,7 @@ class AnnotationsController < ApplicationController
     def create
         @image_version   = ImageVersion.find(params[:image_version])
         @position        = params[:position]
+        @pusher_socket_id = params[:socket_id]
 
         @annotation = Annotation.new
         @annotation.top     = @position[:top].to_i
@@ -36,7 +37,8 @@ class AnnotationsController < ApplicationController
             end
         end
 
-        Pusher["private-rt-update-image-version-#{@image_version.id}"].trigger('create-note', {:message => @annotation})
+        Pusher["private-rt-update-image-version-#{@image_version.id}"]
+                    .trigger('create-note', {:message => @annotation}, @pusher_socket_id)
 
     end
 
