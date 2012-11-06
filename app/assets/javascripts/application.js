@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require_tree .
 //= require bootstrap
-//= require_self
 //= require jquery.ui.touch-punch
+//= require angular
+//= require angular-resource
+//= require annotation-app
+//= require_tree .
+//= require_self

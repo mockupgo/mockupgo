@@ -3,9 +3,8 @@ require 'pusher'
 class AnnotationsController < ApplicationController
 
     def index
-        @image_version = ImageVersion.find(params[:id])
+        @image_version = ImageVersion.find(params[:image_version_id])
         @annotations   = @image_version.annotations
-
 
         respond_to do |format|
             format.json { render json: @annotations }

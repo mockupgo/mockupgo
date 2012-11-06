@@ -18,13 +18,13 @@ MockupGo::Application.routes.draw do
   end
 
   resources :image_versions do
+    resources :annotations
     member do
       get 'aside'
       get 'preview'
     end
   end
   
-  resources :annotations
 
 
   # The priority is based upon order of creation:
