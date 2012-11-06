@@ -17,3 +17,4 @@
 //= require_tree .
 //= require bootstrap
 //= require_self
+//= require jquery.ui.touch-punch
