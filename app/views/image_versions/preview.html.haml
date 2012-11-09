@@ -2,23 +2,19 @@
   = render "preview_navbar"
 
   .content
-    .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
-      .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
+    .background-container{"annotable" => "", :style => "background-image: url('#{@image_version.image_url(:background)}');"}
+      .image-container{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
         = image_tag @image_version.image.url
 
 
         .notes
-          .note{"ng-repeat" => "note in annotations", "data-id" => "{{note.id}}", "ng-style" => "{'top': note.top+'px', 'left': note.left+'px', 'width': note.width+'px', 'height': note.height+'px' }"}
-            %span.black.note-counter
-              {{ $index + 1 }}
-            %a.delete-note{:href => "#", :style => "display: block;"} Delete
-            .note-wrapper
-              .note-comment
-                %span#arrow
-                .note-content
-                  .comment-text
-                    {{note.comment}}
-
+          %note{"ng-repeat" => "note in annotations",
+                "data-id"     => "note.id",
+                "note-top"    => "note.top",
+                "note-left"   => "note.left",
+                "note-width"  => "note.width",
+                "note-height" => "note.height"}
+            {{note.comment}}
 
 
       {{ image_version_id }}

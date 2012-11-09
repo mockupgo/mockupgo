@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
@@ -19,5 +20,5 @@
 //= require angular
 //= require angular-resource
 //= require annotation-app
-//= require_tree .
+//= require projects
 //= require_self
