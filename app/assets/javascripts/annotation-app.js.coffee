@@ -22,11 +22,21 @@ window.App.factory "AnnotationsManager", (AnnotationsService, CurrentImageId) ->
     if data == null
       data = AnnotationsService.query({image_version_id: CurrentImageId.get()})
 
+  @addNote = (note_comment, note_top, note_left, note_width, note_height) ->
+    data.push
+      id:       999
+      comment:  note_comment
+      top:      note_top
+      left:     note_left
+      width:    note_width
+      height:   note_height
+      isEdit:   false
+
   @
 
 
 
-window.App.directive 'annotable', () ->
+window.App.directive 'annotable', (AnnotationsManager) ->
   restrict: 'A'
   link: (scope, elm, attr) ->
     $(elm).selectable
@@ -45,20 +55,19 @@ window.App.directive 'annotable', () ->
         # et.find('.notes').append('<div class="note-new note draggable"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
         # activate_note $('.note') # WHICH NOTES ?
         helper = $("div.ui-selectable-helper")
-        note_width = parseInt(helper.css('width'))
+        offset = et.offset()
+        scroll_from_top = parseInt(et.scrollTop())
+
+        note_width  = parseInt(helper.css('width'))
         note_height = parseInt(helper.css('height'))
+        note_top    = parseInt(helper.css('top'))  - parseInt(offset.top) + scroll_from_top
+        note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
 
         if note_width < 4 and note_height < 4
           return
 
-        offset = et.offset()
-        scroll_from_top = parseInt(et.scrollTop())
-
-        $('.note-new').css
-          top:    parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
-          left:   parseInt(helper.css('left')) - parseInt(offset.left)
-          width:  note_width
-          height: note_height
+        scope.$apply ->
+          AnnotationsManager.addNote("---", note_top, note_left, note_width, note_height)
 
         $('.note-new textarea#comment').focus()
 

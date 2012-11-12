@@ -2,8 +2,8 @@
   = render "preview_navbar"
 
   .content
-    .background-container{"annotable" => "", :style => "background-image: url('#{@image_version.image_url(:background)}');"}
-      .image-container{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
+    .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
+      .image-container{"annotable" => "", "data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
         = image_tag @image_version.image.url
 
 
