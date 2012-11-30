@@ -30,7 +30,7 @@ window.App.factory "AnnotationsManager", (AnnotationsService, CurrentImageId) ->
       left:     note_left
       width:    note_width
       height:   note_height
-      isEdit:   false
+      isEdit:   true
 
   @
 
