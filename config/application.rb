@@ -67,6 +67,6 @@ module MockupGo
 
     # Necessary in order to have the precompiliation of assets working on Heroku
     config.assets.initialize_on_precompile = false
-
+    config.assets.precompile += %w[active_admin.css active_admin.js active_admin/print.css]
   end
 end
