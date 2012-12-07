@@ -1,4 +1,7 @@
 MockupGo::Application.routes.draw do
+  post "projects_users/create"
+  post "projects_users/destroy"
+
   match "pusher/auth",  to: "pusher#auth"
 
   ActiveAdmin.routes(self)

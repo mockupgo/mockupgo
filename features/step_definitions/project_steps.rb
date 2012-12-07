@@ -101,6 +101,15 @@ Then /^he should not see "(.*?)"$/ do |content|
   page.should_not have_content(content)
 end
 
+Then /^he should see "(.*?)"$/ do |content|
+  page.should have_content(content)
+end
+
+Then /^he should see "(.*?)" in a table$/ do |content|
+  within(:css, "table") do
+    page.should have_content(content)
+  end
+end
 
 Then /^he should see an error message$/ do
   page.should have_selector(".alert-error", :content => "You can't access this project.")
@@ -125,3 +134,9 @@ When /^Matt submits valid signing information$/ do
   fill_in "Password", :with => @matt.password
   click_button "Sign in"
 end
+
+
+When /^he fill "(.*?)" with "(.*?)"$/ do |field_name, value|
+  fill_in field_name, :with => value
+end
+

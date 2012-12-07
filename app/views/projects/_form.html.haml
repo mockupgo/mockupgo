@@ -22,37 +22,21 @@
       %th name
       %th email
       %th action
-  %tr
-    %td Bob
-    %td bob.klungloom@example.com
-    %td
-      .btn.btn-small
-        %i.icon-remove
-        remove access to project
-  %tr
-    %td Sébastien
-    %td sgignoux@gmail.com
-    %td
-      .btn.btn-small
-        %i.icon-remove
-        remove access to project
-  %tr
-    %td Albert Einstein
-    %td a.einstein@relativity.org
-    %td
-      .btn.btn-small
-        %i.icon-remove
-        remove access to project
+  - project.collaborators.each do |user|
+    %tr
+      %td 
+      %td=user.email
+      %td
+        .btn.btn-small
+          %i.icon-remove
+          remove access to project
 
-/ = form_for collaborator, :html => { class: "form-horizontal" } do |f|
-/   .control-group
-/     = f.label :email, class: "control-label"
-/     .controls
-/       = f.text_field :email
-/   .control-group
-/     .controls
-/       = f.submit class: "btn btn-primary"
-
-.btn.btn-primary
-  %i.icon-plus
-  Add collaborator
+= form_tag projects_users_create_path, { class: "form-horizontal" } do
+  = hidden_field_tag(:project_id, project.id)
+  .control-group
+    = label_tag :email, "email", class: "control-label"
+    .controls
+      = text_field_tag :email
+  .control-group
+    .controls
+      = submit_tag "Add collaborator", class: "btn btn-primary"
