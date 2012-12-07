@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
     name "my simple project"
-    user
+    owner :user
   end
 end

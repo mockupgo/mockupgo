@@ -28,7 +28,7 @@ end
 
 
 Given /^the user has a project named "(.*?)"$/ do |project_name|
-  @project = FactoryGirl.create(:project, user: @user, name: project_name)
+  @project = FactoryGirl.create(:project, owner: @user, name: project_name)
 end
 
 
