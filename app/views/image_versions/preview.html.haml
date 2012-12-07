@@ -1,6 +1,8 @@
 %body.preview{"ng-app" => "AnnotationApp", "ng-controller" => "annotationsCtrl"}
   = render "preview_navbar"
 
+  %div{"ng-view"=>""}
+
   .content
     .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
       .image-container{"annotable" => "", "data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}

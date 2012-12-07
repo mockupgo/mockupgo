@@ -5,22 +5,15 @@ window.App.factory "AnnotationsService", ($resource) ->
   $resource "/image_versions/:image_version_id/annotations/:annotation_id"
 
 
-window.App.factory "CurrentImageId", ->
-  id = ""
-  @set = (new_id)->
-    id = new_id
-
-  @get = () ->
-    id
-  @
+window.App.factory "CurrentImageId", ($location) ->
+  /\/image_versions\/([0-9]+)\/preview/.exec($location.absUrl())[1]
 
 
 window.App.factory "AnnotationsManager", (AnnotationsService, CurrentImageId) ->
   data = null
 
   @notes = ->
-    if data == null
-      data = AnnotationsService.query({image_version_id: CurrentImageId.get()})
+      data = AnnotationsService.query({ image_version_id: CurrentImageId })
 
   @addNote = (note_comment, note_top, note_left, note_width, note_height) ->
     data.push
@@ -75,39 +68,11 @@ window.App.directive 'annotable', (AnnotationsManager) ->
 window.App.directive 'note', () ->
   restrict:'E'
   replace: true
-  template:   '<div>' +
-          '<span class="black note-counter">' +
-            '6' +
-          '</span>' +
-          '<a class="delete-note" href="#" style="display: block;">Delete</a>' +
-          '<div class="note-wrapper">' +
-            '<div class="note-comment">' +
-              '<span id="arrow"></span>' +
-              '<div class="note-content">' +
-                # DISPLAY
-                '<div ng-hide="note.isEdit" class="comment-text" ng-click="note.isEdit = true">' +
-                  '{{note.comment}}' +
-                '</div>' +
-                # EDIT
-                '<div ng-show="note.isEdit" id="comment_bar" class="input_bar">' +
-                  '<form method="post" action="">' +
-                    '<div class="textarea">' +
-                      '<textarea name="comment" id="comment" class="replace" rows="3" ng-model="note.comment"></textarea>' +
-                    '</div>' +
-                    '<button type="submit" class="black create-button" ng-click="note.isEdit = false">Save Note</button>' +
-                  '</form>' +
-                '</div>' +
-
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>'
-
+  templateUrl: '/templates/annotation_template.html',
   link: (scope, element, attr) ->
     element.addClass('note')
     element.draggable
         stop:  (event) -> 
-          alert("bla")
           # update_note_pos $(this), event
       .resizable()
 
@@ -129,8 +94,6 @@ window.App.directive 'note', () ->
 
 window.App.controller 'annotationsCtrl',  ($scope, AnnotationsManager, CurrentImageId) ->
   $scope.image_version_id = $('div[data-image-version]').attr("data-image-version")
-  CurrentImageId.set($scope.image_version_id)
-  # $scope.annotations = AnnotationsService.query({image_version_id: $scope.image_version_id})
   $scope.annotations = AnnotationsManager.notes()
 
 

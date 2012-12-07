@@ -1,0 +1,29 @@
+<div>
+  <span class="black note-counter">6</span>
+  <a class="delete-note" href="#" style="display: block;">Delete</a>
+  <div class="note-wrapper">
+    <div class="note-comment">
+      <span id="arrow"></span>
+      <div class="note-content">
+
+        <!-- DISPLAY -->
+        <div ng-hide="note.isEdit" class="comment-text" ng-click="note.isEdit = true">
+          {{note.comment}}
+        </div>
+        <!-- END DISPLAY -->
+
+        <!-- EDIT -->
+        <div ng-show="note.isEdit" id="comment_bar" class="input_bar">
+          <form method="post" action="">
+            <div class="textarea">
+              <textarea name="comment" id="comment" class="replace" rows="3" ng-model="note.comment"></textarea>
+            </div>
+            <button type="submit" class="black create-button" ng-click="note.isEdit = false">Save Note</button>
+          </form>
+        </div>
+        <!-- END EDIT -->
+        
+      </div>
+    </div>
+  </div>
+</div>
