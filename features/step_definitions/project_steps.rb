@@ -111,6 +111,13 @@ Then /^he should see "(.*?)" in a table$/ do |content|
   end
 end
 
+Then /^he should see "(.*?)" in a table (\d+) time$/ do |content, time|
+  within(:css, "table") do
+    page.should have_selector("td:contains('" + content + "')", :count => time)
+  end
+end
+
+
 Then /^he should see an error message$/ do
   page.should have_selector(".alert-error", :content => "You can't access this project.")
 end
@@ -139,4 +146,12 @@ end
 When /^he fill "(.*?)" with "(.*?)"$/ do |field_name, value|
   fill_in field_name, :with => value
 end
+
+Given /^Matt is a collaborator for project "(.*?)"$/ do |project_name|
+  project = Project.find_by_name(project_name)
+  project.collaborators << @matt
+  project.save
+end
+
+
 

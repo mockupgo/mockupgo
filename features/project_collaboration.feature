@@ -16,10 +16,30 @@ Feature: A project can have multiple collaborators
         And he click on "Add collaborator"
 
         Then he should see "matt@example.com" in a table
-        # test more ?
 
-    # Scenario: add a collaborator that is not with MockupGo
-    # Scenario: add yourself as a collaborator
-    # Scenario: check that it is an email address (client side?)
+
+    Scenario: if I add collaborator that is already in the collaborator list, I have an error message and the collaborator is not added again
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob has a project named "Bob's collaboration project"
+        And Matt is a collaborator for project "Bob's collaboration project"
+
+        When he visits "Bob's collaboration project" project page
+        Then he should see "matt@example.com" in a table 1 time
+
+        When he clicks on the link "Manage project"
+        And he fill "email" with "matt@example.com"
+        And he click on "Add collaborator"
+
+        Then he should see "matt@example.com" in a table 1 time
+        And he should see "matt@example.com is aleady a collaborator for this project"
+
+
+    # Scenario: I can remove a collaborator for a project
+
+    # Scenario: add a collaborator that is not with MockupGo generate an error message
+    # Scenario: when you try to add yourself as a collaborator, you are not added to the list and an error message appear
+    # Scenario: check that it is a valid email address (client side?)
     # Scenario: when you are project owner, you can't delete yourself as a collaborator
-    # Scenario: if you add a collaborator that is already in the list, nothing happens (juste a message)
+    # Scenario: when I try to add a collaborator to a project I am not the owner, I have an error message and the collaborator is not added

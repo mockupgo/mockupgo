@@ -3,12 +3,15 @@ class ProjectsUsersController < ApplicationController
     @project = Project.find(params[:project_id])
     @email   = params[:email]
 
-    @collaborator = User.find_by_email(@email)
+    @new_collaborator = User.find_by_email(@email)
 
-    if @collaborator
-      @project.collaborators << @collaborator
-      @project.save
-      flash[:notice] = "#{@collaborator.email} was added to this project."
+    if @new_collaborator
+      if @project.collaborators.exists?(@new_collaborator)
+        flash[:error] = "#{@email} is aleady a collaborator for this project."
+      else
+        @project.collaborators << @new_collaborator
+        flash[:notice] = "#{@email} was added to this project."
+      end
     else
       flash[:error]  = "Could not add #{@email} as a collaborator. Make sure he create an account on MockupGo with this email address."
     end
