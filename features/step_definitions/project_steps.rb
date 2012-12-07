@@ -1,3 +1,8 @@
+When /^he click on "(.*?)"$/ do |name|
+  click_on name
+end
+
+
 Given /^(?:the user|he) visits his dashboard page$/ do
   visit dashboard_path
 end
@@ -11,7 +16,7 @@ end
 
 
 Given /^he has already a project$/ do
-  @project = @user.projects.create!(name: 'test project')
+  @project = @user.projects.create!(name: 'test project', owner: @user)
 end
 
 
@@ -29,6 +34,8 @@ end
 
 Given /^the user has a project named "(.*?)"$/ do |project_name|
   @project = FactoryGirl.create(:project, owner: @user, name: project_name)
+  @project.collaborators << @user
+  @project.save
 end
 
 
@@ -56,7 +63,11 @@ end
 
 
 Given /^Matt has a project named "(.*?)"$/ do |project_name|
-  @matt_project = @matt.projects.create!(name: project_name)
+  @matt_project = @matt.projects.create!(name: project_name, owner: @matt)
+end
+
+Given /^Bob has a project named "(.*?)"$/ do |project_name|
+  @bob_project = @bob.projects.create!(name: project_name, owner: @bob)
 end
 
 
@@ -102,8 +113,9 @@ Then /^he should be redirected to the dashboard page$/ do
 end
 
 
-Then /^he should see "Matt's cool project" project page$/ do
-  page.current_path.should == project_path(@matt_project.id)
+Then /^he should see "(.*?)" project page$/ do |project_name|
+  project = Project.find_by_name(project_name)
+  page.current_path.should == project_path(project)
   page.status_code.should == 200
 end
 

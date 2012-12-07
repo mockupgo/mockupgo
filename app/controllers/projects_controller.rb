@@ -17,7 +17,9 @@ class ProjectsController < ApplicationController
 
 
 	def create
-		project = current_user.projects.build(params[:project])
+ 		project = Project.new(params[:project])
+    project.owner = current_user
+    project.collaborators << current_user
 
     if project.save
       flash[:notice] = 'Project created successfully.'

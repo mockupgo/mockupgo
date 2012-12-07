@@ -1,5 +1,5 @@
 Given /^I have a project named "(.*?)"$/ do |project_name|
-  @user.projects.create!(name: project_name)
+  @user.projects.create!(name: project_name, owner: @user)
 end
 
 Given /^I the project "(.*?)" has a page named "(.*?)"$/ do |project_name, page_name|

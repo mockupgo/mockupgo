@@ -9,7 +9,7 @@ Feature: User can manage there projects
 		And the user visits his dashboard page
 		Then he should see his project listed
 
-	Scenario: create a project
+ 	Scenario: create a project
 		Given a signed in user
 		And the user visits his dashboard page
 		When the user create a new project
@@ -35,6 +35,6 @@ Feature: User can manage there projects
 		Then he should be redirected to the dashboard page
 		And he should not see "My Cool Project"
 
-	@wip
-	Scenario: a user can't delete a project when he is not the project's owner
+	# @wip
+	# Scenario: a user can't delete a project when he is not the project's owner
 
