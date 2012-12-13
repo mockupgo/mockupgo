@@ -82,7 +82,7 @@ end
 
 
 Given /^a signed in user Bob$/ do
-  @bob = User.create(email: 'example@example.com',
+  @bob = User.create(email: 'bob@example.com',
                         password: '314159',
                         password_confirmation: '314159')
   visit new_user_session_path
@@ -153,5 +153,31 @@ Given /^Matt is a collaborator for project "(.*?)"$/ do |project_name|
   project.save
 end
 
+When /^he click on "(.*?)" for user "(.*?)" in the collaborators table$/ do |button_name, user_email|
+  user = User.find_by_email(user_email)
+  within(:css, "tr#user_#{user.id}") do
+    click_on button_name
+  end
+end
+
+When /^he should not see "(.*?)" in the collaborators table$/ do |content|
+  within(:css, "table#collaborators-table") do
+    page.should_not have_content(content)
+  end
+end
+
+When /^I should not see a button "(.*?)" for user "(.*?)" in the collaborators table$/ do |button_name, user_email|
+  user = User.find_by_email(user_email)
+  within(:css, "table#collaborators-table tr#user_#{user.id}") do
+    page.should_not have_css("a", text: button_name)
+  end
+end
+
+Then /^he should see "(.*?)" for user "(.*?)" in the collaborators table$/ do |content, user_email|
+  user = User.find_by_email(user_email)
+  within(:css, "table#collaborators-table tr#user_#{user.id}") do
+    page.should have_content(content)
+  end
+end
 
 

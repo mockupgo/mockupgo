@@ -16,20 +16,20 @@
 %hr
 %h4 Manage collaborators
 
-%table.table.table-striped
+%table.table.table-striped#collaborators-table
   %thead
     %tr
       %th name
       %th email
       %th action
   - project.collaborators.each do |user|
-    %tr
+    %tr{id: "user_#{user.id}" }
       %td 
       %td=user.email
       %td
-        .btn.btn-small
+        %a.btn.btn-small{href: "#"}
           %i.icon-remove
-          remove access to project
+          remove access
 
 = form_tag projects_users_create_path, { class: "form-horizontal" } do
   = hidden_field_tag(:project_id, project.id)

@@ -35,8 +35,49 @@ Feature: A project can have multiple collaborators
         Then he should see "matt@example.com" in a table 1 time
         And he should see "matt@example.com is aleady a collaborator for this project"
 
+    @wip
+    Scenario: As the project's owner, I can remove a collaborator from the project
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob has a project named "Bob's collaboration project"
+        And Matt is a collaborator for project "Bob's collaboration project"
 
-    # Scenario: I can remove a collaborator for a project
+        When he visits "Bob's collaboration project" project page
+        Then he should see "matt@example.com" in a table 1 time
+
+        When he click on "remove access" for user "matt@example.com" in the collaborators table
+        And he should see "matt@example.com access has been removed from this project"
+        And he should not see "matt@example.com" in the collaborators table
+
+
+
+    @wip
+    Scenario: As a project owner, I can't delete myself as a collaborator
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob has a project named "Bob's collaboration project"
+        And Matt is a collaborator for project "Bob's collaboration project"
+
+        When he visits "Bob's collaboration project" project page
+        Then he should see "matt@example.com" in a table 1 time
+
+        When I should not see a button "remove access" for user "bob@example.com" in the collaborators table
+
+    @wip
+    Scenario: I can see who is the project's owner
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob has a project named "Bob's collaboration project"
+        And Matt is a collaborator for project "Bob's collaboration project"
+
+        When he visits "Bob's collaboration project" project page
+        Then he should see "owner" for user "bob@example.com" in the collaborators table
+
+
+
 
     # Scenario: add a collaborator that is not with MockupGo generate an error message
     # Scenario: when you try to add yourself as a collaborator, you are not added to the list and an error message appear
