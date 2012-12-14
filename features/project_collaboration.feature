@@ -75,10 +75,39 @@ Feature: A project can have multiple collaborators
         Then he should see "owner" for user "bob@example.com" in the collaborators table
 
 
+    Scenario: As a collaborator on a project, I can access the project's page
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
 
-    # Scenario: I can access a project when I am a collaborator
+        When the user visits his dashboard page
+        When he click on "Matt's cool project"
+        Then he should see a project page named "Matt's cool project"
 
-    # Scenario: I can't access a project mockups when I an not a collaborator (anymore)
+
+    @wip
+    Scenario: As a collaborator on a project, I can access a project's page mockup
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
+        And the project "Matt's cool project" has a mockup named "Hokusai"
+
+        When Bob go on the preview page for "Hokusai" on project "Matt's cool project"
+        Then he should be on the preview page for "Hokusai" on project "Matt's cool project"
+
+
+
+    # Scenario: As a collaborator on a project, I can upload a new page mockup
+
+
+    # Scenario: I can't access a project when I an not a collaborator (anymore)
+
+
+
+    
+    # Scenario: When I am not a collaborator on a project, I can not access a project's page mockup
 
 
 

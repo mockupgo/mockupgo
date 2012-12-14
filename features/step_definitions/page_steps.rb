@@ -3,12 +3,12 @@ Given /^I have a project named "(.*?)"$/ do |project_name|
 end
 
 Given /^I the project "(.*?)" has a page named "(.*?)"$/ do |project_name, page_name|
-  @project = @user.projects.find_by_name(project_name)
+  @project = Project.find_by_name(project_name)
   @project.pages.create!(name: page_name)
 end
 
 When /^I visit the page for project "(.*?)"$/ do |project_name|
-  @project = @user.projects.find_by_name(project_name) 
+  @project = Project.find_by_name(project_name) 
   visit project_path(@project)
 end
 

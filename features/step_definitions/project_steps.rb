@@ -153,6 +153,12 @@ Given /^Matt is a collaborator for project "(.*?)"$/ do |project_name|
   project.save
 end
 
+Given /^Bob is a collaborator for project "(.*?)"$/ do |project_name|
+  project = Project.find_by_name(project_name)
+  project.collaborators << @bob
+  project.save
+end
+
 When /^he click on "(.*?)" for user "(.*?)" in the collaborators table$/ do |button_name, user_email|
   user = User.find_by_email(user_email)
   within(:css, "tr#user_#{user.id}") do
@@ -180,4 +186,29 @@ Then /^he should see "(.*?)" for user "(.*?)" in the collaborators table$/ do |c
   end
 end
 
+Given /^the project "(.*?)" has a mockup named "(.*?)"$/ do |project_name, mockup_name|
+  steps %{
+    And I visit the page for project "#{project_name}"
+    When I choose the file "#{mockup_name}.jpg" to import
+    And I click on "Import"
+}
+
+end
+
+When /^Bob go on the preview page for "(.*?)" on project "(.*?)"$/ do |mockup_name, project_name|
+  project = Project.find_by_name(project_name)
+  mockup  = project.pages.find_by_name(mockup_name)
+  version = mockup.latest_version
+
+  visit preview_image_version_path(version)
+end
+
+Then /^he should be on the preview page for "(.*?)" on project "(.*?)"$/ do |mockup_name, project_name|
+  project = Project.find_by_name(project_name)
+  mockup  = project.pages.find_by_name(mockup_name)
+  version = mockup.latest_version
+  
+  page.current_path.should == preview_image_version_path(version)
+  page.status_code.should == 200
+end
 

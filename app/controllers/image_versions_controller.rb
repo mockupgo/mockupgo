@@ -13,7 +13,7 @@ class ImageVersionsController < ApplicationController
     end
 
 
-    if request.env["HTTP_USER_AGENT"].include?('iPhone') and @image_version.device == "iphone-portrait"
+    if request.env["HTTP_USER_AGENT"] and request.env["HTTP_USER_AGENT"].include?('iPhone') and @image_version.device == "iphone-portrait"
       render "preview-iphone-on-iphone", :layout => false
     elsif @image_version.device == "iphone-portrait"
       render "preview-iphone"
