@@ -1,6 +1,5 @@
 MockupGo::Application.routes.draw do
-  post "projects_users/create"
-  post "projects_users/destroy"
+  resources :projects_users
 
   match "pusher/auth",  to: "pusher#auth"
 

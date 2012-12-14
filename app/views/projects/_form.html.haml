@@ -19,19 +19,21 @@
 %table.table.table-striped#collaborators-table
   %thead
     %tr
-      %th name
+      %th 
       %th email
       %th action
   - project.collaborators.each do |user|
     %tr{id: "user_#{user.id}" }
-      %td 
+      %td
+        - if user == project.owner
+          .label
+            owner
       %td=user.email
       %td
-        %a.btn.btn-small{href: "#"}
-          %i.icon-remove
-          remove access
+        - unless user == project.owner
+          = button_to "remove access", {:controller => "projects_users", :action => "destroy", :user_id => user.id, :project_id => project.id}, :method => :delete, :remote => true, :class => 'btn btn-small', :confirm => "Are you sure?"
 
-= form_tag projects_users_create_path, { class: "form-horizontal" } do
+= form_tag projects_users_path, { class: "form-horizontal" } do
   = hidden_field_tag(:project_id, project.id)
   .control-group
     = label_tag :email, "email", class: "control-label"
