@@ -61,6 +61,11 @@ Given /^a user matt@example\.com$/ do
                         password_confirmation: '314159')
 end
 
+Given /^a user john@example\.com$/ do
+  @john = User.create!(email: 'john@example.com',
+                        password: '314159',
+                        password_confirmation: '314159')
+end
 
 Given /^Matt has a project named "(.*?)"$/ do |project_name|
   @matt_project = @matt.projects.create!(name: project_name, owner: @matt)
@@ -117,6 +122,11 @@ Then /^he should see "(.*?)" in a table (\d+) time$/ do |content, time|
   end
 end
 
+Then /^he should not see "(.*?)" in a table$/ do |content|
+  within(:css, "table") do
+    page.should_not have_selector("td:contains('" + content + "')")
+  end
+end
 
 Then /^he should see an error message$/ do
   page.should have_selector(".alert-error", :content => "You can't access this project.")

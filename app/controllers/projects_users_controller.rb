@@ -1,6 +1,12 @@
 class ProjectsUsersController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
+
+    if current_user != @project.owner
+      redirect_to edit_project_path(@project), alert: "Only project's owner can add new collaborators."
+      return
+    end
+
     @email   = params[:email]
 
     @new_collaborator = User.find_by_email(@email)

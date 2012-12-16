@@ -138,8 +138,24 @@ Feature: A project can have multiple collaborators
         And he should see "bob@example.com" for user "bob@example.com" in the collaborators table
 
 
+    Scenario: As a collaborator, I can't add other collaborators for the project
+        Given a user matt@example.com
+        Given a user john@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
 
-    # Scenario: As a collaborator, I can't add other collaborators from the project
+        When the user visits his dashboard page
+        And he click on "Matt's cool project"
+        And he clicks on the link "Manage project"
+
+        And he fill "email" with "john@example.com"
+        And he click on "Add collaborator"
+
+        Then he should not see "john@example.com" in a table
+        And he should see "Only project's owner can add new collaborators"
+
+
 
     # Scenario: When I am not a collaborator on a project, I can not access a project's page mockup
 
