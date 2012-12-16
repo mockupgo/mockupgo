@@ -18,7 +18,7 @@ Feature: A project can have multiple collaborators
         Then he should see "matt@example.com" in a table
 
 
-    Scenario: if I add collaborator that is already in the collaborator list, I have an error message and the collaborator is not added again
+    Scenario: As a project owner, if I add collaborator that is already in the collaborator list, I have an error message and the collaborator is not added again
         Given a user matt@example.com
         And Matt has a project named "Matt's cool project"
         And a signed in user Bob
@@ -64,7 +64,7 @@ Feature: A project can have multiple collaborators
         When I should not see a button "remove access" for user "bob@example.com" in the collaborators table
 
 
-    Scenario: I can see who is the project's owner
+    Scenario: As a collaborator, I can see who is the project's owner
         Given a user matt@example.com
         And Matt has a project named "Matt's cool project"
         And a signed in user Bob
@@ -86,8 +86,7 @@ Feature: A project can have multiple collaborators
         Then he should see a project page named "Matt's cool project"
 
 
-    @wip
-    Scenario: As a collaborator on a project, I can access a project's page mockup
+    Scenario: As a collaborator on a project, I can upload and access a project's page mockup
         Given a user matt@example.com
         And Matt has a project named "Matt's cool project"
         And a signed in user Bob
@@ -98,18 +97,37 @@ Feature: A project can have multiple collaborators
         Then he should be on the preview page for "Hokusai" on project "Matt's cool project"
 
 
+    Scenario: I can't access a project when I an not a collaborator
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
 
-    # Scenario: As a collaborator on a project, I can upload a new page mockup
+        When he visits "Matt's cool project" project page
+        Then he should see an alert "You can't access this project because are not a collaborator. Ask the project owner to give you access."
+        Then he should be redirected to his dashboard
 
 
-    # Scenario: I can't access a project when I an not a collaborator (anymore)
+    Scenario: As a collaborator on a project, I can't delete the project
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
+
+        When the user visits his dashboard page
+        And he click on "Matt's cool project"
+        And he clicks on the link "Manage project"
+        And he clicks on the link "Delete"
+
+        Then he should see an alert "You need to be project owner to delete a project"
+
+        When the user visits his dashboard page
+        And he should see "Matt's cool project"
 
 
-
-    
     # Scenario: When I am not a collaborator on a project, I can not access a project's page mockup
 
 
+    # Scenario: As a collaborator on a project, I can't add new collaborator
 
     # Scenario: add a collaborator that is not with MockupGo propose to send an invite
 

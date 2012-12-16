@@ -71,6 +71,9 @@ Then /^(?:I|he|the user) should be redirected to his dashboard$/ do
   page.status_code.should == 200
 end
 
+Then /^he should see an alert "(.*?)"$/ do |text|
+    page.should have_css('.alert', :text => text)
+end
 
 
 

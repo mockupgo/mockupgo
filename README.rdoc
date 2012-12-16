@@ -1,7 +1,9 @@
 
 
 User.all.each do |u|
-  puts Project.where(:user_id => u.id).do |p|
+  puts "user=" + u.email 
+  Project.where(:user_id => u.id).each do |p|
+    puts "project=" + p.name
     p.collaborators << u
     p.save
   end

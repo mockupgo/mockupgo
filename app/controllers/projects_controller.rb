@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects
     
     unless @project
-      redirect_to dashboard_path, alert: "You can't access this project."
+      redirect_to dashboard_path, alert: "You can't access this project because are not a collaborator. Ask the project owner to give you access."
     end
 
   end
@@ -49,8 +49,13 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = current_user.projects.find_by_id(params[:id])
-    @project.destroy
-    redirect_to dashboard_path
+
+    if current_user == @project.owner
+      @project.destroy
+      redirect_to dashboard_path, notice: "Successfully deleted project."
+    else
+      redirect_to dashboard_path, alert: "You need to be project owner to delete a project."
+    end
   end
 
   def get_all_projects
