@@ -47,7 +47,7 @@ Feature: A project can have multiple collaborators
         Then he should see "matt@example.com" in a table 1 time
 
         When he click on "remove access" for user "matt@example.com" in the collaborators table
-        # And he should see "matt@example.com access has been removed from this project"
+        Then he should see "matt@example.com access has been removed from this project"
         And he should not see "matt@example.com" in the collaborators table
 
 
@@ -123,11 +123,26 @@ Feature: A project can have multiple collaborators
         When the user visits his dashboard page
         And he should see "Matt's cool project"
 
+    Scenario: As a collaborator, I can't remove other collaborators from the project
+        Given a user matt@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
+
+        When the user visits his dashboard page
+        And he click on "Matt's cool project"
+        And he clicks on the link "Manage project"
+
+        When he click on "remove access" for user "bob@example.com" in the collaborators table
+        Then he should see "Only the project's owner can remove collaborators"
+        And he should see "bob@example.com" for user "bob@example.com" in the collaborators table
+
+
+
+    # Scenario: As a collaborator, I can't add other collaborators from the project
 
     # Scenario: When I am not a collaborator on a project, I can not access a project's page mockup
 
-
-    # Scenario: As a collaborator on a project, I can't add new collaborator
 
     # Scenario: add a collaborator that is not with MockupGo propose to send an invite
 

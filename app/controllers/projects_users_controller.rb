@@ -21,11 +21,18 @@ class ProjectsUsersController < ApplicationController
 
   def destroy
     @project_id = params[:project_id]
+    @project = Project.find(@project_id)
     @project_user = ProjectsUser.where(project_id: @project_id, user_id: params[:user_id]).first
-    @project_user.destroy
+    
+    if current_user == @project.owner
+      @project_user.destroy
+    else
+      redirect_to edit_project_path(@project_id), alert: "Only the project's owner can remove collaborators."
+      return
+    end
 
     respond_to do |format|
-      format.html { redirect_to edit_project_path(@project_id) }
+      format.html { redirect_to edit_project_path(@project_id), notice: "#{@project_user.user.email} access has been removed from this project." }
       format.js
     end
 
