@@ -25,7 +25,7 @@ $ ->
         note.css "left", data.left + "px"
         note.css "width", data.width + "px"
         note.css "height", data.height + "px"
-        note.find(".comment-text").text data.comment
+        note.find(".comment-text").html data.comment
 
 
 
@@ -208,7 +208,7 @@ jQuery ->
                 window.console.log window.curent_user_email + ": " +$(this).val()
                 window.channel_rt.trigger "client-new-note-comment-in-progress", 
                     "id":     "999",
-                    "comment":  window.curent_user_email + ": " +$(this).val(),
+                    "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
 
 
     start_realtime_update_for_create = (note, event) ->
@@ -299,7 +299,7 @@ jQuery ->
             window.console.log window.curent_user_email + ": " +$(this).val()
             window.channel_rt.trigger "client-new-note-comment-in-progress", 
                     "id":     note_id,
-                    "comment":  "<b>" + window.curent_user_email + ":</b> " +$(this).val(),
+                    "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
 
 
     # Setup note save action
