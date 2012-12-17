@@ -29,10 +29,13 @@ $ ->
 
 
 
+    channel_rt.bind "client-new-note-comment-in-progress", (data) ->
+        note = $("div.note[data-id='" + data.id + "']")
+        note.find(".comment-text").html data.comment
+
     channel_rt.bind "client-delete-note-in-progress", (data) ->
         $("div.note[data-id='" + data.id + "']").fadeOut().remove()
-        
-
+    
 
     channel_rt.bind "client-update-note-position", (data) ->
         note = $("div.note[data-id='" + data.id + "']")
@@ -184,7 +187,6 @@ jQuery ->
             activate_note $('.note-new') # WHICH NOTES ?
             helper = $("div.ui-selectable-helper")
             offset = et.offset()
-            window.console.log(offset)
             scroll_from_top = parseInt(et.scrollTop())
             note_width  = parseInt(helper.css('width'))
             note_height = parseInt(helper.css('height'))
@@ -202,6 +204,11 @@ jQuery ->
                 height: note_height
 
             $('.note-new textarea#comment').focus()
+            $('.note-new textarea#comment').keyup () ->
+                window.console.log window.curent_user_email + ": " +$(this).val()
+                window.channel_rt.trigger "client-new-note-comment-in-progress", 
+                    "id":     "999",
+                    "comment":  window.curent_user_email + ": " +$(this).val(),
 
 
     start_realtime_update_for_create = (note, event) ->
@@ -280,10 +287,19 @@ jQuery ->
     $(document).on 'click', 'div.comment-text', (event) ->
         event.preventDefault()
         current_note = $(this).text()
+        note_id = $(this).closest('div.note').data('id')
         note_field = $(this).closest('div.note-content')
                             .html('<div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black update-button">Update</button></form></div>')
                             .find('textarea')
         note_field.val(current_note)
+        userdata = $('#userdata')
+        window.curent_user_id    = userdata.data('current-user-id')
+        window.curent_user_email = userdata.data('current-user-email')
+        note_field.keyup () ->
+            window.console.log window.curent_user_email + ": " +$(this).val()
+            window.channel_rt.trigger "client-new-note-comment-in-progress", 
+                    "id":     note_id,
+                    "comment":  "<b>" + window.curent_user_email + ":</b> " +$(this).val(),
 
 
     # Setup note save action
