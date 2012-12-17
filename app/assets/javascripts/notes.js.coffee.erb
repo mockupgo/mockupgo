@@ -51,39 +51,44 @@ $ ->
 
 
     channel_rt.bind "create-note", (data) ->
+        window.console.log "create note"
+        window.console.log data
         note = data.message
         if $('.note[data-id="' + note.id + '"]').length == 0
             $("div.note[data-id='999']").remove()
-            new_note = $(".notes").append "<div class=\"note ui-selectee ui-draggable ui-resizable\" data-id=\"" + note.id + "\" style=\"top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; position: absolute; \"><span class=\"black note-counter ui-selectee\"> x </span> <a class=\"delete-note ui-selectee\" href=\"#\" style=\"display: block; \">Delete</a> <div class=\"note-wrapper ui-selectee\"> <div class=\"note-comment ui-selectee\"> <span id=\"arrow\" class=\"ui-selectee\"></span> <div class=\"note-content ui-selectee\"><div class=\"comment-text ui-selectee\">" + note.comment + "</div></div></div></div><div class=\"ui-resizable-handle ui-resizable-e ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-s ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-selectee\" style=\"z-index: 1000; \"></div></div>"
+            new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
             activate_note($('.note[data-id="' + note.id + '"]'))
 
-    channel_rt.bind "client-update-note-size-create", (note) ->
-        window.console.log note
+    channel_rt.bind "client-new-note-in-progress", (note) ->
         if $('.note[data-id="' + note.id + '"]').length == 0
             window.console.log "creating note in progress"
-            new_note = $(".notes").append "<div class=\"note ui-selectee ui-draggable ui-resizable\" data-id=\"" + note.id + "\" style=\"top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; position: absolute; \"><span class=\"black note-counter ui-selectee\"> x </span> <a class=\"delete-note ui-selectee\" href=\"#\" style=\"display: block; \">Delete</a> <div class=\"note-wrapper ui-selectee\"> <div class=\"note-comment ui-selectee\"> <span id=\"arrow\" class=\"ui-selectee\"></span> <div class=\"note-content ui-selectee\"><div class=\"comment-text ui-selectee\">" + note.comment + "</div></div></div></div><div class=\"ui-resizable-handle ui-resizable-e ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-s ui-selectee\" style=\"z-index: 1000; \"></div><div class=\"ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-selectee\" style=\"z-index: 1000; \"></div></div>"
+            new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
         else
-            window.console.log "updating note in progress"
             note_html = $("div.note[data-id='" + note.id + "']")
-            window.console.log note
+            note_html.css "top", note.top
+            note_html.css "left", note.left
             note_html.css "width", note.width
             note_html.css "height", note.height
 
 
 activate_note = (note) -> 
+    window.console.log "activate_note"
+    window.console.log note.length
     note.draggable(
         start: (event) -> 
             start_realtime_pos_update $(this), event
         stop:  (event) -> 
             stop_realtime_pos_update $(this), event
             update_note_pos $(this), event
-    ).resizable(
+    )
+    note.resizable(
         start: (event) -> 
             start_realtime_size_update $(this), event
         stop: (event) -> 
             stop_realtime_size_update $(this), event
             update_note_pos $(this), event
-    ).bind
+    )
+    note.bind
         mouseenter: -> 
             $(this).find('a.delete-note').clearQueue().fadeIn(100)
         mouseleave: -> 
@@ -128,7 +133,7 @@ start_realtime_size_update = (note, event) ->
     window.current_note_id = id
     interval_timer = setInterval((note, id) ->
             window.channel_rt.trigger "client-update-note-size", 
-                "id":   window.current_note_id,
+                "id":     window.current_note_id,
                 "width":  window.current_note.css('width'),
                 "height": window.current_note.css('height'),
         , 200)
@@ -176,7 +181,7 @@ jQuery ->
             stop_realtime_update_for_create $(this), event
             et = $(event.target)
             et.find('.notes').append('<div class="note-new note draggable" data-id="999"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
-            activate_note $('.note') # WHICH NOTES ?
+            activate_note $('.note-new') # WHICH NOTES ?
             helper = $("div.ui-selectable-helper")
             offset = et.offset()
             window.console.log(offset)
@@ -216,7 +221,7 @@ jQuery ->
                 note_height = parseInt(helper.css('height'))
                 note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
                 note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
-                window.channel_rt.trigger "client-update-note-size-create", 
+                window.channel_rt.trigger "client-new-note-in-progress", 
                     "id":   window.current_note_id,
                     "width":  note_width,
                     "height": note_height,
