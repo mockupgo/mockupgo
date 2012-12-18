@@ -1,6 +1,8 @@
 
 
-- Add user to Comment
+- Add user_id to Comment
+- Add user_id to ImageVersion
+- or TimelineEvent with user_id and polymorphic relationship?
 - Add Timeline object for project? Polymorphic relationship ?
     - add comment(s) on a given mockup (on a given day)?
     - upload image
@@ -20,3 +22,13 @@ User.all.each do |u|
     p.save
   end
 end
+
+
+
+
+
+TIMELINE
+- how can you show on the timeline which mockups have been annotated or not
+
+
+

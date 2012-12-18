@@ -57,18 +57,6 @@
                 - page.latest_version.annotations.each do |annotation|
                   %p= annotation.comment
 
-          / / Story
-          / Units
-          %ol.storyActions
-            %li
-              %a{:href => "#"} Like
-            %li
-              %a{:href => "#"} Comment
-            %li
-              %a{:href => "#"} @artminister on Twitter
-          / / Units
-
-
 
     %li.left
       %i.pointer
@@ -90,17 +78,6 @@
               = link_to project_page_path(@project, page) do
                 %span.thumb
                   = image_tag page.latest_version.image_url(:thumb_top)
-
-        / / Story
-        / Units
-        %ol.storyActions
-          %li
-            %a{:href => "#"} Like
-          %li
-            %a{:href => "#"} Comment
-          %li
-            %a{:href => "#"} @artminister on Twitter
-        / / Units
 
 
 
@@ -146,16 +123,7 @@
               %a{:href => "#"} Vinay
             %p 20 hours ago via Twitter
         %p Just wow.. Harry potter and voldemort at #London2012 opening
-      / / Story
-      / Units
-      %ol.storyActions
-        %li
-          %a{:href => "#"} Like
-        %li
-          %a{:href => "#"} Comment
-        %li
-          %a{:href => "#"} @artminister on Twitter
-      / / Units
+
 
 
 
