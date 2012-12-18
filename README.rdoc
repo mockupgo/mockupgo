@@ -1,5 +1,17 @@
 
 
+- Add user to Comment
+- Add Timeline object for project? Polymorphic relationship ?
+    - add comment(s) on a given mockup (on a given day)?
+    - upload image
+    - review image?
+
+
+Sociable
+- don't explain what is crowdfunding?
+- eyes
+
+
 User.all.each do |u|
   puts "user=" + u.email 
   Project.where(:user_id => u.id).each do |p|
