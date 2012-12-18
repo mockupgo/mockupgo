@@ -77,7 +77,7 @@
             - if page.latest_version
               = link_to project_page_path(@project, page) do
                 %span.thumb
-                  = image_tag page.latest_version.image_url(:thumb_top)
+                  = image_tag page.latest_version.image_url(:thumb_top), :size => "100x100"
 
 
 
