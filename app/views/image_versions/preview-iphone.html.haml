@@ -2,7 +2,7 @@
   = render "preview_navbar"
 
   #main-preview.iphone-preview
-    .content-preview
+    .content-preview#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email}
       .iphone
         .screenshot.screenshot-portrait.image-container.selectable{"data-image-version" => @image_version.id}
           = image_tag @image_version.image.url
