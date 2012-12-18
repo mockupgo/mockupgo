@@ -35,7 +35,7 @@
   %li.spine
     %a{:href => "#", :title => "This is the Spine of Facebook Timline. You can Add Custom Events here"}
 
-  - @project.pages.each do |page|
+  - @project.pages.order('created_at DESC').each do |page|
     -if page.latest_version and page.latest_version.annotations.length > 0
       %li.right
         %i.pointer
@@ -48,7 +48,7 @@
               .imageUnit-content
                 %h4
                   %a{:href => "#"} Bob
-                %p 20 hours ago
+                %p= "#{time_ago_in_words(page.created_at)} ago"
 
             %p
               %b= "Commented on '#{page.name}'"
@@ -81,7 +81,7 @@
             .imageUnit-content
               %h4
                 %a{:href => "#"} Vinay
-              %p 20 hours ago
+              %p= "#{time_ago_in_words(page.created_at)} ago"
 
           %p
             %b= "New version uploaded for '#{page.name}'"
