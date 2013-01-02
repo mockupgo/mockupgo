@@ -67,6 +67,10 @@ $content-width: $width - $aside-width - 2*$aside-padding;
                 margin-left: 52px;
                 margin-top: 173px;
                 position: absolute;
+
+                img {
+                    max-width: 320px;
+                }
             }
 
             .screenshot-landscape {
