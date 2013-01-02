@@ -1,4 +1,4 @@
-.navigation
+#page-show.navigation{"data-project-id" => @project.id, "data-page-id" => @page.id}
   =link_to dashboard_url, :class => "" do 
     %i{class: "icon-home"}
     Dashboard
@@ -25,6 +25,13 @@
         - else
           = image_tag @page.latest_version.image.url
   .span4.aside
+    .well
+      Mockup display mode: 
+      #display-style.btn-group
+        %button.btn.desktop{"data-display-mode" => "desktop"} Desktop
+        %button.btn.iphone-portrait{"data-display-mode" => "iphone-portrait"} iPhone Portrait
+
+
     - cnt = 0
     - @page.latest_version.annotations.each do |annotation|
       %p

@@ -14,15 +14,15 @@ class ImageVersion < ActiveRecord::Base
 
   def detect_device_type
     if image.present?
-      if self.width > 1024
-        self.device = "desktop"
-      elsif self.width == 1024
-        self.device = "ipad-landscape"
-      elsif self.width == 768
-        self.device = "ipad-portrait"
-      elsif self.width == 480
-        self.device = "iphone-landscape"
-      elsif self.width == 320
+      # if self.width > 1024
+      #   self.device = "desktop"
+      # elsif self.width == 1024
+      #   self.device = "ipad-landscape"
+      # elsif self.width == 768
+      #   self.device = "ipad-portrait"
+      # elsif self.width == 480
+      #   self.device = "iphone-landscape"
+      if self.width == 320
         self.device = "iphone-portrait"
       else
         self.device = "desktop"

@@ -10,7 +10,7 @@
 #
 
 class Page < ActiveRecord::Base
-  attr_accessible :name, :project_id, :image_versions
+  attr_accessible :name, :project_id, :image_versions, :device
 
   belongs_to :project
 
