@@ -45,6 +45,11 @@ class PagesController < ApplicationController
     @project = current_user.projects.find_by_id(params[:project_id])
     @page = @project.pages.find_by_id(params[:id])
 
+    if params[:image_version]
+      @page.image_versions <<  ImageVersion.create(params[:image_version])
+      @page.save
+    end
+
 
     respond_to do |format|
       format.html {

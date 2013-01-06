@@ -56,5 +56,10 @@
       %i{class: "icon-trash"}
       Delete page "#{@page.name}"
 
-%ul
-  %li Timeline view
+.well.import-new-version-well.clearfix
+  %h4 Import new version
+  = form_for [@project, @page], :html => {:multipart => true} do |f|
+    = f.file_field :image_versions, multiple: true, name: "image_version[image]"
+    = f.submit "Import"
+
+
