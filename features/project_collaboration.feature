@@ -166,12 +166,14 @@ Feature: A project can have multiple collaborators
 
         When Bob go on the preview page for "Hokusai" on project "Matt's cool project"
         And I click on "Mark as reviewed"
+        And he input "This is my note for this review" in the field "note"
         And I click on "Send email"
 
         Then Bob should be redirected to the "Matt's cool project" project page
         And "matt@example.com" should receive an emails with subject "bob@example.com has reviewed mockup 'Hokusai'"
         When "matt@example.com" opens the email
         Then they should see "http://localhost:3000/image_versions/" in the email body
+        Then they should see "This is my note for this review" in the email body
 
         When Bob go on the preview page for "Hokusai" on project "Matt's cool project"
         And he should see "Already reviewed by you"

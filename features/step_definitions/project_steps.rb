@@ -228,3 +228,8 @@ Then /^he should be on the preview page for "(.*?)" on project "(.*?)"$/ do |moc
   page.status_code.should == 200
 end
 
+When /^he input "(.*?)" in the field "(.*?)"$/ do |text, label_name|
+  fill_in(label_name, :with => text)
+end
+
+

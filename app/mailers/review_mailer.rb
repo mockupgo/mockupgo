@@ -6,9 +6,10 @@ class ReviewMailer < ActionMailer::Base
   #
   #   en.review_mailer.reviewed_notice.subject
   #
-  def reviewed_notice(collaborators, reviewer, image_version)
-    @reviewer = reviewer
-    @image_version     = image_version
+  def reviewed_notice(collaborators, reviewer, image_version, note)
+    @reviewer      = reviewer
+    @image_version = image_version
+    @note          = note
     to_addresses = collaborators.map(&:email)
 
     mail to:   to_addresses, 
