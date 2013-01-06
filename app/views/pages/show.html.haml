@@ -26,6 +26,11 @@
           = image_tag @page.latest_version.image.url
   .span4.aside
     .well
+      %p
+        %a.btn.btn-success{:href => preview_image_version_path(@page.latest_version)}
+          Preview and annotate mockup
+          %i.icon-arrow-right.icon-white
+
       Mockup display mode: 
       #display-style.btn-group
         %button.btn.desktop{"data-display-mode" => "desktop"} Desktop
