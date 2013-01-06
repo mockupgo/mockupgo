@@ -14,6 +14,6 @@ class ReviewMailer < ActionMailer::Base
 
     mail to:   to_addresses, 
          from: reviewer.email,
-         subject: "#{reviewer.email} has reviewed mockup '#{image_version.page.name}'"
+         subject: "#{reviewer.email} has reviewed '#{image_version.page.name}' (version #{image_version.version_number})"
   end
 end

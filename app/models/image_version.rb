@@ -16,6 +16,10 @@ class ImageVersion < ActiveRecord::Base
     user_reviews.where('user_id = ?', user.id).count > 0
   end
 
+  def version_number
+    page.image_versions.where('created_at <= ?', created_at).count
+  end
+
   private
 
   def detect_device_type

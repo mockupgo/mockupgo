@@ -9,7 +9,7 @@
 
 
 %h1
-  = @page.name
+  = "#{@page.name} (version #{@page.latest_version.version_number})"
 
   = link_to edit_project_page_path(@project, @page), class: "btn btn-mini", :data => { :toggle => 'modal', :target => '#edit-modal', :remote => 'false' } do
     %i{class: "icon-edit"}
@@ -62,4 +62,11 @@
     = f.file_field :image_versions, multiple: true, name: "image_version[image]"
     = f.submit "Import"
 
+%h3 History
+%ul.page-history
+  - @page.image_versions.order('created_at DESC').each do |version|
+    %li
+      = image_tag version.image_url(:thumb_top)
+      = link_to preview_image_version_path(version) do
+        = "Version #{version.version_number} - #{time_ago_in_words(version.created_at)} ago - #{version.annotations.count} annotations"
 

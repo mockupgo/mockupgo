@@ -170,7 +170,7 @@ Feature: A project can have multiple collaborators
         And I click on "Send email"
 
         Then Bob should be redirected to the "Matt's cool project" project page
-        And "matt@example.com" should receive an emails with subject "bob@example.com has reviewed mockup 'Hokusai'"
+        And "matt@example.com" should receive an emails with subject "bob@example.com has reviewed 'Hokusai' (version 1)"
         When "matt@example.com" opens the email
         Then they should see "http://localhost:3000/image_versions/" in the email body
         Then they should see "This is my note for this review" in the email body

@@ -20,4 +20,5 @@ class Page < ActiveRecord::Base
     image_versions.last
   end
 
+
 end

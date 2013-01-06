@@ -8,13 +8,13 @@
       = "<b>To:</b> #{@project.collaborators.map(&:email).join(', ')}".html_safe
     %hr
     %p
-      = "<b>Subject:</b> #{current_user.email} has reviewed mockup '#{@image_version.page.name}'".html_safe
+      = "<b>Subject:</b> #{current_user.email} has reviewed '#{@image_version.page.name}' (version #{@image_version.version_number})".html_safe
     %hr
     %p
       Hi,
 
     %p
-      = "#{current_user.email} has marked the mockup for '#{@image_version.page.name}' as reviewed."
+      = "#{current_user.email} has marked the mockup for version #{ @image_version.version_number} of '#{@image_version.page.name}' as reviewed."
     %p
       (optional note):
     %p
