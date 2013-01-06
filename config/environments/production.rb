@@ -75,6 +75,6 @@ MockupGo::Application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = {host: "immense-escarpment-7235.herokuapp.com"}
+  config.action_mailer.default_url_options = {host: "mockupgo.herokuapp.com"}
 
 end
