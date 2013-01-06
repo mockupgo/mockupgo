@@ -7,6 +7,7 @@ class ImageVersionsController < ApplicationController
 
   def preview
     @image_version = ImageVersion.find(params[:id])
+    @page = @image_version.page
 
     if session[:display_help_first_session_load] != true
       session[:display_help_first_session_load] = true

@@ -24,7 +24,9 @@ $aside-padding: 10px;
 $content-padding: 10px;
 $content-width: $width - $aside-width - 2*$aside-padding;
 
-
+.iphone-preview {
+    margin-top: 10px;
+}
 
 #main-preview {
     // width: 100%;

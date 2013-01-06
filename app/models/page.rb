@@ -20,5 +20,13 @@ class Page < ActiveRecord::Base
     image_versions.last
   end
 
+  def previous_version
+    if image_versions.count < 2
+      return nil
+    else
+      image_versions.order('created_at DESC')[1]
+    end
+  end
+
 
 end

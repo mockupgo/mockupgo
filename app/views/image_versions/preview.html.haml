@@ -1,13 +1,27 @@
 %body.preview
   = render "preview_navbar"
 
-  .content#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email}
+  .content.current-version#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email, "version-number" => @image_version.version_number}
     .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
       .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
         = image_tag @image_version.image.url
 
         .notes
           = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+
+
+  / - version = @page.previous_version
+  / - if version
+  /   .content.previous-version{"version-number" => version.version_number}
+  /     .background-container{:style => "background-image: url('#{version.image_url(:background)}');"}
+  /       .image-container{"data-image-version" => version.id, :style => "position: relative; width: #{version.width}px;"}
+  /         = image_tag version.image.url
+
+  /         .notes
+  /           = render :partial => "annotations/annotations", :locals => { :annotations => version.annotations }
+
+
+
 
 
   = render partial: "help_popup"
