@@ -4,7 +4,7 @@ class Review < ActiveRecord::Base
   belongs_to :image_version
   belongs_to :user
 
-  validates_uniqueness_of :image_version_id, :scope => :user_id
+  # validates_uniqueness_of :image_version_id, :scope => :user_id
 
 end
 
