@@ -156,6 +156,28 @@ Feature: A project can have multiple collaborators
         And he should see "Only project's owner can add new collaborators"
 
 
+    @wip
+    Scenario: As a project collaborator, I can "mark as reviewed" a mockup after I have finished adding my annotations and send automatically an email alert to other collaborators
+        Given a user matt@example.com
+        Given a user john@example.com
+        And Matt has a project named "Matt's cool project"
+        And a signed in user Bob
+        And Bob is a collaborator for project "Matt's cool project"
+        And the project "Matt's cool project" has a mockup named "Hokusai"
+
+        When Bob go on the preview page for "Hokusai" on project "Matt's cool project"
+        And I click on "Mark as reviewed"
+        And I click on "Send email"
+
+        Then Bob should be redirected to the "Matt's cool project" project page
+        And "matt@example.com" should receive an emails with subject "bob@example.com has reviewed mockup 'Hokusai'"
+        When "matt@example.com" opens the email
+        Then they should see "http://localhost:3000/image_versions/" in the email body
+
+        When Bob go on the preview page for "Hokusai" on project "Matt's cool project"
+        And he should see "Already reviewed by you"
+
+
 
     # Scenario: When I am not a collaborator on a project, I can not access a project's page mockup
 

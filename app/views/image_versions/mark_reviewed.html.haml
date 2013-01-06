@@ -1,0 +1,14 @@
+%h1 Send email to inform others
+
+%p
+  To:
+%ul
+  - @project.collaborators.each do |collaborator|
+    %li= collaborator.email
+
+%p
+  = "Subject: #{current_user.email} has reviewed mockup '#{@image_version.page.name}'"
+
+%a{:href => send_reviewed_image_version_path(@image_version), :class => "btn btn-success"}
+  %i.icon-envelope.icon-white
+  Send email

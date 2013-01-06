@@ -53,4 +53,5 @@ group :test do
 	gem 'guard-spork'
 	gem 'spork'
 	gem 'guard-cucumber'
+  gem 'email_spec'
 end

@@ -75,6 +75,11 @@ Given /^Bob has a project named "(.*?)"$/ do |project_name|
   @bob_project = @bob.projects.create!(name: project_name, owner: @bob)
 end
 
+Then /^Bob should be redirected to the "(.*?)" project page$/ do |project_name|
+  project = @bob.projects.find_by_name(project_name)
+  page.current_path.should == project_path(project)
+  page.status_code.should == 200
+end
 
 Given /^(?:I am|he is) not signed in$/ do
   # by default I am not signed in, but how can I make sure...
@@ -195,6 +200,7 @@ Then /^he should see "(.*?)" for user "(.*?)" in the collaborators table$/ do |c
     page.should have_content(content)
   end
 end
+
 
 Given /^the project "(.*?)" has a mockup named "(.*?)"$/ do |project_name, mockup_name|
   steps %{

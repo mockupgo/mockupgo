@@ -23,6 +23,8 @@ MockupGo::Application.routes.draw do
     member do
       get 'aside'
       get 'preview'
+      get 'mark_reviewed'
+      get 'send_reviewed'
     end
   end
   

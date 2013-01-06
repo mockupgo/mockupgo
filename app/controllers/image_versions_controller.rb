@@ -1,8 +1,9 @@
 class ImageVersionsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :get_all_projects
 
-  layout "preview"
+  layout "preview", :except => :mark_reviewed
 
   def preview
     @image_version = ImageVersion.find(params[:id])
@@ -27,6 +28,24 @@ class ImageVersionsController < ApplicationController
 
   end
 
+  def mark_reviewed
+    @image_version = ImageVersion.find(params[:id])
+    @project = @image_version.page.project
+
+  end
+
+
+  def send_reviewed
+    @image_version = ImageVersion.find(params[:id])
+    @page    = @image_version.page
+    @project = @page.project
+
+    # save review date
+    ReviewMailer.reviewed_notice(@project.collaborators, current_user, @image_version).deliver
+    redirect_to [@project], notice: "Successfully send email."
+
+  end
+
 
   def aside
     @image_version = ImageVersion.find(params[:id])
@@ -35,6 +54,10 @@ class ImageVersionsController < ApplicationController
       format.html { render :partial => "aside", :locals => { :annotations => @image_version.annotations }}
     end
 
+  end
+
+  def get_all_projects
+    @projects = current_user.projects.all
   end
 
 end
