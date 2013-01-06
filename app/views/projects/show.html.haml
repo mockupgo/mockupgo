@@ -31,98 +31,98 @@
 
 
 
-%ol.timeline.clearfix
-  %li.spine
-    %a{:href => "#", :title => "This is the Spine of Facebook Timline. You can Add Custom Events here"}
+/ %ol.timeline.clearfix
+/   %li.spine
+/     %a{:href => "#", :title => "This is the Spine of Facebook Timline. You can Add Custom Events here"}
 
-  - @project.pages.order('created_at DESC').each do |page|
-    -if page.latest_version and page.latest_version.annotations.length > 0
-      %li.right
-        %i.pointer
-        .unit
-          / Story
-          .storyUnit
-            .imageUnit
-              %a{:href => "#"}
-                %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
-              .imageUnit-content
-                %h4
-                  %a{:href => "#"} Bob
-                %p= "#{time_ago_in_words(page.created_at)} ago"
+/   - @project.pages.order('created_at DESC').each do |page|
+/     -if page.latest_version and page.latest_version.annotations.length > 0
+/       %li.right
+/         %i.pointer
+/         .unit
+/           / Story
+/           .storyUnit
+/             .imageUnit
+/               %a{:href => "#"}
+/                 %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
+/               .imageUnit-content
+/                 %h4
+/                   %a{:href => "#"} Bob
+/                 %p= "#{time_ago_in_words(page.created_at)} ago"
 
-            %p
-              %b= "Commented on '#{page.name}'"
-            %p
-              - if page.latest_version
-                - page.latest_version.annotations.each do |annotation|
-                  %p= annotation.comment
-
-
-    %li.left
-      %i.pointer
-      .unit
-        / Story
-        .storyUnit
-          .imageUnit
-            %a{:href => "#"}
-              %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
-            .imageUnit-content
-              %h4
-                %a{:href => "#"} Vinay
-              %p= "#{time_ago_in_words(page.created_at)} ago"
-
-          %p
-            %b= "New version uploaded for '#{page.name}'"
-          %p
-            - if page.latest_version
-              = link_to project_page_path(@project, page) do
-                %span.thumb
-                  = image_tag page.latest_version.image_url(:thumb_top)
+/             %p
+/               %b= "Commented on '#{page.name}'"
+/             %p
+/               - if page.latest_version
+/                 - page.latest_version.annotations.each do |annotation|
+/                   %p= annotation.comment
 
 
+/     %li.left
+/       %i.pointer
+/       .unit
+/         / Story
+/         .storyUnit
+/           .imageUnit
+/             %a{:href => "#"}
+/               %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
+/             .imageUnit-content
+/               %h4
+/                 %a{:href => "#"} Vinay
+/               %p= "#{time_ago_in_words(page.created_at)} ago"
 
-  %li.left
-    %i.pointer
-    .unit
-      %ol.actions
-        %li.active
-          %a{:href => "#", :rel => "Status"}
-            %i.icon.icon-status>
-            Status
-        %li
-          %a{:href => "#"}
-            %i.icon.icon-photo>
-            Photo
-        %li
-          %a{:href => "#"}
-            %i.icon.icon-place>
-            Place
-        %li
-          %a{:href => "#"}
-            %i.icon.icon-event>
-            Life Event
-      / Units
-      .actionUnits
-        #Status.formUnit
-          %i.active
-          %textarea{:cols => "30", :id => "", :name => "", :placeholder => "What's on your mind?", :rows => "3"}
-          %ol.controls.clearfix
-            %li.post
-              %button.uibutton.confirm{:type => "submit"} Post
-      / / Units
-  %li.right
-    %i.pointer
-    .unit
-      / Story
-      .storyUnit
-        .imageUnit
-          %a{:href => "#"}
-            %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
-          .imageUnit-content
-            %h4
-              %a{:href => "#"} Vinay
-            %p 20 hours ago via Twitter
-        %p Just wow.. Harry potter and voldemort at #London2012 opening
+/           %p
+/             %b= "New version uploaded for '#{page.name}'"
+/           %p
+/             - if page.latest_version
+/               = link_to project_page_path(@project, page) do
+/                 %span.thumb
+/                   = image_tag page.latest_version.image_url(:thumb_top)
+
+
+
+/   %li.left
+/     %i.pointer
+/     .unit
+/       %ol.actions
+/         %li.active
+/           %a{:href => "#", :rel => "Status"}
+/             %i.icon.icon-status>
+/             Status
+/         %li
+/           %a{:href => "#"}
+/             %i.icon.icon-photo>
+/             Photo
+/         %li
+/           %a{:href => "#"}
+/             %i.icon.icon-place>
+/             Place
+/         %li
+/           %a{:href => "#"}
+/             %i.icon.icon-event>
+/             Life Event
+/       / Units
+/       .actionUnits
+/         #Status.formUnit
+/           %i.active
+/           %textarea{:cols => "30", :id => "", :name => "", :placeholder => "What's on your mind?", :rows => "3"}
+/           %ol.controls.clearfix
+/             %li.post
+/               %button.uibutton.confirm{:type => "submit"} Post
+/       / / Units
+/   %li.right
+/     %i.pointer
+/     .unit
+/       / Story
+/       .storyUnit
+/         .imageUnit
+/           %a{:href => "#"}
+/             %img{:alt => "", :height => "32", :src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/186035_897940273_1597318_q.jpg", :width => "32"}/
+/           .imageUnit-content
+/             %h4
+/               %a{:href => "#"} Vinay
+/             %p 20 hours ago via Twitter
+/         %p Just wow.. Harry potter and voldemort at #London2012 opening
 
 
 
