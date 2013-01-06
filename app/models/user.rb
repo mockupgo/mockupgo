@@ -33,4 +33,7 @@ class User < ActiveRecord::Base
   has_many :projects_users
   has_many :projects, through: :projects_users, :source => :project
 
+  has_many :reviews
+  has_many :reviewed_versions, through: :reviews, :source => :image_version
+
 end

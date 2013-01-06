@@ -156,7 +156,6 @@ Feature: A project can have multiple collaborators
         And he should see "Only project's owner can add new collaborators"
 
 
-    @wip
     Scenario: As a project collaborator, I can "mark as reviewed" a mockup after I have finished adding my annotations and send automatically an email alert to other collaborators
         Given a user matt@example.com
         Given a user john@example.com

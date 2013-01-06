@@ -9,6 +9,12 @@ class ImageVersion < ActiveRecord::Base
 
   before_save :detect_device_type
 
+  has_many :reviews
+  has_many :user_reviews, through: :reviews, :source => :user
+
+  def reviewed_by?(user)
+    user_reviews.where('user_id = ?', user.id).count > 0
+  end
 
   private
 

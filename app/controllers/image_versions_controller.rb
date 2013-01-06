@@ -41,6 +41,9 @@ class ImageVersionsController < ApplicationController
     @project = @page.project
 
     # save review date
+    current_user.reviewed_versions << @image_version
+    current_user.save
+
     ReviewMailer.reviewed_notice(@project.collaborators, current_user, @image_version).deliver
     redirect_to [@project], notice: "Successfully send email."
 
