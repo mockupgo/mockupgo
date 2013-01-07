@@ -17,3 +17,34 @@
 .well.email-background {
     background-color: white;
 }
+
+.flash-message {
+    // background-color:rgba(0,0,0,0.6);
+    background: black;
+    opacity: 0.7;
+    border: solid white 2px ;
+
+    width: 300px;
+    padding: 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    -webkit-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 0px 10px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 0px 10px rgba(50, 50, 50, 0.75);
+
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.flash-message-box {
+    padding: 3px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
