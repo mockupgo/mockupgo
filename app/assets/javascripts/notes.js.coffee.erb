@@ -7,9 +7,7 @@ $ ->
     image_version_id = $('div[data-image-version]').attr("data-image-version")
 
     channel    = pusher.subscribe("my-channel-image-version-" + image_version_id)
-    # channel_rt = pusher.subscribe("private-rt-update-image-version-" + image_version_id)
     channel_rt = pusher.subscribe("presence-rt-update-image-version-" + image_version_id)
-    # channel_presence = pusher.subscribe("presence-rt-update-image-version-" + image_version_id)
     window.channel_rt = channel_rt
     window.connected_user_count = 0
 

@@ -29,6 +29,9 @@ class AnnotationsController < ApplicationController
 
         logger.debug @annotation.inspect
 
+        Pusher["presence-rt-update-image-version-#{@image_version.id}"]
+                    .trigger('create-note', {:message => @annotation}, @pusher_socket_id)
+
         respond_to do |format|
             if @annotation.save
                 format.json { render json: @annotation, status: :created, location: @annotation }
@@ -36,9 +39,6 @@ class AnnotationsController < ApplicationController
                 format.json { render json: @annotation.errors, status: :unprocessable_entity }
             end
         end
-
-        Pusher["private-rt-update-image-version-#{@image_version.id}"]
-                    .trigger('create-note', {:message => @annotation}, @pusher_socket_id)
 
     end
 
