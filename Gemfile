@@ -14,6 +14,8 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'fog'
 
+gem "airbrake"
+
 gem 'jquery-fileupload-rails'
 
 group :development do
