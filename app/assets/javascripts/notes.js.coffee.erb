@@ -4,7 +4,7 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    image_version_id = $('div[data-image-version]').attr("data-image-version")
+    image_version_id = $('.current-version div[data-image-version]').attr("data-image-version")
 
     channel    = pusher.subscribe("my-channel-image-version-" + image_version_id)
     channel_rt = pusher.subscribe("presence-rt-update-image-version-" + image_version_id)
