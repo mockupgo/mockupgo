@@ -1,4 +1,7 @@
 %li.project
+  / = link_to project_path(project) do
+  /   = image_tag "cover-for-project.png"
+  
   %h2
     = link_to project.name, project
 
