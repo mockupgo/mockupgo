@@ -18,6 +18,17 @@ div.note {
     color: #333;
     position: absolute;
 
+    .note-mover-name {
+        padding: 4px;
+        background: yellow;
+        font-weight: bold;
+        display: block;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
 }
 
 span#arrow {
@@ -55,8 +66,13 @@ span#arrow {
     font-size: 12px;
     border: 2px solid white;
 
+
+    .comment-higlight {
+        background: yellow;
+    }
+
     .comment {
-        margin-top: 6px;
+        margin-top: 8px;
 
         .comment-author {
             font-size: 11px;
@@ -65,7 +81,7 @@ span#arrow {
         }
 
         .comment-text {
-
+            line-height: 16px;
         }
     }
 }

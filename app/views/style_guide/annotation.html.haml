@@ -1,0 +1,237 @@
+%h1 Annotations Style Guide
+
+%table.style-guide
+  %tr
+    %td
+      %h3 default after loading (1 note)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  %btn.btn.btn-small
+                    reply
+
+    %td
+      %h3 default after loading (2 notes)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6 hours ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  .comment-author
+                    albert@gmail.com (2 days ago):
+                  .comment-text= "I don't like this suggestion. We need another option to see if it is really easy to create a buttons like this one and if the user understant it."
+                .comment
+                  %btn.btn.btn-small
+                    reply
+
+  %tr
+    %td
+      %h3 creating a new annotations (local)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .note-content
+                  #comment_bar.input_bar
+                    %form{:action => "", :method => "post"}
+                      .textarea
+                        %textarea#comment.replace{:name => "comment", :rows => "3"}
+                      %button.black.create-button{:type => "submit"} Add Note
+
+    %td
+      %h3 creating a new annotations (remote) 
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .note-content
+                  .comment-text New note by sgignoux@gmail.com
+
+
+
+  %tr
+    %td
+      %h3 creating a new annotations and starting to type (local)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .note-content
+                  #comment_bar.input_bar
+                    %form{:action => "", :method => "post"}
+                      .textarea
+                        %textarea#comment.replace{:name => "comment", :rows => "3"}
+                          This is a test
+                      %button.black.create-button{:type => "submit"} Add Note
+                    
+    %td
+      %h3 creating a new annotations and starting to type (remote) 
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .note-content
+                  .comment-text
+                    %u sgignoux@gmail.com:
+                    This is a test
+
+
+  %tr
+    %td
+      %h3 replying to a comment to a note (local)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  #comment_bar.input_bar
+                    %form{:action => "", :method => "post"}
+                      .textarea
+                        %textarea#comment.replace{:name => "comment", :rows => "3"}
+                          I don't like the 
+                      %button.black.create-button{:type => "submit"} Reply
+    %td
+      %h3 replying to a comment to a note (remote)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment.comment-higlight
+                  .comment-author
+                    sgignoux@gmail.com (now):
+                  .comment-text= "I don't like the "
+
+  %tr
+    %td
+      %h3 moving a note (local)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  %btn.btn.btn-small
+                    reply
+    %td
+      %h3 moving a note (remote)
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 200px; height: 100px; "}
+            .note-mover-name sgignoux@gmail.com
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  %btn.btn.btn-small
+                    reply
+
+
+  %tr
+    %td
+      %h3 narrow note
+      .image-container{:style => "position: relative; "}
+        = image_tag "style-guide/sample-mockup.png"
+        .notes
+          .note{"data-id" => "999", :style => "top: 100px; left: 100px; width: 20px; height: 100px; "}
+            %span.black.note-counter
+              1
+            %a.delete-note{:href => "#", :style => "display: block;"} Delete
+            .note-wrapper
+              .note-comment
+                %span#arrow
+                .comment
+                  .comment-author
+                    bob@bob.com (6h ago):
+                  .comment-text= "This is a normal length comment for this kind of notes and with some lenght in the change that is suggested."
+                .comment
+                  %btn.btn.btn-small
+                    reply
+
+    %td
+      %h3 TBD
+      = image_tag "style-guide/sample-mockup.png"
+
+

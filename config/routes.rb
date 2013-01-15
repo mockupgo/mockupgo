@@ -1,4 +1,6 @@
 MockupGo::Application.routes.draw do
+  get "style_guide/annotation"
+
   resources :projects_users
 
   match "pusher/auth",  to: "pusher#auth"
