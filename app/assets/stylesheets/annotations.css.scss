@@ -38,7 +38,7 @@ span#arrow {
 
 .note-comment {
     // display: none;
-    background-color:rgba(0,0,0,0.7);
+    background-color:rgba(0.2,0.2,0.2,0.8);
     position: absolute;
     top: 100%;
     left: -4px;
@@ -54,6 +54,20 @@ span#arrow {
     color: white;
     font-size: 12px;
     border: 2px solid white;
+
+    .comment {
+        margin-top: 6px;
+
+        .comment-author {
+            font-size: 11px;
+            color: #bbb;
+            line-height: 10px;
+        }
+
+        .comment-text {
+
+        }
+    }
 }
 
 a.delete-note:hover {
