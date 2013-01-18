@@ -18,12 +18,15 @@ gem "airbrake"
 
 gem 'jquery-fileupload-rails'
 
+gem "binding_of_caller"
+
 group :development do
 	gem 'sqlite3'
 	gem 'guard-rspec', '0.5.5'
 	gem 'rspec-rails', '2.11.0'
   gem 'tlsmail'
   gem 'annotate', ">=2.5.0"
+  gem "better_errors"
 end
 
 group :production do
