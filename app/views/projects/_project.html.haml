@@ -1,14 +1,17 @@
 %li.project
   / = link_to project_path(project) do
   /   = image_tag "cover-for-project.png"
-  
+  %hr/
   %h2
     = link_to project.name, project
 
   %p
-    - project.pages.each do |page| 
-      - if page.latest_version
-        = link_to project_page_path(project, page) do
-          %span.thumb
-            = image_tag page.latest_version.image_url(:thumb_top)
+    - if project.pages.any?
+      - project.pages.each do |page| 
+        - if page.latest_version
+          = link_to project_page_path(project, page) do
+            %span.thumb
+              = image_tag page.latest_version.image_url(:thumb_top)
+    - else
+      You don't have any mockup on this project yet. Go on the project page and upload some.
 
