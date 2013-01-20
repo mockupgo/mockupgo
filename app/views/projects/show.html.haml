@@ -24,7 +24,7 @@
 
 
 .well.clearfix
-  %h4 Import new mockups
+  %h4 Add new image mockups (png, jpeg)
   = form_for [@project, @project.pages.build], :html => {:multipart => true} do |f|
     = f.file_field :image_versions, multiple: true, name: "image_version[image]"
     = f.submit "Import"
