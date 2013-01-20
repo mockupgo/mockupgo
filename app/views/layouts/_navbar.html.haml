@@ -16,4 +16,5 @@
                   %li
                     = link_to project.name, project
           %ul.nav.pull-right
+            %li= link_to("(#{current_user.email})", "#")
             %li= link_to('Sign out', destroy_user_session_path, :method => :delete)

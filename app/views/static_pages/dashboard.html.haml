@@ -4,9 +4,10 @@
   = render @projects
 
 .well
+  %h4 Create a new project:
   = form_for Project.new, :html => { class: "form-horizontal" } do |f|
     .control-group
-      = f.label :name, class: "control-label"
+      = f.label :name, "Project name", class: "control-label"
       .controls
         = f.text_field :name
     .control-group

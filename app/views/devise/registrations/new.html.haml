@@ -1,17 +1,20 @@
 .row
   .span4.offset4
     .well
-      %legend Sign up
+      %legend Sign up for MockupGo
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
         = devise_error_messages!
         %div
           = f.label :email
           = f.email_field :email
         %div
-          = f.label :password
+          = f.label :password, "Password (6 characters minimum)"
           = f.password_field :password
         %div
           = f.label :password_confirmation
           = f.password_field :password_confirmation
         %div= f.submit "Sign up"
-      = render "devise/shared/links"
+
+      %h5
+        Already a user?&nbsp;
+        = link_to "Sign in here", new_session_path(resource_name)
