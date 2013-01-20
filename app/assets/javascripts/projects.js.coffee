@@ -20,5 +20,6 @@ jQuery ->
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.bar').css('width', progress + '%')
     done: (e, data) ->
+      $('.no-project').hide()
       if data.context
         data.context.remove()

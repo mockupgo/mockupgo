@@ -14,13 +14,13 @@
 
 
 %ul#images.clearfix
-- if @project.pages.length > 0
-  = render @project.pages
-- else
-  %p.no-project
-    You don't have any image mockup yet. 
-    %br/
-    Drag and drop jpeg or png files ore use the box below to upload one.
+  - if @project.pages.length > 0
+    = render @project.pages
+  - else
+    %p.no-project
+      You don't have any image mockup yet. 
+      %br/
+      Drag and drop jpeg or png files ore use the box below to upload one.
 
 
 .well.clearfix
