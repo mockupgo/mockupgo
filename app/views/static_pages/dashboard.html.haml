@@ -1,7 +1,15 @@
 %h1 Dashboard
 
-%ul.project-list
-  = render @projects
+
+- if @projects.length > 0
+  %ul.project-list
+    = render @projects
+- else
+  %p.no-project
+    You don't have any project yet. 
+    %br/
+    Use the box bellow to create one.
+
 
 .well
   %h4 Create a new project:
@@ -9,7 +17,7 @@
     .control-group
       = f.label :name, "Project name", class: "control-label"
       .controls
-        = f.text_field :name
+        = f.text_field :name, :placeholder => "Project name"
     .control-group
       .controls
         = f.submit class: "btn btn-primary"

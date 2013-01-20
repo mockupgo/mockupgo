@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
       flash[:error]  = project.errors.full_messages
     end
 
-		redirect_to dashboard_path
+		redirect_to project
 	end
 
 

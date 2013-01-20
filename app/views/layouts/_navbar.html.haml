@@ -12,9 +12,13 @@
                 Projects
                 %b.caret
               %ul.dropdown-menu
-                - @projects.each do |project|
-                  %li
-                    = link_to project.name, project
+                - if @projects.length > 0
+                  - @projects.each do |project|
+                    %li
+                      = link_to project.name, project
+                - else
+                  %li= link_to "There are no projects", "#"
+
           %ul.nav.pull-right
             %li= link_to("(#{current_user.email})", "#")
             %li= link_to('Sign out', destroy_user_session_path, :method => :delete)

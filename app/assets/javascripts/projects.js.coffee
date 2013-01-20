@@ -9,6 +9,7 @@ jQuery ->
       types = /(\.|\/)(gif|jpe?g|png)$/i
       file = data.files[0]
       if types.test(file.type) || types.test(file.name)
+        x = tmpl("template-upload", file)
         data.context = $(tmpl("template-upload", file))
         $('#new_page').append(data.context)
         data.submit()
