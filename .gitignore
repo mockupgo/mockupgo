@@ -16,3 +16,5 @@
 .DS_Store
 /bundler_stubs
 /public/uploads/
+/*.sublime-project
+/*.sublime-workspace
