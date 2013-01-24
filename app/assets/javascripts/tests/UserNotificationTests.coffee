@@ -20,25 +20,25 @@ describe 'user notifications end to end tests', ->
 
     it 'should exist html code with class ".user-notification" in count of 1', ->
         check ->
-            # somehow trigger 'user entered' event
+            a = 1# somehow trigger 'user entered' event
         , 1
 
     it 'should exist html code with class ".user-notification" in count of 1', ->
         check ->
-            # somehow trigger 'user exited' event
+            a = 1 # somehow trigger 'user exited' event
         , 1
 
     it 'should exist html code with class ".user-notification" in count of 2', ->
         check ->
-            # somehow trigger 'user entered' event two times
+            a = 1 # somehow trigger 'user entered' event two times
         , 2
 
     it 'should exist html code with class ".user-notification" in count of 2', ->
         check ->
-            # somehow trigger 'user exited' event two times
+            a = 1 # somehow trigger 'user exited' event two times
         , 2
 
     it 'should exist html code with class ".user-notification" in count of 2', ->
         check ->
-            # somehow trigger 'user entered' event and then 'user exited' event
+            a = 1 # somehow trigger 'user entered' event and then 'user exited' event
         , 2
