@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'pusher'
 
+gem 'rmagick'
 gem 'carrierwave'
 gem 'fog'
 
@@ -30,7 +31,6 @@ end
 
 group :production do
   gem 'pg', '0.14.0'
-  gem 'rmagick'
 end
 
 # Gems used only for assets and not required
