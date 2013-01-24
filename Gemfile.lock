@@ -68,9 +68,6 @@ GEM
       xpath (~> 0.1.4)
     capybara-screenshot (0.3)
       capybara (>= 1.0)
-    capybara-webkit (0.12.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     carrierwave (0.7.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -299,7 +296,6 @@ DEPENDENCIES
   cancan
   capybara
   capybara-screenshot
-  capybara-webkit
   carrierwave
   coffee-rails (~> 3.2.1)
   cucumber-rails (= 1.2.1)
