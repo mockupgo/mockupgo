@@ -18,3 +18,10 @@
 %script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
 :javascript
   var pusher = new Pusher("#{Pusher.key}");
+
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/vEfjrpNU8TQkIFpweGLQ.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
