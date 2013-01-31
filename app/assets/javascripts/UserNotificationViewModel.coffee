@@ -1,6 +1,6 @@
 class UserNotificationViewModel
 
     update: (notifications) ->
-        console.log 'drawing of newly added notifications, removing of outdated ones'
+        console.log 'ViewModel: drawing of newly added notifications, removing of outdated ones'
 
 exports.UserNotificationViewModel = UserNotificationViewModel
