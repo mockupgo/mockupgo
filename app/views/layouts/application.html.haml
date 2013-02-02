@@ -11,10 +11,10 @@
       .content
       - flash.each do |key, value|
         %div{:class => "alert alert-#{key == :notice ? "success" : "error"}"}= value
-        
+
       %div
         = yield
-        
+
 %script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
 :javascript
   var pusher = new Pusher("#{Pusher.key}");

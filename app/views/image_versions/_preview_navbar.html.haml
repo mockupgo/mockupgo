@@ -5,7 +5,7 @@
       - if @image_version.reviewed_by?(current_user)
         %a{:href => mark_reviewed_image_version_path(@image_version), :class => "btn btn-success"}
           %i.icon-ok.icon-white
-          Already reviewed by you    
+          Already reviewed by you
       - else
         %a{:href => mark_reviewed_image_version_path(@image_version), :class => "btn"}
           Mark as reviewed
@@ -27,9 +27,9 @@
             %li.nav-header
               Project: #{@project.name}
             %li.divider
-            - @project.pages.each do |page| 
+            - @project.pages.each do |page|
               %li
-                %a{:href => preview_image_version_path(page.latest_version)} 
+                %a{:href => preview_image_version_path(page.latest_version)}
                   = image_tag page.latest_version.image_url(:thumb_top)
                   = page.name
               %li.divider
@@ -42,13 +42,15 @@
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             %span.connected-users-count
-              -
+              {{connectedUsersCount}}
             %i.icon-user.icon-white
           %ul.dropdown-menu.page-navigator-menu.connected-users-list
             - @project = @image_version.page.project
             %li.nav-header
               Connected on this page:
             %li.divider
+            %li{"ng-repeat" => "user in connectedUsers", "id" => "{{user.id}}"}
+              {{user.info.email}}
 
 
 

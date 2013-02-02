@@ -4,28 +4,17 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    image_version_id = $('.current-version div[data-image-version]').attr("data-image-version")
-
     channel    = pusher.subscribe("my-channel-image-version-" + image_version_id)
-    channel_rt = pusher.subscribe("presence-rt-update-image-version-" + image_version_id)
-    window.channel_rt = channel_rt
-    window.connected_user_count = 0
-
-    channel_rt.bind 'pusher:subscription_succeeded', (members) ->
-        members.each(add_member);
-
-    channel_rt.bind 'pusher:member_added', (member) ->
-        add_member(member)
 
     channel_rt.bind 'pusher:member_removed', (member) ->
         remove_member(member)
 
 
     add_member = (member) ->
-        console.log("Adding: " + member.info.email)
-        window.connected_user_count = window.connected_user_count + 1
-        $('.connected-users-count').text(window.connected_user_count)
-        $('ul .connected-users-list').append('<li id="member_' + member.id + '">' + member.info.email + '</li>')
+        # console.log("Adding: " + member.info.email)
+        # window.connected_user_count = window.connected_user_count + 1
+        # $('.connected-users-count').text(window.connected_user_count)
+        # $('ul .connected-users-list').append('<li id="member_' + member.id + '">' + member.info.email + '</li>')
         container = $("<div>",
             class: "flash-message",
             style: "display: none",
@@ -69,7 +58,7 @@ $ ->
 
     channel_rt.bind "client-delete-note-in-progress", (data) ->
         $("div.note[data-id='" + data.id + "']").fadeOut().remove()
-    
+
 
     channel_rt.bind "client-update-note-position", (data) ->
         note = $("div.note[data-id='" + data.id + "']")
@@ -109,27 +98,27 @@ $ ->
             note_html.css "height", note.height
 
 
-activate_note = (note) -> 
+activate_note = (note) ->
     window.console.log "activate_note"
     window.console.log note.length
     note.draggable(
-        start: (event) -> 
+        start: (event) ->
             start_realtime_pos_update $(this), event
-        stop:  (event) -> 
+        stop:  (event) ->
             stop_realtime_pos_update $(this), event
             update_note_pos $(this), event
     )
     note.resizable(
-        start: (event) -> 
+        start: (event) ->
             start_realtime_size_update $(this), event
-        stop: (event) -> 
+        stop: (event) ->
             stop_realtime_size_update $(this), event
             update_note_pos $(this), event
     )
     note.bind
-        mouseenter: -> 
+        mouseenter: ->
             $(this).find('a.delete-note').clearQueue().fadeIn(100)
-        mouseleave: -> 
+        mouseleave: ->
             $(this).find('a.delete-note').clearQueue().fadeOut(100)
 
 update_note_pos = (note, event) ->
@@ -137,7 +126,7 @@ update_note_pos = (note, event) ->
     $.ajax '/annotations/' + id,
         type: 'PUT'
         dataType: 'JSON'
-        data: 
+        data:
             position:
                 top:    note.css('top')
                 left:   note.css('left')
@@ -152,7 +141,7 @@ start_realtime_pos_update = (note, event) ->
     window.current_note = note
     window.current_note_id = id
     interval_timer = setInterval((note, id) ->
-            window.channel_rt.trigger "client-update-note-position", 
+            window.channel_rt.trigger "client-update-note-position",
                 "id":   window.current_note_id,
                 "top":  window.current_note.css('top'),
                 "left": window.current_note.css('left'),
@@ -161,7 +150,7 @@ start_realtime_pos_update = (note, event) ->
 stop_realtime_pos_update = (note, event) ->
     clearInterval(interval_timer)
     window.console.log("stop realtime update")
-    
+
 
 
 start_realtime_size_update = (note, event) ->
@@ -170,7 +159,7 @@ start_realtime_size_update = (note, event) ->
     window.current_note = note
     window.current_note_id = id
     interval_timer = setInterval((note, id) ->
-            window.channel_rt.trigger "client-update-note-size", 
+            window.channel_rt.trigger "client-update-note-size",
                 "id":     window.current_note_id,
                 "width":  window.current_note.css('width'),
                 "height": window.current_note.css('height'),
@@ -179,14 +168,14 @@ start_realtime_size_update = (note, event) ->
 stop_realtime_size_update = (note, event) ->
     clearInterval(interval_timer)
     window.console.log("stop realtime update")
-    
+
 # UPDATE SCROLL
 # window.current_scroll = 0
 # scroll_interval_timer = setInterval( ->
 #         new_scroll = $('.screenshot-portrait').scrollTop()
 #         if window.current_scroll != new_scroll
 #             window.current_scroll = new_scroll
-#             window.channel_rt.trigger "client-update-scroll-pos", 
+#             window.channel_rt.trigger "client-update-scroll-pos",
 #                 "pos": new_scroll
 #     , 300)
 
@@ -196,9 +185,9 @@ update_note_comment = (note, comment) ->
     $.ajax '/annotations/' + id,
         type: 'PUT'
         dataType: 'JSON'
-        data: 
+        data:
             comment: comment
-        success: (data) -> 
+        success: (data) ->
             note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
             $('.note-new').removeClass('note-new')
 
@@ -206,7 +195,7 @@ update_aside = (image_version) ->
     $.ajax '/image_versions/' + image_version + '/aside'
         type: 'GET'
         dataType: 'HTML'
-        success: (data) -> 
+        success: (data) ->
             $('aside').html(data)
 
 jQuery ->
@@ -241,7 +230,7 @@ jQuery ->
             $('.note-new textarea#comment').focus()
             $('.note-new textarea#comment').keyup () ->
                 window.console.log window.curent_user_email + ": " +$(this).val()
-                window.channel_rt.trigger "client-new-note-comment-in-progress", 
+                window.channel_rt.trigger "client-new-note-comment-in-progress",
                     "id":     "999",
                     "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
 
@@ -263,7 +252,7 @@ jQuery ->
                 note_height = parseInt(helper.css('height'))
                 note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
                 note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
-                window.channel_rt.trigger "client-new-note-in-progress", 
+                window.channel_rt.trigger "client-new-note-in-progress",
                     "id":   window.current_note_id,
                     "width":  note_width,
                     "height": note_height,
@@ -288,7 +277,7 @@ jQuery ->
         $.ajax '/annotations',
             type: 'POST'
             dataType: 'JSON'
-            data: 
+            data:
                 socket_id: pusher.connection.socket_id
                 image_version: screenshot.data('image-version')
                 comment: comment
@@ -297,7 +286,7 @@ jQuery ->
                     left:   helper.css('left')
                     width:  helper.css('width')
                     height: helper.css('height')
-            success: (data) -> 
+            success: (data) ->
                 new_note = $('div.note-new')
                 console.log("received new note")
                 new_note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
@@ -310,7 +299,7 @@ jQuery ->
         screenshot = $(event.target).closest('.image-container')
         $(this).parent().fadeOut()
         note_id = $(this).parent().data('id')
-        window.channel_rt.trigger "client-delete-note-in-progress", 
+        window.channel_rt.trigger "client-delete-note-in-progress",
             "id":   note_id
         $.ajax '/annotations/' + $(this).parent().data('id'),
             type: 'DELETE'
@@ -332,7 +321,7 @@ jQuery ->
         window.curent_user_email = userdata.data('current-user-email')
         note_field.keyup () ->
             window.console.log window.curent_user_email + ": " +$(this).val()
-            window.channel_rt.trigger "client-new-note-comment-in-progress", 
+            window.channel_rt.trigger "client-new-note-comment-in-progress",
                     "id":     note_id,
                     "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
 
@@ -347,14 +336,14 @@ jQuery ->
         update_aside(screenshot.data('image-version'))
 
 
-    # Loading existing notes 
+    # Loading existing notes
     # TODO: NEED TO LOAD PORTRAIT AND LANDSCAPE NOTES FOR IPHONE AND IPAD
     # $.ajax '/notes'
     #   type: 'GET'
     #   dataType: 'HTML'
-    #   data: 
+    #   data:
     #       mockup: $('#page-content').data('mockup') ####
-    #   success: (data) -> 
+    #   success: (data) ->
     #       $('#notes').html(data) ####
     activate_note $('.note')
     $('a.delete-note').hide()
