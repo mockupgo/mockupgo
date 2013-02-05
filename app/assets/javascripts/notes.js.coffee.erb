@@ -4,35 +4,31 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    channel    = pusher.subscribe("my-channel-image-version-" + image_version_id)
+    channel = pusher.subscribe("my-channel-image-version-" + image_version_id)
 
-    channel_rt.bind 'pusher:member_removed', (member) ->
-        remove_member(member)
-
-
-    add_member = (member) ->
-        # console.log("Adding: " + member.info.email)
-        # window.connected_user_count = window.connected_user_count + 1
-        # $('.connected-users-count').text(window.connected_user_count)
-        # $('ul .connected-users-list').append('<li id="member_' + member.id + '">' + member.info.email + '</li>')
-        container = $("<div>",
-            class: "flash-message",
-            style: "display: none",
-            id: "presence_" + member.id)
-        $('.flash-message-box').append(container.html("<i class='icon-user icon-white'></i> " + member.info.email + " has joined").fadeIn(1000).delay(1500).fadeOut(1000))
+    # add_member = (member) ->
+    #     # console.log("Adding: " + member.info.email)
+    #     # window.connected_user_count = window.connected_user_count + 1
+    #     # $('.connected-users-count').text(window.connected_user_count)
+    #     # $('ul .connected-users-list').append('<li id="member_' + member.id + '">' + member.info.email + '</li>')
+    #     container = $("<div>",
+    #         class: "flash-message",
+    #         style: "display: none",
+    #         id: "presence_" + member.id)
+    #     $('.flash-message-box').append(container.html("<i class='icon-user icon-white'></i> " + member.info.email + " has joined").fadeIn(1000).delay(1500).fadeOut(1000))
 
 
 
-    remove_member = (member) ->
-        console.log("Removing: " + member.info.email)
-        window.connected_user_count = window.connected_user_count - 1
-        $('.connected-users-count').text(window.connected_user_count)
-        $('ul .connected-users-list #member_' + member.id).fadeOut(100)
-        container = $("<div>",
-            class: "flash-message",
-            style: "display: none",
-            id: "presence_" + member.id)
-        $('.flash-message-box').append(container.html("<i class='icon-user icon-white'></i> " + member.info.email + " has left").fadeIn(1000).delay(1500).fadeOut(1000))
+    # remove_member = (member) ->
+    #     console.log("Removing: " + member.info.email)
+    #     window.connected_user_count = window.connected_user_count - 1
+    #     $('.connected-users-count').text(window.connected_user_count)
+    #     $('ul .connected-users-list #member_' + member.id).fadeOut(100)
+    #     container = $("<div>",
+    #         class: "flash-message",
+    #         style: "display: none",
+    #         id: "presence_" + member.id)
+    #     $('.flash-message-box').append(container.html("<i class='icon-user icon-white'></i> " + member.info.email + " has left").fadeIn(1000).delay(1500).fadeOut(1000))
 
 
     channel.bind "alert-note", (data) ->
@@ -347,8 +343,3 @@ jQuery ->
     #       $('#notes').html(data) ####
     activate_note $('.note')
     $('a.delete-note').hide()
-
-require 'pusher'
-Pusher.app_id = '27194'
-Pusher.key    = '0f5ad327c0a36a8fe378'
-Pusher.secret = 'f24408b4a894e34e4ecf'
