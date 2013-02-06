@@ -1,36 +1,41 @@
+exports = if typeof window is "undefined" then exports else window
+
+class UserNotifications
+    constructor: (@channel_rt, @scope) ->
+        @login()
+        @subscribeOtherMembers()
+
+    login: =>
+        @channel_rt.bind 'pusher:subscription_succeeded', (members) =>
+            @me = members.me
+            @me.id = @me.id.toString()
+            @connectedUsers = {}
+            @scope.$apply =>
+                @connectedUsersCount = 0
+            for id of members._members_map
+                @addUser email:members._members_map[id].email, id:id
+
+    subscribeOtherMembers: =>
+        @channel_rt.bind 'pusher:member_added', (member) =>
+            unless @connectedUsers[member.id]
+                @addUser email:member.info.email, id:member.id
+
+        @channel_rt.bind 'pusher:member_removed', (member) =>
+            unless member is @me
+                @removeUser email:member.info.email, id:member.id
+
+    addUser: (user) =>
+        @connectedUsers[user.id] = user
+        @scope.$apply =>
+            @connectedUsersCount++
+            @scope.notifications["#{user.id}-yes"] = id:user.id.toString(), email:user.email, bLogIn:yes
+
+    removeUser: (user) =>
+        delete @connectedUsers[user.id]
+        @scope.$apply =>
+            @connectedUsersCount--
+            @scope.notifications["#{user.id}-no"] = id:user.id.toString(), email:user.email, bLogIn:no
+
+exports.UserNotifications = UserNotifications
 config = require './config'
 UserNotificationViewModel = (require './UserNotificationViewModel').UserNotificationViewModel
-
-class UserNotification
-    constructor: (@email, @pusher) ->
-        @notifications = []
-        @viewModel = new UserNotificationViewModel()
-        @subscribeOtherMembers()
-        console.log "UNClass for " + @email + ": constructed"
-
-    login: ->
-        @pusher.send "subscribe", @email
-        @pusher.receive "subscription_succeeded", =>
-            console.log "UNClass for " + @email + ": login: user logged!!!"
-            @logged = yes
-
-    logout: ->
-        @pusher.send "unsubscribe", @email
-        @pusher.receive "unsubscription_succeeded", =>
-            console.log "UNClass for " + @email + ": logout: user logged out!!!"
-            @logged = no
-
-    subscribeOtherMembers: ->
-        for evt in ["member_added", "member_removed"]
-            @pusher.subscribe evt, (member) =>
-                @notifications.push member
-                @viewModel.update @notifications
-                console.log "UNClass for " + @email + ": notifications: " + JSON.stringify @notifications
-
-                setTimeout =>
-                    @notifications.splice @notifications.indexOf(member), 1
-                    @viewModel.update @notifications
-                    console.log "UNClass for " + @email + ": notifications: " + JSON.stringify @notifications
-                , config.durations.notification
-
-exports.UserNotification = UserNotification

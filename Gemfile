@@ -51,8 +51,6 @@ group :test do
 	gem 'factory_girl_rails', '4.0.0'
 	gem 'capybara-screenshot'
 	gem 'launchy'
-  gem 'capybara'
-	gem 'capybara-webkit'
 	gem 'rb-fsevent', :require => false
 	gem 'growl'
 	gem 'guard-spork'

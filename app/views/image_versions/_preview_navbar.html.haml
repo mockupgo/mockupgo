@@ -42,14 +42,14 @@
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             %span.connected-users-count
-              {{connectedUsersCount}}
+              {{userNotifications.connectedUsersCount}}
             %i.icon-user.icon-white
           %ul.dropdown-menu.page-navigator-menu.connected-users-list
             - @project = @image_version.page.project
             %li.nav-header
               Connected on this page:
             %li.divider
-            %li{"ng-repeat" => "user in connectedUsers", "id" => "{{user.id}}"}
+            %li{"ng-repeat" => "user in userNotifications.connectedUsers", "id" => "{{user.id}}"}
               {{user.email}}
 
 

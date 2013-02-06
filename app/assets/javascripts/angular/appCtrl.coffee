@@ -5,34 +5,9 @@ window.appCtrl = ($scope, $timeout) ->
     window.channel_rt = channel_rt
     window.image_version_id = image_version_id
 
-    channel_rt.bind 'pusher:subscription_succeeded', (members) ->
-        $scope.$apply ->
-            $scope.me = members.me
-            $scope.connectedUsers = {}
-            $scope.connectedUsersCount = 0
-            angular.forEach members._members_map, (member, id) ->
-                $scope.addUser email:member.email, id:id
+    $scope.notifications = {}
 
-
-    channel_rt.bind 'pusher:member_added', (member) ->
-        $scope.$apply ->
-            unless $scope.connectedUsers[member.id]
-                $scope.addUser email:member.info.email, id:member.id
-
-    channel_rt.bind 'pusher:member_removed', (member) ->
-        $scope.$apply ->
-            unless member is $scope.me
-                $scope.removeUser email:member.info.email, id:member.id
-
-    $scope.addUser = (user) ->
-        $scope.connectedUsers[user.id] = user
-        $scope.connectedUsersCount++
-        notify user.id, user.email, yes
-
-    $scope.removeUser = (user) ->
-        delete $scope.connectedUsers[user.id]
-        $scope.connectedUsersCount--
-        notify user.id, user.email, no
+    $scope.userNotifications = new UserNotifications channel_rt, $scope
 
     notify = (id, email, bLogIn) ->
         divId = id + "-" + bLogIn
@@ -46,3 +21,5 @@ window.appCtrl = ($scope, $timeout) ->
             , 3500
 
 config = (require '../config.coffee').durations
+exports.UserNotificationViewModel = UserNotificationViewModel
+
