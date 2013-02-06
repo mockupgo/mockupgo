@@ -1,3 +1,10 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+class PusherService
+    constructor: (image_version_id) ->
+        @channel_rt = pusher.subscribe("presence-rt-update-image-version-" + image_version_id)
+        window.channel_rt = @channel_rt
+
+    subscribe: (method, handler) ->
+        @channel_rt.bind "pusher:#{method}", handler
+
+
+(if window? then window else exports).PusherService = PusherService

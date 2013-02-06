@@ -4,5 +4,4 @@ durations =
     delay : 2000
     fadeout : 1000
 
-exports = if typeof window is "undefined" then exports else window
-exports.durations = durations
+(if window? then window else exports).durations = durations

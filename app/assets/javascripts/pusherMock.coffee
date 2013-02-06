@@ -13,25 +13,15 @@ class PusherMock
                 console.log "PusherMock: send: calling handler for #{toHandle.trigger}"
                 wrapper.handler toHandle.args
 
-            @memberAddedHandlers[toHandle.trigger] = (w for w in mah when not w.oneOff)
-
-
     subscribe: (method, handler) ->
-        @addHandler method, handler, no
+        @addHandler method, handler
 
-    receive: (method, handler) ->
-        @addHandler method, handler, yes
-        handler()
-
-    addHandler: (method, handler, oneOff) ->
+    addHandler: (method, handler) ->
         @memberAddedHandlers[method] = [] unless @memberAddedHandlers[method]?
-        @memberAddedHandlers[method].push handler: handler, oneOff: oneOff
+        @memberAddedHandlers[method].push handler: handler
 
     when: (method, toTrigger) ->
         @toTrigger[method] = [] unless @toTrigger[method]?
         @toTrigger[method].push toTrigger
-
-    smth: (val) ->
-        yes
 
 exports.PusherMock = PusherMock
