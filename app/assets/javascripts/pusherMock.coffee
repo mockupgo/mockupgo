@@ -1,27 +1,32 @@
 class PusherMock
-    constructor: (@channel) ->
-        @toTrigger = {}
-        @memberAddedHandlers = {}
+    @toTrigger: {}
+    @memberAddedHandlers: {}
 
-    send: (method, email) ->
-        return unless @toTrigger[method]
-        for toHandle in @toTrigger[method]
-            mah = @memberAddedHandlers[toHandle.trigger]
+    constructor: (@channel) ->
+
+    send: (method) ->
+        return unless PusherMock.toTrigger[method]
+        for toHandle in PusherMock.toTrigger[method]
+            mah = PusherMock.memberAddedHandlers[toHandle.trigger]
             continue unless mah
 
-            for wrapper in mah
+            for handler in mah
                 console.log "PusherMock: send: calling handler for #{toHandle.trigger}"
-                wrapper.handler toHandle.args
+                handler toHandle.args
 
     subscribe: (method, handler) ->
         @addHandler method, handler
+        if method in ["subscription_succeeded"]
+            @send method
+            index = PusherMock.memberAddedHandlers[method].indexOf handler
+            PusherMock.memberAddedHandlers[method].splice index, 1
 
     addHandler: (method, handler) ->
-        @memberAddedHandlers[method] = [] unless @memberAddedHandlers[method]?
-        @memberAddedHandlers[method].push handler: handler
+        PusherMock.memberAddedHandlers[method] = [] unless PusherMock.memberAddedHandlers[method]?
+        PusherMock.memberAddedHandlers[method].push handler
 
-    when: (method, toTrigger) ->
-        @toTrigger[method] = [] unless @toTrigger[method]?
-        @toTrigger[method].push toTrigger
+    when: (method, toHandle) ->
+        PusherMock.toTrigger[method] = [] unless PusherMock.toTrigger[method]?
+        PusherMock.toTrigger[method].push toHandle
 
 exports.PusherMock = PusherMock

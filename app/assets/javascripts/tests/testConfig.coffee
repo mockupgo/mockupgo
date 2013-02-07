@@ -6,15 +6,17 @@ exports.timeouts =
 exports.durations =
     maxWaitForEvent: 2000
 
-makePusherMock = ->
+makePusherMock = (id, email, alreadySigned) ->
     pusher = new PusherMock
 
-    pusher.when "subscribe", trigger: "subscription_succeeded"
-    pusher.when "subscribe", trigger: "member_added", args: {name: "abc"}
+    members_map = {}
+    members_map[id] = id: id, email: email
+    for u in alreadySigned
+        members_map[u.id] = id: u.id, email: u.email
 
-    pusher.when "unsubscribe", trigger: "unsubscription_succeeded"
-    pusher.when "unsubscribe", trigger: "member_removed", args: {name: "abc"}
+    pusher.when "subscription_succeeded", trigger:"subscription_succeeded", args: {me: {id:id,info:{email:email}}, _members_map:members_map}
+    pusher.when "subscription_succeeded", trigger:"member_added", args: {id:id,info:{email:email}}
 
     pusher
 
-exports.PusherMock = makePusherMock()
+exports.PusherMock = makePusherMock

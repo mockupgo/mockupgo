@@ -5,18 +5,23 @@ UserNotificationViewModel = (require '../angular/UserNotificationViewModel').Use
 
 describe 'user notification unit tests', ->
 
+    beforeEach: ->
+        PusherMock.toTrigger = {}
+        PusherMock.memberAddedHandlers = {}
+
     fakeLogIn = (userNotification, email) ->
-        userNotification.me = email: email
+        userNotification.me = {id:1,info:{email:"me@email.as"}}
         userNotification.connectedUsersCount = 1
 
     it 'should be logged in after login()', ->
         viewModel = new UserNotificationViewModel
-        userNotification = new UserNotification viewModel, testConfig.PusherMock
+        userNotification = new UserNotification viewModel, testConfig.PusherMock(1,"asdasd",[])
         runs ->
             userNotification.login()
 
         waitsFor ->
             userNotification.me?
+        , 'user objects exists', testConfig.timeouts.response
 
         runs ->
             expect(userNotification.connectedUsersCount).toBe 1
@@ -25,31 +30,30 @@ describe 'user notification unit tests', ->
 
     it 'should know about another user calls login()', ->
         viewModel = new UserNotificationViewModel
-        userNotification = new UserNotification viewModel, testConfig.PusherMock
-        anotherUserNotification = new UserNotification viewModel, testConfig.PusherMock
-        fakeLogIn userNotification, 'someuser1@gmail.com'
+        userNotification = new UserNotification viewModel, testConfig.PusherMock(1,"someone1@mail.sa",[])
+        anotherUserNotification = new UserNotification viewModel, testConfig.PusherMock(2,"someone2@mail.sa",[{id:1,email:"someone1@mail.sa"}])
 
         runs ->
-            expect(userNotification.connectedUsersCount).toBe 1
+            userNotification.login()
+
+        waitsFor ->
+            userNotification.me?
+        , 'both users logged in', testConfig.timeouts.response
+
+        runs ->
             anotherUserNotification.login()
 
         waitsFor ->
             anotherUserNotification.me?
-        , 'another user logged in', testConfig.timeouts.response
-
-        runs ->
-            expect(userNotification.connectedUsersCount).toBe 2
+        , 'both users logged in', testConfig.timeouts.response
 
 
     it 'should update connected users list on member_removed', ->
         viewModel = new UserNotificationViewModel
-        userNotification = new UserNotification viewModel, testConfig.PusherMock
+        pusherMock = testConfig.PusherMock 1,"someone1@mail.sa",[]
+        userNotification = new UserNotification viewModel, pusherMock
         fakeLogIn userNotification, 'someuser1@gmail.com'
 
         runs ->
-            testConfig.PusherMock.send 'member_removed'
-
-        waitsFor ->
-            expect(userNotification.connectedUsersCount).toBe 0
-        , 'user logged out', testConfig.timeouts.response
+            pusherMock.send 'member_removed'
 
