@@ -4,7 +4,7 @@ class PusherMock
 
     constructor: (@channel) ->
 
-    send: (method) ->
+    send: (method, data) ->
         return unless PusherMock.toTrigger[method]
         for toHandle in PusherMock.toTrigger[method]
             mah = PusherMock.memberAddedHandlers[toHandle.trigger]
@@ -12,7 +12,8 @@ class PusherMock
 
             for handler in mah
                 console.log "PusherMock: send: calling handler for #{toHandle.trigger}"
-                handler toHandle.args
+                args = if data? then data else toHandle.args
+                handler args
 
     subscribe: (method, handler) ->
         @addHandler method, handler
