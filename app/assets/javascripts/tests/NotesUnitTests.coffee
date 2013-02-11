@@ -5,7 +5,8 @@ _ = require 'lodash'
 describe 'notes unit tests', ->
 
     it 'should see that someone created a note', ->
-        notes = new Notes
+        viewModel = new NotesViewModel
+        notes = new Notes viewModel, testConfig.PusherMock, testConfig.ServerMock
         otherNotes = new Notes
         runs ->
             notes.add id: 1
@@ -15,7 +16,8 @@ describe 'notes unit tests', ->
         , 'another user gets new note', config.timeouts.response
 
     it 'should see that someone created a note', ->
-        notes = new Notes
+        viewModel = new NotesViewModel
+        notes = new Notes viewModel, testConfig.PusherMock, testConfig.ServerMock
         otherNotes
 
         runs ->
@@ -26,7 +28,8 @@ describe 'notes unit tests', ->
         , 'new note is added', config.timeouts.response
 
         runs ->
-            otherNotes = new Notes
+            otherViewModel = new NotesViewModel
+            otherNotes = new Notes otherViewModel, testConfig.PusherMock, testConfig.ServerMock
         waitsFor ->
             otherNotes.count is 1
         , 'another user got earlier created note when logged', config.timeouts.response
@@ -36,8 +39,10 @@ describe 'notes unit tests', ->
             1: left: 3, top: 5, width: 100, height: 50
             2: left: 0, top: 0, width: 150, height: 40
 
-        notes = new Notes
-        otherNotes = new Notes
+        viewModel = new NotesViewModel
+        otherViewModel = new NotesViewModel
+        notes = new Notes viewModel, testConfig.PusherMock, testConfig.ServerMock
+        otherNotes = new Notes otherViewModel, testConfig.PusherMock, testConfig.ServerMock
         notes.data = tempData
         otherNotes.data = tempData
 
@@ -55,8 +60,10 @@ describe 'notes unit tests', ->
             1: left: 3, top: 5, width: 100, height: 50
             2: left: 0, top: 0, width: 150, height: 40
 
-        notes = new Notes
-        otherNotes = new Notes
+        viewModel = new NotesViewModel
+        otherViewModel = new NotesViewModel
+        notes = new Notes viewModel, testConfig.PusherMock, testConfig.ServerMock
+        otherNotes = new Notes otherViewModel, testConfig.PusherMock, testConfig.ServerMock
         notes.data = tempData
         otherNotes.data = tempData
 

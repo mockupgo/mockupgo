@@ -1,4 +1,5 @@
 PusherMock = (require '../pusherMock').PusherMock
+ServerMock = (require '../serverMock').ServerMock
 
 exports.timeouts =
     response : 100
@@ -20,3 +21,4 @@ makePusherMock = (id, email, alreadySigned) ->
     pusher
 
 exports.PusherMock = makePusherMock
+exports.ServerMock = new ServerMock
