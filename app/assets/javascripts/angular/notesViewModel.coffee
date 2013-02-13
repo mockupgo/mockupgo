@@ -1,0 +1,1 @@
+NotesViewModel = ($scope) ->

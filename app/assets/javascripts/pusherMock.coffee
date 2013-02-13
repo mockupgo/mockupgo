@@ -1,17 +1,23 @@
 class PusherMock
-    @toTrigger: {}
-    @memberAddedHandlers: {}
+    @subscriptions: {
+        # "client-update-note-size": {
+        #     toHandle: [{handler: func(), args: {...}}, ...]
+        #     concomitants: ["update-note"]
+        # }
+    }
+    # @memberAddedHandlers: {}
 
-    constructor: (@channel) ->
+    constructor: (@channel, @id) ->
 
     send: (method, data) ->
-        return unless PusherMock.toTrigger[method]
-        for toHandle in PusherMock.toTrigger[method]
-            mah = PusherMock.memberAddedHandlers[toHandle.trigger]
-            continue unless mah
+        return unless PusherMock.subscriptions[method]
+        for subscription in PusherMock.subscriptions[method]
+            for concomitant in subscription.concomitants
+                @send concomitant, data
 
-            for handler in mah
-                console.log "PusherMock: send: calling handler for #{toHandle.trigger}"
+            continue unless subscription.toHandle.length
+
+            for handler in subscription.toHandle
                 args = if data? then data else toHandle.args
                 handler args
 
@@ -27,7 +33,7 @@ class PusherMock
         PusherMock.memberAddedHandlers[method].push handler
 
     when: (method, toHandle) ->
-        PusherMock.toTrigger[method] = [] unless PusherMock.toTrigger[method]?
-        PusherMock.toTrigger[method].push toHandle
+        PusherMock.subscriptions[method] = [] unless PusherMock.subscriptions[method]?
+        PusherMock.subscriptions[method].push toHandle
 
 exports.PusherMock = PusherMock
