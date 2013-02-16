@@ -1,23 +1,26 @@
 config = require '../config'
 testConfig = require './testConfig'
+PusherMock = (require '../pusherMock').PusherMock
 UserNotification = (require '../UserNotification').UserNotification
 UserNotificationViewModel = (require '../angular/UserNotificationViewModel').UserNotificationViewModel
 
 describe 'user notification unit tests', ->
 
-    beforeEach: ->
-        PusherMock.toTrigger = {}
-        PusherMock.memberAddedHandlers = {}
+    createMemberMap = (users) ->
+        map = {}
+        for user in users
+            map[user.id] = id: user.id, email: user.info.email
+        map
 
-    fakeLogIn = (userNotification, email) ->
-        userNotification.me = {id:1,info:{email:"me@email.as"}}
-        userNotification.connectedUsersCount = 1
 
     it 'should be logged in after login()', ->
         viewModel = new UserNotificationViewModel
-        userNotification = new UserNotification viewModel, testConfig.PusherMock(1,"asdasd",[])
+        pusherMock = new PusherMock
+        userNotification = new UserNotification viewModel, pusherMock
+        user = id: 1, info: email: "abc@gmail.com"
         runs ->
             userNotification.login()
+            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
 
         waitsFor ->
             userNotification.me?
@@ -28,32 +31,63 @@ describe 'user notification unit tests', ->
         , 'user logged in', testConfig.timeouts.response
 
 
-    it 'should know about another user calls login()', ->
+    it 'should know about another users are logged before or after own login()', ->
         viewModel = new UserNotificationViewModel
-        userNotification = new UserNotification viewModel, testConfig.PusherMock(1,"someone1@mail.sa",[])
-        anotherUserNotification = new UserNotification viewModel, testConfig.PusherMock(2,"someone2@mail.sa",[{id:1,email:"someone1@mail.sa"}])
+        pusherMock = new PusherMock
+        anotherPusherMock = new PusherMock
+        userNotification = new UserNotification viewModel, pusherMock
+        anotherUserNotification = new UserNotification viewModel, anotherPusherMock
+        user = id: 1, info: email: "abc@gmail.com"
+        anotherUser = id: 2, info: email: "def@gmail.com"
 
         runs ->
             userNotification.login()
+            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
 
         waitsFor ->
             userNotification.me?
-        , 'both users logged in', testConfig.timeouts.response
+        , 'first user logged in while another didnt yet', testConfig.timeouts.response
 
         runs ->
             anotherUserNotification.login()
+            anotherPusherMock.send "subscription_succeeded", me: anotherUser, _members_map: createMemberMap [user, anotherUser]
+            pusherMock.send "member_added", anotherUser
 
         waitsFor ->
             anotherUserNotification.me?
-        , 'both users logged in', testConfig.timeouts.response
+        , 'another user logged in after the first did', testConfig.timeouts.response
+
+        runs ->
+            expect(userNotification.connectedUsersCount).toBe 2
+            expect(anotherUserNotification.connectedUsersCount).toBe 2
 
 
     it 'should update connected users list on member_removed', ->
         viewModel = new UserNotificationViewModel
-        pusherMock = testConfig.PusherMock 1,"someone1@mail.sa",[]
+        pusherMock = new PusherMock
         userNotification = new UserNotification viewModel, pusherMock
-        fakeLogIn userNotification, 'someuser1@gmail.com'
+        user = id: 1, info: email: "abc@gmail.com"
+        anotherUser = id: 2, info: email: "def@gmail.com"
 
         runs ->
-            pusherMock.send 'member_removed'
+            userNotification.login()
+            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
+
+        waitsFor ->
+            userNotification.me?
+        , 'user logged in', testConfig.timeouts.response
+
+        runs ->
+            pusherMock.send "member_added", anotherUser
+
+        waitsFor ->
+            userNotification.connectedUsersCount is 2
+        , 'another user was added', testConfig.timeouts.response
+
+        runs ->
+            pusherMock.send 'member_removed', anotherUser
+
+        waitsFor ->
+            userNotification.connectedUsersCount is 1
+        , 'another user was removed', testConfig.timeouts.response
 

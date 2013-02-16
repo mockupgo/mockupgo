@@ -1,3 +1,4 @@
+_ = require 'lodash'
 class Notes
     constructor: (@viewModel, @pusher, @server) ->
         @data = {}
@@ -5,8 +6,9 @@ class Notes
         @init()
 
     init: =>
-        @server.getNotes (data) =>
-            @data = data
+        @server.getNotes (notes) =>
+            _.forEach notes, (note) =>
+                @push _.cloneDeep note
 
     get: (id) =>
         @data[id]
@@ -19,14 +21,21 @@ class Notes
             @pop note.oldId
             @push note
 
+        # @pusher.subscribe "client-update-note-size", (note) =>
+        #     @push note.id
+
+        # @pusher.subscribe "client-update-note-position", (note) =>
+        #     @push note.id
+
         @pusher.subscribe "update-note", (note) =>
             @push note
 
         @pusher.subscribe "client-delete-note-in-progress", (note) =>
+            console.log note
             @pop note.id
 
     pop: (id) =>
-        @count--
+        @count-- if @data[id]?
         delete @data[id]
         @viewModel.onDelete id
 
@@ -39,7 +48,8 @@ class Notes
         unless note.id?
             loop
                 note.id = Math.random() * 1000
-                break if @data[note.id]?
+                break unless @data[note.id]?
+        @push note
         @pusher.send "client-new-note-in-progress", note
 
     commitCreate: (note) =>
@@ -61,4 +71,4 @@ class Notes
         @pusher.send "client-delete-note-in-progress", note
         @server.delete note
 
-exports.Notes = Notes
+(if window? then window else exports).Notes = Notes

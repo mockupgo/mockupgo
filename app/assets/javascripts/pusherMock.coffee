@@ -1,39 +1,18 @@
 class PusherMock
-    @subscriptions: {
-        # "client-update-note-size": {
-        #     toHandle: [{handler: func(), args: {...}}, ...]
-        #     concomitants: ["update-note"]
-        # }
-    }
-    # @memberAddedHandlers: {}
-
-    constructor: (@channel, @id) ->
+    constructor: ->
+        @subscriptions = {}
 
     send: (method, data) ->
-        return unless PusherMock.subscriptions[method]
-        for subscription in PusherMock.subscriptions[method]
-            for concomitant in subscription.concomitants
-                @send concomitant, data
+        subscription = @subscriptions[method]
+        return unless subscription?
 
-            continue unless subscription.toHandle.length
-
-            for handler in subscription.toHandle
-                args = if data? then data else toHandle.args
-                handler args
+        for handler in subscription.toHandle
+            handler data
 
     subscribe: (method, handler) ->
-        @addHandler method, handler
-        if method in ["subscription_succeeded"]
-            @send method
-            index = PusherMock.memberAddedHandlers[method].indexOf handler
-            PusherMock.memberAddedHandlers[method].splice index, 1
+        @subscriptions[method] = {} unless @subscriptions[method]?
+        @subscriptions[method].toHandle = [] unless @subscriptions[method].toHandle?
+        @subscriptions[method].toHandle.push handler
 
-    addHandler: (method, handler) ->
-        PusherMock.memberAddedHandlers[method] = [] unless PusherMock.memberAddedHandlers[method]?
-        PusherMock.memberAddedHandlers[method].push handler
-
-    when: (method, toHandle) ->
-        PusherMock.subscriptions[method] = [] unless PusherMock.subscriptions[method]?
-        PusherMock.subscriptions[method].push toHandle
 
 exports.PusherMock = PusherMock

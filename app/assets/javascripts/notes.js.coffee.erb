@@ -11,16 +11,16 @@ $ ->
         alert(data)
 
 
-    channel.bind "delete-note", (data) ->
-        $("div.note[data-id='" + data.message + "']").fadeOut()
+    # channel.bind "delete-note", (data) ->
+    #     $("div.note[data-id='" + data.message + "']").fadeOut()
 
-    channel.bind "update-note", (data) ->
-        note = $("div.note[data-id='" + data.id + "']")
-        note.css "top", data.top + "px"
-        note.css "left", data.left + "px"
-        note.css "width", data.width + "px"
-        note.css "height", data.height + "px"
-        note.find(".comment-text").html data.comment
+    # channel.bind "update-note", (data) ->
+    #     note = $("div.note[data-id='" + data.id + "']")
+    #     note.css "top", data.top + "px"
+    #     note.css "left", data.left + "px"
+    #     note.css "width", data.width + "px"
+    #     note.css "height", data.height + "px"
+    #     note.find(".comment-text").html data.comment
 
 
 

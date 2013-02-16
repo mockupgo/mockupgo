@@ -1,4 +1,4 @@
-UserNotificationViewModel = ($scope, $timeout) ->
+UserNotificationViewModel = ($scope) ->
     unless window?
         $scope = $apply: (func) => func()
 
@@ -11,10 +11,6 @@ UserNotificationViewModel = ($scope, $timeout) ->
     return if window.angularInit
     window.angularInit = true
 
-    image_version_id = $('.current-version div[data-image-version]').attr("data-image-version")
-    window.image_version_id = image_version_id
-
-    pusher = new PusherService image_version_id
     $scope.userNotifications = new UserNotification @, pusher
     $scope.userNotifications.login()
 
