@@ -26,9 +26,9 @@ Feature: A project can have multiple collaborators
         And Matt is a collaborator for project "Bob's collaboration project"
 
         When he visits "Bob's collaboration project" project page
+        When he clicks on the link "Manage project"
         Then he should see "matt@example.com" in a table 1 time
 
-        When he clicks on the link "Manage project"
         And he fill "email" with "matt@example.com"
         And he click on "Add collaborator"
 
@@ -44,6 +44,7 @@ Feature: A project can have multiple collaborators
         And Matt is a collaborator for project "Bob's collaboration project"
 
         When he visits "Bob's collaboration project" project page
+        When he clicks on the link "Manage project"
         Then he should see "matt@example.com" in a table 1 time
 
         When he click on "remove access" for user "matt@example.com" in the collaborators table
@@ -59,6 +60,7 @@ Feature: A project can have multiple collaborators
         And Matt is a collaborator for project "Bob's collaboration project"
 
         When he visits "Bob's collaboration project" project page
+        When he clicks on the link "Manage project"
         Then he should see "matt@example.com" in a table 1 time
 
         When I should not see a button "remove access" for user "bob@example.com" in the collaborators table
@@ -72,6 +74,7 @@ Feature: A project can have multiple collaborators
         And Matt is a collaborator for project "Bob's collaboration project"
 
         When he visits "Bob's collaboration project" project page
+        When he clicks on the link "Manage project"
         Then he should see "owner" for user "bob@example.com" in the collaborators table
 
 
