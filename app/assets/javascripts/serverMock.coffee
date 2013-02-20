@@ -1,17 +1,17 @@
+return if window?
 class ServerMock
     constructor: (@pushers) ->
         @notes = {}
 
-    generateRealId: -> #emulate real id generation, not random in reality
-        realId
-        loop
-            realId = Math.random() * 1000
-            break unless @notes[realId]?
-        realId
-
     create: (note) ->
+        generateRealId: -> #emulate real id generation, not random in reality
+            loop
+                realId = Math.random() * 1000
+                break unless @notes[realId]?
+            realId
+
         note.oldId = note.id
-        note.id = @generateRealId()
+        note.id = generateRealId()
         @notes[note.id] = note
         for pusher in @pushers
             pusher.send "create-note", note

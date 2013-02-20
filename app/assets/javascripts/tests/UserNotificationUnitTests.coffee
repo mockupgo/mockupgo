@@ -1,3 +1,4 @@
+return if window?
 config = require '../config'
 testConfig = require './testConfig'
 PusherMock = (require '../pusherMock').PusherMock

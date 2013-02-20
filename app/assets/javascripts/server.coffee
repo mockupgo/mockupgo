@@ -1,12 +1,53 @@
 class ServerService
-    constructor: (@pusher)->
+    constructor: (@pusher, @notesViewModel)->
 
     getNotes: (callback) ->
-        @notes = {}
+        notes = {}
         $('.note').each (i, n) =>
-            id = n.data 'id'
-            @notes[id] = id: id, left: n.left(), top: n.top(), width: n.width(), height: n.height()
-        callback @notes
+            note = $ n
+            id = note.data 'id'
+            notes[id] = id: id, left: note.attr('left'), top: note.attr('top'), width: note.attr('width'), height: note.attr('height')
+        callback notes
+
+    create: (note) =>
+        image_version = $('.current-version div[data-image-version]').attr("data-image-version")
+        $.ajax '/annotations',
+            type: 'POST'
+            dataType: 'JSON'
+            data:
+                socket_id: @pusher.connection.socket_id
+                image_version: image_version
+                comment: ''#comment
+                position:
+                    top:    note.top
+                    left:   note.left
+                    width:  note.width
+                    height: note.height
+            success: (data) ->
+                @update_aside image_version
+                @notesViewModel.onCreate data
+
+    update: (note) =>
+        $.ajax '/annotations/' + note.id
+            type: 'PUT'
+            dataType: 'JSON'
+            data:
+                position:
+                    top:    note.top
+                    left:   note.left
+                    width:  note.width
+                    height: note.height
+
+    delete: (note) =>
+        $.ajax '/annotations/' + note.id,
+            type: 'DELETE'
+            dataType: 'SCRIPT'
+
+    update_aside = (image_version) ->
+        $.ajax '/image_versions/' + image_version + '/aside'
+            type: 'GET'
+            dataType: 'HTML'
+            success: @notesViewModel.onUpdateAside
 
 (if window? then window else exports).ServerService = ServerService
 

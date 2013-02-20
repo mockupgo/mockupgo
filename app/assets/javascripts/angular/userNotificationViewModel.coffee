@@ -11,7 +11,7 @@ UserNotificationViewModel = ($scope) ->
     return if window.angularInit
     window.angularInit = true
 
-    $scope.userNotifications = new UserNotification @, pusher
+    $scope.userNotifications = new UserNotification @, window.pusherService
     $scope.userNotifications.login()
 
 (if window? then window else exports).UserNotificationViewModel = UserNotificationViewModel

@@ -1,3 +1,5 @@
+return if window?
+
 exports.timeouts =
     response : 100
 

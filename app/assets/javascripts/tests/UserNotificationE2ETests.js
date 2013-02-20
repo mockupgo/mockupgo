@@ -2,6 +2,10 @@
 (function() {
   var config, testConfig;
 
+  if (typeof window !== "undefined" && window !== null) {
+    return;
+  }
+
   config = require('config');
 
   testConfig = require('testConfig');

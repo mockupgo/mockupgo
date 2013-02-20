@@ -4,7 +4,7 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    channel = pusher.subscribe("my-channel-image-version-" + image_version_id)
+    channel = pusher.subscribe("my-channel-image-version-" + window.image_version_id)
 
 
     channel.bind "alert-note", (data) ->
@@ -94,16 +94,16 @@ activate_note = (note) ->
             $(this).find('a.delete-note').clearQueue().fadeOut(100)
 
 update_note_pos = (note, event) ->
-    id = note.data('id')
-    $.ajax '/annotations/' + id,
-        type: 'PUT'
-        dataType: 'JSON'
-        data:
-            position:
-                top:    note.css('top')
-                left:   note.css('left')
-                width:  note.css('width')
-                height: note.css('height')
+    # id = note.data('id')
+    # $.ajax '/annotations/' + id,
+    #     type: 'PUT'
+    #     dataType: 'JSON'
+    #     data:
+    #         position:
+    #             top:    note.css('top')
+    #             left:   note.css('left')
+    #             width:  note.css('width')
+    #             height: note.css('height')
 
 interval_timer = ''
 
@@ -246,24 +246,24 @@ jQuery ->
         comment = screenshot.find('div.note-new textarea#comment').val()
         helper  = screenshot.find('div.note-new')
 
-        $.ajax '/annotations',
-            type: 'POST'
-            dataType: 'JSON'
-            data:
-                socket_id: pusher.connection.socket_id
-                image_version: screenshot.data('image-version')
-                comment: comment
-                position:
-                    top:    helper.css('top')
-                    left:   helper.css('left')
-                    width:  helper.css('width')
-                    height: helper.css('height')
-            success: (data) ->
-                new_note = $('div.note-new')
-                console.log("received new note")
-                new_note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
-                new_note.removeClass('note-new').attr('data-id', data.id)
-                update_aside(screenshot.data('image-version'))
+        # $.ajax '/annotations',
+        #     type: 'POST'
+        #     dataType: 'JSON'
+        #     data:
+        #         socket_id: pusher.connection.socket_id
+        #         image_version: screenshot.data('image-version')
+        #         comment: comment
+        #         position:
+        #             top:    helper.css('top')
+        #             left:   helper.css('left')
+        #             width:  helper.css('width')
+        #             height: helper.css('height')
+        #     success: (data) ->
+        #         new_note = $('div.note-new')
+        #         console.log("received new note")
+        #         new_note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
+        #         new_note.removeClass('note-new').attr('data-id', data.id)
+        #         update_aside(screenshot.data('image-version'))
 
     # Setup note deletion
     $(document).on 'click', 'a.delete-note', (event) ->
@@ -271,11 +271,11 @@ jQuery ->
         screenshot = $(event.target).closest('.image-container')
         $(this).parent().fadeOut()
         note_id = $(this).parent().data('id')
-        window.channel_rt.trigger "client-delete-note-in-progress",
-            "id":   note_id
-        $.ajax '/annotations/' + $(this).parent().data('id'),
-            type: 'DELETE'
-            dataType: 'SCRIPT'
+        # window.channel_rt.trigger "client-delete-note-in-progress",
+        #     "id":   note_id
+        # $.ajax '/annotations/' + $(this).parent().data('id'),
+        #     type: 'DELETE'
+        #     dataType: 'SCRIPT'
         update_aside(screenshot.data('image-version'))
 
 

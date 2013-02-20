@@ -1,4 +1,3 @@
-_ = require 'lodash'
 class Notes
     constructor: (@viewModel, @pusher, @server) ->
         @data = {}

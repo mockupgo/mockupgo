@@ -1,7 +1,7 @@
+_ = require 'lodash'
 PusherMock = (require '../pusherMock').PusherMock
 ServerMock = (require '../serverMock').ServerMock
 testConfig = require './testConfig'
-_ = require 'lodash'
 Notes = (require '../Notes').Notes
 
 describe 'notes unit tests', ->
@@ -76,6 +76,7 @@ describe 'notes unit tests', ->
 
         runs ->
             notes.updatePos newData
+            notes.commitUpdate newData
 
         waitsFor ->
             _.isEqual otherNotes.get(2), newData
