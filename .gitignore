@@ -18,3 +18,8 @@
 /public/uploads/
 /*.sublime-project
 /*.sublime-workspace
+/app/assets/javascripts/*.js
+/app/assets/javascripts/angular/*.js
+/app/assets/javascripts/node_modules
+/app/assets/node_modules
+/app/assets/javascripts/tests/*.js
