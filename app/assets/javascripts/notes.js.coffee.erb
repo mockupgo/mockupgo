@@ -4,15 +4,15 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    channel = pusher.subscribe("my-channel-image-version-" + window.image_version_id)
+    channel = pusher.subscribe("my-channel-image-version-" + image_version_id)
 
 
     channel.bind "alert-note", (data) ->
         alert(data)
 
 
-    # channel.bind "delete-note", (data) ->
-    #     $("div.note[data-id='" + data.message + "']").fadeOut()
+    channel.bind "delete-note", (data) ->
+        $("div.note[data-id='" + data.message + "']").fadeOut()
 
     # channel.bind "update-note", (data) ->
     #     note = $("div.note[data-id='" + data.id + "']")
@@ -28,24 +28,24 @@ $ ->
         note = $("div.note[data-id='" + data.id + "']")
         note.find(".comment-text").html data.comment
 
-    channel_rt.bind "client-delete-note-in-progress", (data) ->
-        $("div.note[data-id='" + data.id + "']").fadeOut().remove()
+    # channel_rt.bind "client-delete-note-in-progress", (data) ->
+    #     $("div.note[data-id='" + data.id + "']").fadeOut().remove()
 
 
-    channel_rt.bind "client-update-note-position", (data) ->
-        note = $("div.note[data-id='" + data.id + "']")
-        note.css "top", data.top
-        note.css "left", data.left
+    # channel_rt.bind "client-update-note-position", (data) ->
+    #     note = $("div.note[data-id='" + data.id + "']")
+    #     note.css "top", data.top
+    #     note.css "left", data.left
 
 
-    channel_rt.bind "client-update-note-size", (data) ->
-        note = $("div.note[data-id='" + data.id + "']")
-        note.css "width", data.width
-        note.css "height", data.height
+    # channel_rt.bind "client-update-note-size", (data) ->
+    #     note = $("div.note[data-id='" + data.id + "']")
+    #     note.css "width", data.width
+    #     note.css "height", data.height
 
-    channel_rt.bind "client-update-scroll-pos", (data) ->
-        window.current_scroll = data.pos
-        $('.screenshot-portrait').scrollTop(data.pos)
+    # channel_rt.bind "client-update-scroll-pos", (data) ->
+    #     window.current_scroll = data.pos
+    #     $('.screenshot-portrait').scrollTop(data.pos)
 
 
     channel_rt.bind "create-note", (data) ->
@@ -70,28 +70,28 @@ $ ->
             note_html.css "height", note.height
 
 
-activate_note = (note) ->
-    window.console.log "activate_note"
-    window.console.log note.length
-    note.draggable(
-        start: (event) ->
-            start_realtime_pos_update $(this), event
-        stop:  (event) ->
-            stop_realtime_pos_update $(this), event
-            update_note_pos $(this), event
-    )
-    note.resizable(
-        start: (event) ->
-            start_realtime_size_update $(this), event
-        stop: (event) ->
-            stop_realtime_size_update $(this), event
-            update_note_pos $(this), event
-    )
-    note.bind
-        mouseenter: ->
-            $(this).find('a.delete-note').clearQueue().fadeIn(100)
-        mouseleave: ->
-            $(this).find('a.delete-note').clearQueue().fadeOut(100)
+# activate_note = (note) ->
+#     window.console.log "activate_note"
+#     window.console.log note.length
+#     note.draggable(
+#         start: (event) ->
+#             start_realtime_pos_update $(this), event
+#         stop:  (event) ->
+#             stop_realtime_pos_update $(this), event
+#             update_note_pos $(this), event
+#     )
+#     note.resizable(
+#         start: (event) ->
+#             start_realtime_size_update $(this), event
+#         stop: (event) ->
+#             stop_realtime_size_update $(this), event
+#             update_note_pos $(this), event
+#     )
+#     note.bind
+#         mouseenter: ->
+#             $(this).find('a.delete-note').clearQueue().fadeIn(100)
+#         mouseleave: ->
+#             $(this).find('a.delete-note').clearQueue().fadeOut(100)
 
 update_note_pos = (note, event) ->
     # id = note.data('id')
@@ -171,71 +171,71 @@ update_aside = (image_version) ->
             $('aside').html(data)
 
 jQuery ->
-    $(".selectable").selectable
-        start: (event) ->
-            # Only one new note should be active at one time
-            $('div.note-new').remove()
-            start_realtime_update_for_create $(this), event
-        stop: (event, ui) ->
-            stop_realtime_update_for_create $(this), event
-            et = $(event.target)
-            et.find('.notes').append('<div class="note-new note draggable" data-id="999"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
-            activate_note $('.note-new') # WHICH NOTES ?
-            helper = $("div.ui-selectable-helper")
-            offset = et.offset()
-            scroll_from_top = parseInt(et.scrollTop())
-            note_width  = parseInt(helper.css('width'))
-            note_height = parseInt(helper.css('height'))
-            note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
-            note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
+#     $(".selectable").selectable
+#         start: (event) ->
+#             # Only one new note should be active at one time
+#             $('div.note-new').remove()
+#             start_realtime_update_for_create $(this), event
+#         stop: (event, ui) ->
+#             stop_realtime_update_for_create $(this), event
+#             et = $(event.target)
+#             et.find('.notes').append('<div class="note-new note draggable" data-id="999"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
+#             activate_note $('.note-new') # WHICH NOTES ?
+#             helper = $("div.ui-selectable-helper")
+#             offset = et.offset()
+#             scroll_from_top = parseInt(et.scrollTop())
+#             note_width  = parseInt(helper.css('width'))
+#             note_height = parseInt(helper.css('height'))
+#             note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
+#             note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
 
-            if note_width < 4 and note_height < 4
-                return
-
-
-            $('.note-new').css
-                top:    note_top
-                left:   note_left
-                width:  note_width
-                height: note_height
-
-            $('.note-new textarea#comment').focus()
-            $('.note-new textarea#comment').keyup () ->
-                window.console.log window.curent_user_email + ": " +$(this).val()
-                window.channel_rt.trigger "client-new-note-comment-in-progress",
-                    "id":     "999",
-                    "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
+#             if note_width < 4 and note_height < 4
+#                 return
 
 
-    start_realtime_update_for_create = (note, event) ->
-        window.console.log("start realtime update")
-        # window.current_note = $("div.ui-selectable-helper")
-        # window.console.log(window.current_note.css('width'))
-        window.current_note_id = 999
-        userdata = $('#userdata')
-        window.curent_user_id    = userdata.data('current-user-id')
-        window.curent_user_email = userdata.data('current-user-email')
-        interval_timer = setInterval((note, id) ->
-                helper = $("div.ui-selectable-helper")
-                et = $(".ui-selectable")
-                offset = et.offset()
-                scroll_from_top = parseInt(et.scrollTop())
-                note_width  = parseInt(helper.css('width'))
-                note_height = parseInt(helper.css('height'))
-                note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
-                note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
-                window.channel_rt.trigger "client-new-note-in-progress",
-                    "id":   window.current_note_id,
-                    "width":  note_width,
-                    "height": note_height,
-                    "top":  note_top,
-                    "left": note_left,
-                    "comment": "New note by " + window.curent_user_email,
-            , 200)
+#             $('.note-new').css
+#                 top:    note_top
+#                 left:   note_left
+#                 width:  note_width
+#                 height: note_height
 
-    stop_realtime_update_for_create = (note, event) ->
-        clearInterval(interval_timer)
-        window.console.log("stop realtime update")
+#             $('.note-new textarea#comment').focus()
+#             $('.note-new textarea#comment').keyup () ->
+#                 window.console.log window.curent_user_email + ": " +$(this).val()
+#                 window.channel_rt.trigger "client-new-note-comment-in-progress",
+#                     "id":     "999",
+#                     "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
+
+
+    # start_realtime_update_for_create = (note, event) ->
+    #     window.console.log("start realtime update")
+    #     # window.current_note = $("div.ui-selectable-helper")
+    #     # window.console.log(window.current_note.css('width'))
+    #     window.current_note_id = 999
+    #     userdata = $('#userdata')
+    #     window.curent_user_id    = userdata.data('current-user-id')
+    #     window.curent_user_email = userdata.data('current-user-email')
+    #     interval_timer = setInterval((note, id) ->
+    #             helper = $("div.ui-selectable-helper")
+    #             et = $(".ui-selectable")
+    #             offset = et.offset()
+    #             scroll_from_top = parseInt(et.scrollTop())
+    #             note_width  = parseInt(helper.css('width'))
+    #             note_height = parseInt(helper.css('height'))
+    #             note_top    = parseInt(helper.css('top')) - parseInt(offset.top) + scroll_from_top
+    #             note_left   = parseInt(helper.css('left')) - parseInt(offset.left)
+    #             window.channel_rt.trigger "client-new-note-in-progress",
+    #                 "id":   window.current_note_id,
+    #                 "width":  note_width,
+    #                 "height": note_height,
+    #                 "top":  note_top,
+    #                 "left": note_left,
+    #                 "comment": "New note by " + window.curent_user_email,
+    #         , 200)
+
+    # stop_realtime_update_for_create = (note, event) ->
+    #     clearInterval(interval_timer)
+    #     window.console.log("stop realtime update")
 
 
     # Get ready to receive note creation button events

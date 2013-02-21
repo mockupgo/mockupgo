@@ -1,9 +1,12 @@
 NotesViewModel = ($scope) ->
+
+
     $scope.onUpdate = (note) ->
-        $('#'+note.id).css 'top':note.top, 'left':note.left, 'width':note.width, 'height':note.height
+        $("div.note[data-id='" + note.id + "']").css 'top':note.top, 'left':note.left, 'width':note.width, 'height':note.height
+        # note.find(".comment-text").html data.comment
 
     $scope.onDelete = (id) ->
-        $('#'+id).fadeOut(durations.fadeout)
+        $("div.note[data-id='" + id + "']").fadeOut(durations.fadeout).remove()
 
     $scope.onCreate = (note) ->
         new_note = $ 'div.note-new'
@@ -15,6 +18,16 @@ NotesViewModel = ($scope) ->
 
     $scope.onUpdateAside = (data) ->
         $('aside').html(data)
+
+###########---NEW ---------------------------------------
+
+    $scope.onUpdateScrollPos = (data) ->
+        window.current_scroll = data.pos
+        $('.screenshot-portrait').scrollTop(data.pos)
+
+###########---INTERACTIVITY----------------------------------
+
+
 
     $scope.notes = new Notes $scope, window.pusherService, window.server
 
