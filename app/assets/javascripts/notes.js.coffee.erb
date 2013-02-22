@@ -91,9 +91,9 @@ $ ->
 #         mouseenter: ->
 #             $(this).find('a.delete-note').clearQueue().fadeIn(100)
 #         mouseleave: ->
-#             $(this).find('a.delete-note').clearQueue().fadeOut(100)
+            # $(this).find('a.delete-note').clearQueue().fadeOut(100)
 
-update_note_pos = (note, event) ->
+# update_note_pos = (note, event) ->
     # id = note.data('id')
     # $.ajax '/annotations/' + id,
     #     type: 'PUT'
@@ -105,41 +105,41 @@ update_note_pos = (note, event) ->
     #             width:  note.css('width')
     #             height: note.css('height')
 
-interval_timer = ''
+# interval_timer = ''
 
-start_realtime_pos_update = (note, event) ->
-    id = note.data('id')
-    window.console.log("start realtime update")
-    window.current_note = note
-    window.current_note_id = id
-    interval_timer = setInterval((note, id) ->
-            window.channel_rt.trigger "client-update-note-position",
-                "id":   window.current_note_id,
-                "top":  window.current_note.css('top'),
-                "left": window.current_note.css('left'),
-        , 200)
+# start_realtime_pos_update = (note, event) ->
+#     id = note.data('id')
+#     window.console.log("start realtime update")
+#     window.current_note = note
+#     window.current_note_id = id
+#     interval_timer = setInterval((note, id) ->
+#             window.channel_rt.trigger "client-update-note-position",
+#                 "id":   window.current_note_id,
+#                 "top":  window.current_note.css('top'),
+#                 "left": window.current_note.css('left'),
+#         , 200)
 
-stop_realtime_pos_update = (note, event) ->
-    clearInterval(interval_timer)
-    window.console.log("stop realtime update")
+# stop_realtime_pos_update = (note, event) ->
+#     clearInterval(interval_timer)
+#     window.console.log("stop realtime update")
 
 
 
-start_realtime_size_update = (note, event) ->
-    id = note.data('id')
-    window.console.log("start realtime update")
-    window.current_note = note
-    window.current_note_id = id
-    interval_timer = setInterval((note, id) ->
-            window.channel_rt.trigger "client-update-note-size",
-                "id":     window.current_note_id,
-                "width":  window.current_note.css('width'),
-                "height": window.current_note.css('height'),
-        , 200)
+# start_realtime_size_update = (note, event) ->
+#     id = note.data('id')
+#     window.console.log("start realtime update")
+#     window.current_note = note
+#     window.current_note_id = id
+#     interval_timer = setInterval((note, id) ->
+#             window.channel_rt.trigger "client-update-note-size",
+#                 "id":     window.current_note_id,
+#                 "width":  window.current_note.css('width'),
+#                 "height": window.current_note.css('height'),
+#         , 200)
 
-stop_realtime_size_update = (note, event) ->
-    clearInterval(interval_timer)
-    window.console.log("stop realtime update")
+# stop_realtime_size_update = (note, event) ->
+#     clearInterval(interval_timer)
+#     window.console.log("stop realtime update")
 
 # UPDATE SCROLL
 # window.current_scroll = 0

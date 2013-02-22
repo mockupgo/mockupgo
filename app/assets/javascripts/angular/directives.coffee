@@ -34,16 +34,34 @@ window.module.config ($compileProvider) ->
         (scope, element, attrs) ->
             $(element).selectable
                 start: (event) ->
-                    scope.newnote = width:0, height:0, top:event, left:event
+                    scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX
                     scope.notes.create scope.newnote
                     # Only one new note should be active at one time
                     $('div.note-new').remove()
-                    start_realtime_update_for_create scope.newnote, event
+                    window.start_realtime_update_for_create scope.notes, scope.newnote, event
                 stop: (event, ui) ->
-                    stop_realtime_update_for_create scope.newnote, event
+                    window.stop_realtime_update_for_create scope.newnote, event
                     et = $(event.target)
-                    et.find('.notes').append('<div class="note-new note draggable" data-id="'+scope.newnote.id+'"><a href="#" class="delete-note">Delete</a><div class="note-comment"><span id="arrow"></span><div class="note-content"><div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black create-button">Add Note</button></form></div></div></div></div>')
-                    activate_note $('.note-new') # WHICH NOTES ?
+                    code = "<div class='note-new note draggable' data-id='#{scope.newnote.id}'>
+                                <a href='javascript:;' ng-click='notes.delete(newnote)' class='delete-note'>Delete</a>
+                                <div class='note-comment'>
+                                    <span id='arrow'></span>
+                                    <div class='note-content'>
+                                        <div id='comment_bar' class='input_bar'>
+                                            <form method='post' action=''>
+                                                <div class='textarea'>
+                                                    <textarea name='comment' id='comment' class='replace' rows='3'></textarea>
+                                                </div>
+                                                <button type='submit' ng-click='notes.commitCreate(newnote)' class='black create-button'>
+                                                    Add Note
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>"
+                    et.find('.notes').append code
+                    window.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
                     helper = $("div.ui-selectable-helper")
                     offset = et.offset()
                     scroll_from_top = parseInt(et.scrollTop())
@@ -54,3 +72,16 @@ window.module.config ($compileProvider) ->
 
                     if note_width < 4 and note_height < 4
                         return
+
+                    $('.note-new').css
+                        top:    note_top
+                        left:   note_left
+                        width:  note_width
+                        height: note_height
+
+                    # $('.note-new textarea#comment').focus()
+                    # $('.note-new textarea#comment').keyup () ->
+                    #     window.console.log window.curent_user_email + ": " +$(this).val()
+                    #     window.channel_rt.trigger "client-new-note-comment-in-progress",
+                    #         "id":     "999",
+                    #         "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
