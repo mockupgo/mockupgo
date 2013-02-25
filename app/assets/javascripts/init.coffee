@@ -2,7 +2,6 @@ if window?
     window.require = ->
 
     window.pusher = new window.Pusher window.pusherKey
-    window.server = new window.ServerService
 
     window.image_version_id = $('.current-version div[data-image-version]').attr("data-image-version")
 

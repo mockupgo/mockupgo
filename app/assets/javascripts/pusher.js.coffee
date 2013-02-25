@@ -7,6 +7,6 @@ class PusherService
         @channel_rt.bind "pusher:#{method}", handler
 
     send: (method, data) ->
-        @channel_rt.trigger "pusher:#{method}", data
+        @channel_rt.trigger method, data
 
 (if window? then window else exports).PusherService = PusherService

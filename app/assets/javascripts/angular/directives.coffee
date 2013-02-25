@@ -43,7 +43,7 @@ window.module.config ($compileProvider) ->
                     window.stop_realtime_update_for_create scope.newnote, event
                     et = $(event.target)
                     code = "<div class='note-new note draggable' data-id='#{scope.newnote.id}'>
-                                <a href='javascript:;' ng-click='notes.delete(newnote)' class='delete-note'>Delete</a>
+                                <a href='javascript:;' ng-click='onDeleteClick(#{scope.newnote.id})' class='delete-note'>Delete</a>
                                 <div class='note-comment'>
                                     <span id='arrow'></span>
                                     <div class='note-content'>
@@ -52,7 +52,7 @@ window.module.config ($compileProvider) ->
                                                 <div class='textarea'>
                                                     <textarea name='comment' id='comment' class='replace' rows='3'></textarea>
                                                 </div>
-                                                <button type='submit' ng-click='notes.commitCreate(newnote)' class='black create-button'>
+                                                <button type='submit' ng-click='onAdd()' class='black create-button'>
                                                     Add Note
                                                 </button>
                                             </form>
@@ -60,7 +60,9 @@ window.module.config ($compileProvider) ->
                                     </div>
                                 </div>
                             </div>"
-                    et.find('.notes').append code
+                    notesDiv = et.find '.notes'
+                    notesDiv.append code
+                    $compile(notesDiv.contents()) scope
                     window.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
                     helper = $("div.ui-selectable-helper")
                     offset = et.offset()

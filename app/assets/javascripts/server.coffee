@@ -23,12 +23,12 @@ class ServerService
                     left:   note.left
                     width:  note.width
                     height: note.height
-            success: (data) ->
-                @update_aside image_version
+            success: (data) =>
                 @notesViewModel.onCreate data
+                @update_aside image_version
 
     update: (note) =>
-        $.ajax '/annotations/' + note.id
+        $.ajax "/annotations/#{note.id}",
             type: 'PUT'
             dataType: 'JSON'
             data:
@@ -38,13 +38,13 @@ class ServerService
                     width:  note.width
                     height: note.height
 
-    delete: (note) =>
-        $.ajax '/annotations/' + note.id,
+    delete: (id) =>
+        $.ajax "/annotations/#{id}",
             type: 'DELETE'
             dataType: 'SCRIPT'
 
-    update_aside = (image_version) ->
-        $.ajax '/image_versions/' + image_version + '/aside'
+    update_aside: (image_version) ->
+        $.ajax "/image_versions/#{image_version}/aside",
             type: 'GET'
             dataType: 'HTML'
             success: @notesViewModel.onUpdateAside

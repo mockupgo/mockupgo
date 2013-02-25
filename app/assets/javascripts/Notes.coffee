@@ -46,7 +46,7 @@ class Notes
     create: (note) =>
         unless note.id?
             loop
-                note.id = Math.random() * 1000
+                note.id = parseInt Math.random() * 1000
                 break unless @data[note.id]?
         @push note
         @pusher.send "client-new-note-in-progress", note
@@ -65,9 +65,9 @@ class Notes
     commitUpdate: (note) =>
         @server.update note
 
-    delete: (note) =>
-        @pop note.id
-        @pusher.send "client-delete-note-in-progress", note
-        @server.delete note
+    delete: (id) =>
+        @pusher.send "client-delete-note-in-progress", @data[id]
+        @pop id
+        @server.delete id
 
 (if window? then window else exports).Notes = Notes

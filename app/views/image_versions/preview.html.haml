@@ -3,7 +3,7 @@
 
   .content.current-version#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email, "version-number" => @image_version.version_number, "ng-controller" => "NotesViewModel"}
     .background-container{:style => "background-image: url('#{@image_version.image_url(:background)}');"}
-      .image-container.selectable{"note-creation-triggers" => "" ,"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
+      .image-container.selectable{"note-creation-triggers" => "", "data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
         = image_tag @image_version.image.url
 
         .notes
