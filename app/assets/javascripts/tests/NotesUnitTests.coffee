@@ -1,4 +1,4 @@
-_ = require 'lodash'
+_ = (require 'lodash')._
 PusherMock = (require '../pusherMock').PusherMock
 ServerMock = (require '../serverMock').ServerMock
 testConfig = require './testConfig'
@@ -112,7 +112,8 @@ describe 'notes unit tests', ->
         expect(otherNotes.count).toBe 2
 
         runs ->
-            notes.delete tempData[2]
+            notes.delete tempData[2].id
+            notes.commitDelete tempData[2].id
             anotherPusherMock.send "client-delete-note-in-progress", tempData[2]
 
         waitsFor ->
@@ -126,7 +127,8 @@ describe 'notes unit tests', ->
         notes = new Notes fakeViewModel, pusherMock, serverMock
 
         runs ->
-            notes.delete tempData[2]
+            notes.delete tempData[2].id
+            notes.commitDelete tempData[2].id
 
         waitsFor ->
             _.isUndefined serverMock.notes[tempData[2].id]

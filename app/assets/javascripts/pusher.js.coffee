@@ -4,7 +4,7 @@ class PusherService
         window.channel_rt = @channel_rt
 
     subscribe: (method, handler) ->
-        @channel_rt.bind "pusher:#{method}", handler
+        @channel_rt.bind method, handler
 
     send: (method, data) ->
         @channel_rt.trigger method, data

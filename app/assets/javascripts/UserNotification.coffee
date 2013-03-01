@@ -4,7 +4,7 @@ class UserNotification
         @connectedUsersCount = 0
 
     login: =>
-        @pusher.subscribe "subscription_succeeded", (members) =>
+        @pusher.subscribe "pusher:subscription_succeeded", (members) =>
             @me = members.me
             @me.id = @me.id.toString()
             for id of members._members_map
@@ -12,11 +12,11 @@ class UserNotification
             @subscribeOtherMembers()
 
     subscribeOtherMembers: =>
-        @pusher.subscribe 'member_added', (member) =>
+        @pusher.subscribe "pusher:member_added", (member) =>
             unless @connectedUsers[member.id]
                 @addUser email:member.info.email, id:member.id
 
-        @pusher.subscribe 'member_removed', (member) =>
+        @pusher.subscribe "pusher:member_removed", (member) =>
             unless member is @me
                 @removeUser email:member.info.email, id:member.id
 

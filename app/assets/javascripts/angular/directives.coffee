@@ -34,12 +34,16 @@ window.module.config ($compileProvider) ->
         (scope, element, attrs) ->
             $(element).selectable
                 start: (event) ->
+                    return if $(event.toElement).hasClass "delete-note"
+                    if scope.newnote?
+                        scope.notes.delete scope.newnote.id
                     scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX
                     scope.notes.create scope.newnote
                     # Only one new note should be active at one time
                     $('div.note-new').remove()
                     window.start_realtime_update_for_create scope.notes, scope.newnote, event
-                stop: (event, ui) ->
+                stop: (event) ->
+                    return if $(event.toElement).hasClass "delete-note"
                     window.stop_realtime_update_for_create scope.newnote, event
                     et = $(event.target)
                     code = "<div class='note-new note draggable' data-id='#{scope.newnote.id}'>

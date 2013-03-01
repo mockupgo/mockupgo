@@ -1,6 +1,8 @@
 class ServerService
     constructor: (@pusher, @notesViewModel)->
 
+    getComments: asdasdsgf #need to implement
+
     getNotes: (callback) ->
         notes = {}
         $('.note').each (i, n) =>

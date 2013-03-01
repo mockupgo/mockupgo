@@ -81,7 +81,8 @@ start_realtime_size_update = (notes, note, event) ->
 
 stop_realtime_update = (notes, note, event) ->
     clearInterval window.interval_timer
-    notes.commitUpdate build_note_object note
+    if note.oldId?
+        notes.commitUpdate build_note_object note
     window.console.log "stop realtime update"
 
 build_note_object = (obj) ->

@@ -1,5 +1,5 @@
 window.module = angular.module 'mockupGo', ['ui']
 
-window.module.run ['$rootScope', ($rootScope) ->
+window.module.run ['$rootScope', '$compile', ($rootScope, $compile) ->
     $rootScope.durations = window.durations
 ]

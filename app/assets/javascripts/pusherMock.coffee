@@ -1,4 +1,3 @@
-return if window?
 class PusherMock
     constructor: ->
         @subscriptions = {}

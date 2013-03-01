@@ -4,9 +4,9 @@ class ServerMock
         @notes = {}
 
     create: (note) ->
-        generateRealId: -> #emulate real id generation, not random in reality
+        generateRealId = => #emulate real id generation, not random in reality
             loop
-                realId = Math.random() * 1000
+                realId = parseInt Math.random() * 1000
                 break unless @notes[realId]?
             realId
 
@@ -21,12 +21,18 @@ class ServerMock
         for pusher in @pushers
             pusher.send "update-note", note
 
-    delete: (note) ->
-        delete @notes[note.id]
+    delete: (id) ->
         for pusher in @pushers
-            pusher.send "update-note", note
+            pusher.send "delete-note", @notes[id]
+        delete @notes[id]
 
     getNotes: (callback) ->
         callback @notes
+
+    getComments: (callback) ->
+        comments = []
+        for n of @notes
+            comments.push text:n.comment, id:n.id
+        callback comments
 
 exports.ServerMock = ServerMock
