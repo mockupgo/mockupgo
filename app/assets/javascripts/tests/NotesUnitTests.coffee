@@ -1,9 +1,9 @@
-_ = (require 'lodash')._
-PusherMock = (require '../pusherMock').PusherMock
-ServerMock = (require '../serverMock').ServerMock
+_ = require 'lodash'
+PusherMock = require '../pusherMock'
+ServerMock = require '../serverMock'
 testConfig = require './testConfig'
-Notes = (require '../Notes').Notes
-
+Notes = require '../Notes'
+console.log Notes
 describe 'notes unit tests', ->
 
     fakeViewModel =

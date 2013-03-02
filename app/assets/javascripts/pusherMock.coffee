@@ -15,4 +15,4 @@ class PusherMock
         @subscriptions[method].toHandle.push handler
 
 
-exports.PusherMock = PusherMock
+module.exports = PusherMock

@@ -30,4 +30,7 @@ class UserNotification
         @connectedUsersCount--
         @viewModel.onChangeUsers user, false
 
-(if window? then window else exports).UserNotification = UserNotification
+if window?
+    window.UserNotification = UserNotification
+else
+    module.exports = UserNotification

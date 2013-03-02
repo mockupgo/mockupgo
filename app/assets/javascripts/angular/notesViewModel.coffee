@@ -6,7 +6,7 @@ NotesViewModel = ($scope, $compile) ->
                     <div class='note-comment'>
                         <span id='arrow'></span>
                         <div class='note-content'>
-                            <div class='comment-text ui-selectee'></div>
+                            <div class='comment-text ui-selectee'>{{comments.get(note.id)}}</div>
                         </div>
                     </div>
                 </div>"
@@ -19,12 +19,14 @@ NotesViewModel = ($scope, $compile) ->
         if $("div.note[data-id='#{note.id}']").length is 0
             canCreate = if $scope.newnote? then note.id isnt $scope.newnote.id else yes
             $scope.appendNote note if canCreate
-        $("div.note[data-id='#{note.id}']").css
-            top:    note.top
-            left:   note.left
-            width:  note.width
-            height: note.height
-        # note.find(".comment-text").html data.comment
+
+        $scope.$apply =>
+            $("div.note[data-id='#{note.id}']").css
+                top:    note.top
+                left:   note.left
+                width:  note.width
+                height: note.height
+        #note.find(".comment-text").html $scope.coments.data[note.id].text
 
     $scope.onDelete = (id) ->
         $("div.note[data-id='#{id}']").fadeOut(durations.fadeout).remove()
@@ -61,6 +63,7 @@ NotesViewModel = ($scope, $compile) ->
     $ ->
         window.server = new window.ServerService window.pusher, $scope
         $scope.notes = new Notes $scope, window.pusherService, window.server
+        $scope.comments = new Comments $scope, window.pusherService, window.server, $scope.notes
 
         $(".delete-note").click ->
             $scope.onDeleteClick $(this).parent('.note').data('id')

@@ -54,7 +54,7 @@ window.module.config ($compileProvider) ->
                                         <div id='comment_bar' class='input_bar'>
                                             <form method='post' action=''>
                                                 <div class='textarea'>
-                                                    <textarea name='comment' id='comment' class='replace' rows='3'></textarea>
+                                                    <textarea name='comment' ng-model='comments.data[#{scope.newnote.id}].text' id='comment' class='replace' rows='3'></textarea>
                                                 </div>
                                                 <button type='submit' ng-click='onAdd()' class='black create-button'>
                                                     Add Note

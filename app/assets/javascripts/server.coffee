@@ -1,7 +1,14 @@
 class ServerService
     constructor: (@pusher, @notesViewModel)->
 
-    getComments: asdasdsgf #need to implement
+    getComments: (callback) ->
+        comments = []
+        $(".comment-text").each (i, c) =>
+            comment = $ c
+            id = comment.parents('.note').data 'id'
+            comments.push text: comment.text(), id: id
+        callback comments
+
 
     getNotes: (callback) ->
         notes = {}

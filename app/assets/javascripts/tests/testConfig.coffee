@@ -1,8 +1,9 @@
 return if window?
 
-exports.timeouts =
-    response : 100
+module.exports =
+    timeouts:
+        response : 100
 
-exports.durations =
-    maxWaitForEvent: 2000
+    durations:
+        maxWaitForEvent: 2000
 

@@ -35,4 +35,4 @@ class ServerMock
             comments.push text:n.comment, id:n.id
         callback comments
 
-exports.ServerMock = ServerMock
+module.exports = ServerMock

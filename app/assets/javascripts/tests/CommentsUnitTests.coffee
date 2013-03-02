@@ -1,9 +1,9 @@
 _ = require 'lodash'
-PusherMock = (require '../pusherMock').PusherMock
-ServerMock = (require '../serverMock').ServerMock
+PusherMock = require '../pusherMock'
+ServerMock = require '../serverMock'
 testConfig = require './testConfig'
-Notes = (require '../Notes').Notes
-Comments = (require '../Comments').Comments
+Notes = require '../Notes'
+Comments = require '../Comments'
 
 describe 'comments unit test', ->
 
@@ -12,8 +12,8 @@ describe 'comments unit test', ->
         onDelete: ->
 
     tempNotesData =
-        1: id: 1, left: 3, top: 5, width: 100, height: 50
-        2: id: 2, left: 0, top: 0, width: 150, height: 40
+        1: id: 1, left: 3, top: 5, width: 100, height: 50, comment: "first comm"
+        2: id: 2, left: 0, top: 0, width: 150, height: 40, comment: "second comm"
 
     tempData =
         1: text: "first comm", id: 1
@@ -23,8 +23,10 @@ describe 'comments unit test', ->
         pusherMock = new PusherMock
         anotherPusherMock = new PusherMock
         serverMock = new ServerMock null
-        comments = new Comments fakeViewModel, pusherMock, serverMock, null
-        otherComments = new Comments fakeViewModel, anotherPusherMock, serverMock, null
+        notes = new Notes fakeViewModel, pusherMock, serverMock
+        otherNotes = new Notes fakeViewModel, anotherPusherMock, serverMock
+        comments = new Comments fakeViewModel, pusherMock, serverMock, notes
+        otherComments = new Comments fakeViewModel, anotherPusherMock, serverMock, otherNotes
         otherComments.subscribe()
 
         runs ->

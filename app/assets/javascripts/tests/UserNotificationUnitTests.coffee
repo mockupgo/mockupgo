@@ -1,9 +1,9 @@
 return if window?
 config = require '../config'
 testConfig = require './testConfig'
-PusherMock = (require '../pusherMock').PusherMock
-UserNotification = (require '../UserNotification').UserNotification
-UserNotificationViewModel = (require '../angular/UserNotificationViewModel').UserNotificationViewModel
+PusherMock = require '../pusherMock'
+UserNotification = require '../UserNotification'
+UserNotificationViewModel = require '../angular/UserNotificationViewModel'
 
 describe 'user notification unit tests', ->
 
@@ -21,7 +21,7 @@ describe 'user notification unit tests', ->
         user = id: 1, info: email: "abc@gmail.com"
         runs ->
             userNotification.login()
-            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
+            pusherMock.send "pusher:subscription_succeeded", me: user, _members_map: createMemberMap [user]
 
         waitsFor ->
             userNotification.me?
@@ -43,7 +43,7 @@ describe 'user notification unit tests', ->
 
         runs ->
             userNotification.login()
-            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
+            pusherMock.send "pusher:subscription_succeeded", me: user, _members_map: createMemberMap [user]
 
         waitsFor ->
             userNotification.me?
@@ -51,8 +51,8 @@ describe 'user notification unit tests', ->
 
         runs ->
             anotherUserNotification.login()
-            anotherPusherMock.send "subscription_succeeded", me: anotherUser, _members_map: createMemberMap [user, anotherUser]
-            pusherMock.send "member_added", anotherUser
+            anotherPusherMock.send "pusher:subscription_succeeded", me: anotherUser, _members_map: createMemberMap [user, anotherUser]
+            pusherMock.send "pusher:member_added", anotherUser
 
         waitsFor ->
             anotherUserNotification.me?
@@ -72,21 +72,21 @@ describe 'user notification unit tests', ->
 
         runs ->
             userNotification.login()
-            pusherMock.send "subscription_succeeded", me: user, _members_map: createMemberMap [user]
+            pusherMock.send "pusher:subscription_succeeded", me: user, _members_map: createMemberMap [user]
 
         waitsFor ->
             userNotification.me?
         , 'user logged in', testConfig.timeouts.response
 
         runs ->
-            pusherMock.send "member_added", anotherUser
+            pusherMock.send "pusher:member_added", anotherUser
 
         waitsFor ->
             userNotification.connectedUsersCount is 2
         , 'another user was added', testConfig.timeouts.response
 
         runs ->
-            pusherMock.send 'member_removed', anotherUser
+            pusherMock.send 'pusher:member_removed', anotherUser
 
         waitsFor ->
             userNotification.connectedUsersCount is 1

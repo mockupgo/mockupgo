@@ -1,4 +1,8 @@
-_ = require 'lodash' if exports
+if module?.exports?
+    _ = require 'lodash'
+else
+    _ = window._
+
 class Notes
     constructor: (@viewModel, @pusher, @server) ->
         @data = {}
@@ -74,4 +78,7 @@ class Notes
     commitDelete: (id) =>
         @server.delete id
 
-(if window? then window else exports).Notes = Notes
+if window?
+    window.Notes = Notes
+else
+    module.exports = Notes

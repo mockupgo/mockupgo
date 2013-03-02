@@ -15,5 +15,8 @@ UserNotificationViewModel = ($scope) ->
         $scope.userNotifications = new UserNotification @, window.pusherService
         $scope.userNotifications.login()
 
-(if window? then window else exports).UserNotificationViewModel = UserNotificationViewModel
+if window?
+    window.UserNotificationViewModel = UserNotificationViewModel
+else
+    module.exports = UserNotificationViewModel
 
