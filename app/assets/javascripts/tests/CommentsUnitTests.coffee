@@ -9,6 +9,7 @@ describe 'comments unit test', ->
 
     fakeViewModel =
         onUpdate: ->
+        onUpdateComment: ->
         onDelete: ->
 
     tempNotesData =
@@ -50,7 +51,7 @@ describe 'comments unit test', ->
         runs ->
             notes.create tempData[1]
             comments.create tempData[1]
-            comments.commitCreate tempData[1]
+            comments.commitCreate tempData[1].id
 
         waitsFor ->
             notes.count is 1 && _.isUndefined notes.data[1]

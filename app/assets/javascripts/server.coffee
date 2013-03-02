@@ -15,7 +15,13 @@ class ServerService
         $('.note').each (i, n) =>
             note = $ n
             id = note.data 'id'
-            notes[id] = id: id, left: note.attr('left'), top: note.attr('top'), width: note.attr('width'), height: note.attr('height')
+            notes[id] =
+                id: id
+                left: parseInt note.css('left')
+                top: parseInt note.attr('top')
+                width: parseInt note.attr('width')
+                height: parseInt note.attr('height')
+                comment: note.find('.comment-text').text()
         callback notes
 
     create: (note) =>
@@ -26,7 +32,7 @@ class ServerService
             data:
                 socket_id: @pusher.connection.socket_id
                 image_version: image_version
-                comment: ''#comment
+                comment: note.comment
                 position:
                     top:    note.top
                     left:   note.left

@@ -37,7 +37,7 @@ window.module.config ($compileProvider) ->
                     return if $(event.toElement).hasClass "delete-note"
                     if scope.newnote?
                         scope.notes.delete scope.newnote.id
-                    scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX
+                    scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX, comment:""
                     scope.notes.create scope.newnote
                     # Only one new note should be active at one time
                     $('div.note-new').remove()
@@ -54,7 +54,7 @@ window.module.config ($compileProvider) ->
                                         <div id='comment_bar' class='input_bar'>
                                             <form method='post' action=''>
                                                 <div class='textarea'>
-                                                    <textarea name='comment' ng-model='comments.data[#{scope.newnote.id}].text' id='comment' class='replace' rows='3'></textarea>
+                                                    <textarea name='comment' ng-model='newnote.comment' id='comment' class='replace' rows='3'></textarea>
                                                 </div>
                                                 <button type='submit' ng-click='onAdd()' class='black create-button'>
                                                     Add Note

@@ -16,7 +16,7 @@ class Comments
             @subscribe()
 
     get: (id) =>
-        @data[id].text
+        @data[id]?.text
 
     subscribe: =>
         @pusher.subscribe "client-new-note-comment-in-progress", (comment) =>
@@ -25,19 +25,19 @@ class Comments
     push: (comment) =>
         @count++ unless @data[comment.id]?
         @data[comment.id] = comment
-        @viewModel.onUpdate @notes.data[comment.id]
+        @viewModel.onUpdateComment comment
 
     pop: (id) =>
         @count-- if @data[id]?
         delete @data[id]
-        @viewModel.onUpdate id
+        @viewModel.onUpdateComment id:id, text:''
 
     create: (comment) =>
         @push comment
         @pusher.send "client-new-note-comment-in-progress", comment
 
-    commitCreate: (comment) =>
-        @notes.commitCreate @notes.data[comment.id]
+    commitCreate: (id) =>
+        @notes.commitCreate @notes.data[id]
 
 
 if window?

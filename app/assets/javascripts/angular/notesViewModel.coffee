@@ -1,12 +1,20 @@
 NotesViewModel = ($scope, $compile) ->
 
+    $scope.newnote = {}
+
+    $scope.$watch 'newnote.comment', (value) ->
+        return unless $scope.newnote?.comment?
+        $scope.comments.create
+            id: $scope.newnote.id
+            text: value
+
     $scope.appendNote = (note) ->
         code = "<div class='note-new note draggable' data-id='#{note.id}'>
                     <a href='javascript:;' ng-click='onDeleteClick(#{note.id})' class='delete-note'>Delete</a>
                     <div class='note-comment'>
                         <span id='arrow'></span>
                         <div class='note-content'>
-                            <div class='comment-text ui-selectee'>{{comments.get(note.id)}}</div>
+                            <div class='comment-text ui-selectee'></div>
                         </div>
                     </div>
                 </div>"
@@ -15,17 +23,23 @@ NotesViewModel = ($scope, $compile) ->
         $compile(notesDiv.contents()) $scope
         window.activate_note $scope.notes, $("div.note[data-id='#{note.id}']")
 
+    $scope.getComment = (id) ->
+        $scope.comments.get(id)?.text
+
+    $scope.onUpdateComment = (comment) ->
+        return if $scope.newnote.comment is comment.text
+        $("div.note[data-id=#{comment.id}] .note-comment").text comment.text
+
     $scope.onUpdate = (note) ->
         if $("div.note[data-id='#{note.id}']").length is 0
             canCreate = if $scope.newnote? then note.id isnt $scope.newnote.id else yes
             $scope.appendNote note if canCreate
 
-        $scope.$apply =>
-            $("div.note[data-id='#{note.id}']").css
-                top:    note.top
-                left:   note.left
-                width:  note.width
-                height: note.height
+        $("div.note[data-id='#{note.id}']").css
+            top:    note.top
+            left:   note.left
+            width:  note.width
+            height: note.height
         #note.find(".comment-text").html $scope.coments.data[note.id].text
 
     $scope.onDelete = (id) ->
@@ -42,22 +56,20 @@ NotesViewModel = ($scope, $compile) ->
         screenshot = $ '.image-container'
         comment = screenshot.find('div.note-new textarea#comment').val()
         new_note.find('div.note-content').html '<div class="comment-text">' + comment + '</div>'
-        new_note.removeClass('note-new').data 'id', note.id
+        # new_note.removeClass('note-new').data 'id', note.id
 
     $scope.onUpdateAside = (data) ->
         $('aside').html(data)
 
     $scope.onAdd = ->
-        $scope.notes.commitCreate $scope.newnote
-        $scope.newnote = null
+        $scope.comments.commitCreate $scope.newnote.id
+        $('.note-new').removeClass('note-new').find('.note-content').html "<div class='comment-text'>#{$scope.newnote.comment}</div>"
+        $scope.newnote = {}
 
-###########---NEW ---------------------------------------
 
     $scope.onUpdateScrollPos = (data) ->
         window.current_scroll = data.pos
         $('.screenshot-portrait').scrollTop(data.pos)
-
-###########---INTERACTIVITY----------------------------------
 
 
     $ ->
