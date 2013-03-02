@@ -4,15 +4,15 @@ $ ->
 
     WEB_SOCKET_DEBUG = true
 
-    channel = pusher.subscribe("my-channel-image-version-" + image_version_id)
+    # channel = pusher.subscribe("my-channel-image-version-" + image_version_id)
 
 
-    channel.bind "alert-note", (data) ->
-        alert(data)
+    # channel.bind "alert-note", (data) ->
+    #     alert(data)
 
 
-    channel.bind "delete-note", (data) ->
-        $("div.note[data-id='" + data.message + "']").fadeOut()
+    # channel.bind "delete-note", (data) ->
+    #     $("div.note[data-id='" + data.message + "']").fadeOut()
 
     # channel.bind "update-note", (data) ->
     #     note = $("div.note[data-id='" + data.id + "']")
@@ -24,9 +24,9 @@ $ ->
 
 
 
-    channel_rt.bind "client-new-note-comment-in-progress", (data) ->
-        note = $("div.note[data-id='" + data.id + "']")
-        note.find(".comment-text").html data.comment
+    # channel_rt.bind "client-new-note-comment-in-progress", (data) ->
+    #     note = $("div.note[data-id='" + data.id + "']")
+    #     note.find(".comment-text").html data.comment
 
     # channel_rt.bind "client-delete-note-in-progress", (data) ->
     #     $("div.note[data-id='" + data.id + "']").fadeOut().remove()
@@ -48,26 +48,26 @@ $ ->
     #     $('.screenshot-portrait').scrollTop(data.pos)
 
 
-    channel_rt.bind "create-note", (data) ->
-        window.console.log "create note"
-        window.console.log data
-        note = data.message
-        already_existing_notes = $('.note[data-id="' + note.id + '"]')
-        if already_existing_notes.length == 0
-            $("div.note[data-id='999']").remove()
-            new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
-            activate_note($('.note[data-id="' + note.id + '"]'))
+    # channel_rt.bind "create-note", (data) ->
+    #     window.console.log "create note"
+    #     window.console.log data
+    #     note = data.message
+    #     already_existing_notes = $('.note[data-id="' + note.id + '"]')
+    #     if already_existing_notes.length == 0
+    #         $("div.note[data-id='999']").remove()
+    #         new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
+    #         activate_note($('.note[data-id="' + note.id + '"]'))
 
-    channel_rt.bind "client-new-note-in-progress", (note) ->
-        if $('.note[data-id="' + note.id + '"]').length == 0
-            window.console.log "creating note in progress"
-            new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='opacity: 0.8; top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
-        else
-            note_html = $("div.note[data-id='" + note.id + "']")
-            note_html.css "top", note.top
-            note_html.css "left", note.left
-            note_html.css "width", note.width
-            note_html.css "height", note.height
+    # channel_rt.bind "client-new-note-in-progress", (note) ->
+    #     if $('.note[data-id="' + note.id + '"]').length == 0
+    #         window.console.log "creating note in progress"
+    #         new_note = $(".notes").append "<div class='note' data-id='" + note.id + "' style='opacity: 0.8; top: " + note.top + "px; left: " + note.left + "px; width: " + note.width + "px; height: " + note.height + "px; '><span class='black note-counter'> x </span> <a class='delete-note' href='#' style='display: block; '>Delete</a> <div class='note-wrapper '> <div class='note-comment'> <span id='arrow'></span> <div class='note-content'><div class='comment-text'>" + note.comment + "</div></div></div></div></div>"
+    #     else
+    #         note_html = $("div.note[data-id='" + note.id + "']")
+    #         note_html.css "top", note.top
+    #         note_html.css "left", note.left
+    #         note_html.css "width", note.width
+    #         note_html.css "height", note.height
 
 
 # activate_note = (note) ->
@@ -152,23 +152,23 @@ $ ->
 #     , 300)
 
 
-update_note_comment = (note, comment) ->
-    id = note.data('id')
-    $.ajax '/annotations/' + id,
-        type: 'PUT'
-        dataType: 'JSON'
-        data:
-            comment: comment
-        success: (data) ->
-            note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
-            $('.note-new').removeClass('note-new')
+# update_note_comment = (note, comment) ->
+#     id = note.data('id')
+#     $.ajax '/annotations/' + id,
+#         type: 'PUT'
+#         dataType: 'JSON'
+#         data:
+#             comment: comment
+#         success: (data) ->
+#             note.find('div.note-content').html('<div class="comment-text">' + comment + '</div>')
+#             $('.note-new').removeClass('note-new')
 
-update_aside = (image_version) ->
-    $.ajax '/image_versions/' + image_version + '/aside'
-        type: 'GET'
-        dataType: 'HTML'
-        success: (data) ->
-            $('aside').html(data)
+# update_aside = (image_version) ->
+#     $.ajax '/image_versions/' + image_version + '/aside'
+#         type: 'GET'
+#         dataType: 'HTML'
+#         success: (data) ->
+#             $('aside').html(data)
 
 jQuery ->
 #     $(".selectable").selectable
@@ -239,12 +239,12 @@ jQuery ->
 
 
     # Get ready to receive note creation button events
-    $(document).on 'click', 'div.note-comment button.create-button', (event) ->
-        event.preventDefault()
+    # $(document).on 'click', 'div.note-comment button.create-button', (event) ->
+    #     event.preventDefault()
 
-        screenshot = $(event.target).closest('.image-container')
-        comment = screenshot.find('div.note-new textarea#comment').val()
-        helper  = screenshot.find('div.note-new')
+    #     screenshot = $(event.target).closest('.image-container')
+    #     comment = screenshot.find('div.note-new textarea#comment').val()
+    #     helper  = screenshot.find('div.note-new')
 
         # $.ajax '/annotations',
         #     type: 'POST'
@@ -266,46 +266,46 @@ jQuery ->
         #         update_aside(screenshot.data('image-version'))
 
     # Setup note deletion
-    $(document).on 'click', 'a.delete-note', (event) ->
-        event.preventDefault()
-        screenshot = $(event.target).closest('.image-container')
-        $(this).parent().fadeOut()
-        note_id = $(this).parent().data('id')
-        # window.channel_rt.trigger "client-delete-note-in-progress",
-        #     "id":   note_id
-        # $.ajax '/annotations/' + $(this).parent().data('id'),
-        #     type: 'DELETE'
-        #     dataType: 'SCRIPT'
-        update_aside(screenshot.data('image-version'))
+    # $(document).on 'click', 'a.delete-note', (event) ->
+    #     event.preventDefault()
+    #     screenshot = $(event.target).closest('.image-container')
+    #     $(this).parent().fadeOut()
+    #     note_id = $(this).parent().data('id')
+    #     # window.channel_rt.trigger "client-delete-note-in-progress",
+    #     #     "id":   note_id
+    #     # $.ajax '/annotations/' + $(this).parent().data('id'),
+    #     #     type: 'DELETE'
+    #     #     dataType: 'SCRIPT'
+    #     update_aside(screenshot.data('image-version'))
 
 
     # Setup note edition
-    $(document).on 'click', 'div.comment-text', (event) ->
-        event.preventDefault()
-        current_note = $(this).text()
-        note_id = $(this).closest('div.note').data('id')
-        note_field = $(this).closest('div.note-content')
-                            .html('<div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black update-button">Update</button></form></div>')
-                            .find('textarea')
-        note_field.val(current_note)
-        userdata = $('#userdata')
-        window.curent_user_id    = userdata.data('current-user-id')
-        window.curent_user_email = userdata.data('current-user-email')
-        note_field.keyup () ->
-            window.console.log window.curent_user_email + ": " +$(this).val()
-            window.channel_rt.trigger "client-new-note-comment-in-progress",
-                    "id":     note_id,
-                    "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
+    # $(document).on 'click', 'div.comment-text', (event) ->
+    #     event.preventDefault()
+    #     current_note = $(this).text()
+    #     note_id = $(this).closest('div.note').data('id')
+    #     note_field = $(this).closest('div.note-content')
+    #                         .html('<div id="comment_bar" class="input_bar"><form method="post" action=""><div class="textarea"><textarea name="comment" id="comment" class="replace" rows="3"></textarea></div><button type="submit" class="black update-button">Update</button></form></div>')
+    #                         .find('textarea')
+    #     note_field.val(current_note)
+    #     userdata = $('#userdata')
+    #     window.curent_user_id    = userdata.data('current-user-id')
+    #     window.curent_user_email = userdata.data('current-user-email')
+    #     note_field.keyup () ->
+    #         window.console.log window.curent_user_email + ": " +$(this).val()
+    #         window.channel_rt.trigger "client-new-note-comment-in-progress",
+    #                 "id":     note_id,
+    #                 "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),
 
 
     # Setup note save action
-    $(document).on 'click', 'button.update-button', (event) ->
-        event.preventDefault()
-        screenshot = $(event.target).closest('.image-container')
-        new_comment = $(this).parent().find('textarea').val()
-        note  = $(this).closest('div.note')
-        update_note_comment(note, new_comment)
-        update_aside(screenshot.data('image-version'))
+    # $(document).on 'click', 'button.update-button', (event) ->
+    #     event.preventDefault()
+    #     screenshot = $(event.target).closest('.image-container')
+    #     new_comment = $(this).parent().find('textarea').val()
+    #     note  = $(this).closest('div.note')
+    #     update_note_comment(note, new_comment)
+    #     update_aside(screenshot.data('image-version'))
 
 
     # Loading existing notes
@@ -317,5 +317,5 @@ jQuery ->
     #       mockup: $('#page-content').data('mockup') ####
     #   success: (data) ->
     #       $('#notes').html(data) ####
-    activate_note $('.note')
-    $('a.delete-note').hide()
+    # activate_note $('.note')
+    # $('a.delete-note').hide()
