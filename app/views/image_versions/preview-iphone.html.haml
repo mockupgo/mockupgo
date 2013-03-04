@@ -1,7 +1,7 @@
-%body.preview
+%body.preview{"ng-controller" => "UserNotificationViewModel"}
   = render "preview_navbar"
 
-  #main-preview.iphone-preview
+  #main-preview.iphone-preview{"ng-controller" => "NotesViewModel"}
     .content-preview#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email}
 
       - version = @page.previous_version
@@ -18,7 +18,7 @@
       .iphone.current-version
         .version-number= "<b>Version #{@image_version.version_number}</b> (#{time_ago_in_words(@image_version.created_at)} ago)".html_safe
         .screenshot.screenshot-portrait.image-container.selectable{"data-image-version" => @image_version.id}
-          = image_tag @image_version.image.url
+          = image_tag @image_version.image.url, "note-creation-triggers" => ""
           .notes
             = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
 
@@ -31,7 +31,4 @@
       = render :partial => 'aside', :locals => { :annotations => @image_version.annotations }
 
 
-.flash-message-box
-
-
-%script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
+.flash-message-box{"show-notifications" => ""}

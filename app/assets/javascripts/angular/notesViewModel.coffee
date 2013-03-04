@@ -53,10 +53,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
 
     $scope.onCreate = (note) ->
         new_note = $ "div[data-id=#{note.oldId}]"
-        console.log("received new note")
-        screenshot = $ '.image-container'
-        comment = screenshot.find('div.note-new textarea#comment').val()
-        new_note.find('div.note-content').html '<div class="comment-text">' + comment + '</div>'
+        new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment} + '</div>"
 
     $scope.onUpdateAside = (data) ->
         $('aside').html data

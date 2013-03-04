@@ -60,7 +60,7 @@ window.module.config ($compileProvider) ->
                                     </div>
                                 </div>
                             </div>"
-                    notesDiv = et.find '.notes'
+                    notesDiv = $ '.notes'
                     notesDiv.append code
                     $compile(notesDiv.contents()) scope
                     $rootScope.interactivity.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
