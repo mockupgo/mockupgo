@@ -1,5 +1,3 @@
-return if window?
-
 module.exports =
     timeouts:
         response : 100

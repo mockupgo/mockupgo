@@ -30,7 +30,6 @@ class Comments
     pop: (id) =>
         @count-- if @data[id]?
         delete @data[id]
-        @viewModel.onUpdateComment id:id, text:''
 
     create: (comment) =>
         @push comment

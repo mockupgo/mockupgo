@@ -1,9 +1,12 @@
+= javascript_include_tag "application"
+= csrf_meta_tags
+
 #page-show.navigation{"data-project-id" => @project.id, "data-page-id" => @page.id}
-  =link_to dashboard_url, :class => "" do 
+  =link_to dashboard_url, :class => "" do
     %i{class: "icon-home"}
     Dashboard
   &nbsp;>&nbsp;
-  =link_to project_url(@project), :class => "" do 
+  =link_to project_url(@project), :class => "" do
     %i{class: "icon-th"}
     = @project.name
 
@@ -14,7 +17,7 @@
   = link_to edit_project_page_path(@project, @page), class: "btn btn-mini", :data => { :toggle => 'modal', :target => '#edit-modal', :remote => 'false' } do
     %i{class: "icon-edit"}
     Edit
-    
+
 
 .row
   .span8
@@ -31,7 +34,7 @@
           Preview and annotate mockup
           %i.icon-arrow-right.icon-white
 
-      Mockup display mode: 
+      Mockup display mode:
       #display-style.btn-group
         %button.btn.desktop{"data-display-mode" => "desktop"} Desktop
         %button.btn.iphone-portrait{"data-display-mode" => "iphone-portrait"} iPhone Portrait

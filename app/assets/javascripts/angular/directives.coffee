@@ -26,11 +26,8 @@ window.module.directive 'showNotifications', ->
                 delete scope.notifications[index]
         , true
 
-window.module.directive 'showNotes', ->
-    (scope, element, attrs) ->
-
 window.module.config ($compileProvider) ->
-    $compileProvider.directive 'noteCreationTriggers', ($compile) ->
+    $compileProvider.directive 'noteCreationTriggers', ($compile, $rootScope) ->
         (scope, element, attrs) ->
             $(element).selectable
                 start: (event) ->
@@ -39,12 +36,11 @@ window.module.config ($compileProvider) ->
                         scope.notes.delete scope.newnote.id
                     scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX, comment:""
                     scope.notes.create scope.newnote
-                    # Only one new note should be active at one time
                     $('div.note-new').remove()
-                    window.start_realtime_update_for_create scope.notes, scope.newnote, event
+                    $rootScope.interactivity.start_realtime_update_for_create scope.notes, scope.newnote, event
                 stop: (event) ->
                     return if $(event.toElement).hasClass "delete-note"
-                    window.stop_realtime_update_for_create scope.newnote, event
+                    $rootScope.interactivity.stop_realtime_update_for_create scope.newnote, event
                     et = $(event.target)
                     code = "<div class='note-new note draggable' data-id='#{scope.newnote.id}'>
                                 <a href='javascript:;' ng-click='onDeleteClick(#{scope.newnote.id})' class='delete-note'>Delete</a>
@@ -67,7 +63,7 @@ window.module.config ($compileProvider) ->
                     notesDiv = et.find '.notes'
                     notesDiv.append code
                     $compile(notesDiv.contents()) scope
-                    window.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
+                    $rootScope.interactivity.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
                     helper = $("div.ui-selectable-helper")
                     offset = et.offset()
                     scroll_from_top = parseInt(et.scrollTop())
@@ -84,10 +80,3 @@ window.module.config ($compileProvider) ->
                         left:   note_left
                         width:  note_width
                         height: note_height
-
-                    # $('.note-new textarea#comment').focus()
-                    # $('.note-new textarea#comment').keyup () ->
-                    #     window.console.log window.curent_user_email + ": " +$(this).val()
-                    #     window.channel_rt.trigger "client-new-note-comment-in-progress",
-                    #         "id":     "999",
-                    #         "comment":  "<u>" + window.curent_user_email + ":</u> " +$(this).val(),

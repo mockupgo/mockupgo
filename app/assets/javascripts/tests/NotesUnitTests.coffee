@@ -3,7 +3,7 @@ PusherMock = require '../pusherMock'
 ServerMock = require '../serverMock'
 testConfig = require './testConfig'
 Notes = require '../Notes'
-console.log Notes
+
 describe 'notes unit tests', ->
 
     fakeViewModel =

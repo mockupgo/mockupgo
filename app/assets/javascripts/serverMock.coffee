@@ -1,12 +1,11 @@
-return if window?
 class ServerMock
     constructor: (@pushers) ->
         @notes = {}
 
     create: (note) ->
-        generateRealId = => #emulate real id generation, not random in reality
+        generateRealId = =>
             loop
-                realId = parseInt Math.random() * 1000
+                realId = parseInt Math.random() * 100000
                 break unless @notes[realId]?
             realId
 

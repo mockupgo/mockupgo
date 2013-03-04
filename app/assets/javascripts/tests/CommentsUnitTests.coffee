@@ -54,7 +54,7 @@ describe 'comments unit test', ->
             comments.commitCreate tempData[1].id
 
         waitsFor ->
-            notes.count is 1 && _.isUndefined notes.data[1]
+            notes.count is 1 and _.isUndefined notes.data[1]
         , 'new note with new real id generated at server was added', testConfig.timeouts.response
 
         runs ->

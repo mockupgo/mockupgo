@@ -20,7 +20,10 @@ class Notes
 
     subscribe: =>
         @pusher.subscribe "client-new-note-in-progress", (note) =>
-            @push note
+            if note.width < 4 and note.height < 4
+                @delete note.id
+            else
+                @push note
 
         @pusher.subscribe "create-note", (note) =>
             @pop note.oldId
@@ -51,10 +54,9 @@ class Notes
     create: (note) =>
         unless note.id?
             loop
-                note.id = parseInt Math.random() * 1000
+                note.id = parseInt Math.random() * 100000
                 break unless @data[note.id]?
         @push note
-        return if note.width < 4 and note.height < 4
         @pusher.send "client-new-note-in-progress", note
 
     commitCreate: (note) =>

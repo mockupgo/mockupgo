@@ -1,4 +1,5 @@
 UserNotificationViewModel = ($scope) ->
+
     unless window?
         $scope = $apply: (func) => func()
 
