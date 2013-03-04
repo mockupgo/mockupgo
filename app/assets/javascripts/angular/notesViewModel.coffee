@@ -19,10 +19,11 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
                         </div>
                     </div>
                 </div>"
+        code = $ code
         notesDiv = $ '.notes'
         notesDiv.append code
         $compile(notesDiv.contents()) $scope
-        $rootScope.interactivity.activate_note $scope.notes, $("div.note[data-id='#{note.id}']")
+        $rootScope.interactivity.activate_note $scope.notes, code
 
     $scope.getComment = (id) ->
         $scope.comments.get(id)?.text
@@ -70,6 +71,8 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         window.server = new window.ServerService window.pusher, $scope
         $scope.notes = new Notes $scope, window.pusherService, window.server
         $scope.comments = new Comments $scope, window.pusherService, window.server, $scope.notes
+        $("div.note").each ->
+            $rootScope.interactivity.activate_note $scope.notes, $ @
 
         $(".delete-note").click ->
             $scope.onDeleteClick $(this).parent('.note').data 'id'

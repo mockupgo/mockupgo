@@ -3,19 +3,46 @@
   %head
     %titleMockupGo
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
+
+    %script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/libs/jquery-1.9.1.js", :type => "text/javascript"}
+    %script{:src => "/assets/libs/jquery-ui-1.10.1.custom.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/jquery_ujs.js?body=1", :type => "text/javascript"}
+    %script{:src => "/assets/libs/bootstrap-dropdown.js", :type => "text/javascript"}
+    %script{:src => "/assets/libs/lodash.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/libs/angular.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/libs/angular-ui.min.js", :type => "text/javascript"}
+
+    %script{:src => "/assets/server.js", :type => "text/javascript"}
+    %script{:src => "/assets/pusher.js", :type => "text/javascript"}
+
+    :javascript
+      var pusherKey = "#{Pusher.key}";
+
+    %script{:src => "/assets/init.js", :type => "text/javascript"}
+
+    %script{:src => "/assets/UserNotification.js", :type => "text/javascript"}
+    %script{:src => "/assets/Comments.js", :type => "text/javascript"}
+    %script{:src => "/assets/Notes.js", :type => "text/javascript"}
+    %script{:src => "/assets/config.js", :type => "text/javascript"}
+    %script{:src => "/assets/angular/interactivity.js", :type => "text/javascript"}
+    %script{:src => "/assets/angular/declarations.js", :type => "text/javascript"}
+    %script{:src => "/assets/angular/directives.js", :type => "text/javascript"}
+    %script{:src => "/assets/angular/notesViewModel.js", :type => "text/javascript"}
+    %script{:src => "/assets/angular/userNotificationViewModel.js", :type => "text/javascript"}
+
+
+    /= javascript_include_tag "application"
     = csrf_meta_tags
 
-    %meta{:content => "width=device-width; initial-scale=1.0; maximum-scale=1.0;", :name => "viewport"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
   .current-version
-    %body#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email}
-      .screenshot.screenshot-portrait{"data-image-version" => @image_version.id}
-        = image_tag @image_version.image.url
-        .notes
-          = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
+    %body#userdata{"data-current-user-id" => current_user.id, "data-current-user-email" => current_user.email, "ng-controller" => "UserNotificationViewModel"}
+      %div{"ng-controller" => "NotesViewModel"}
+        .screenshot.screenshot-portrait{"data-image-version" => @image_version.id}
+          %div{"note-creation-triggers" => ""}
+            = image_tag @image_version.image.url
+            .notes
+              = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
 
-
-
-%script{:src => "http://js.pusher.com/1.12/pusher.min.js", :type => "text/javascript"}
-:javascript
-  var pusher = new Pusher("#{Pusher.key}");
+  .flash-message-box{"show-notifications" => ""}

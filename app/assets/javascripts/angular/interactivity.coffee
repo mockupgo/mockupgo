@@ -22,17 +22,18 @@ class Interactivity
         clearInterval @interval_timer
 
     activate_note: (notes, note) =>
+        self = @
         note.draggable
-            start: (event) =>
-                @start_realtime_pos_update notes, $(@), event
-            stop:  (event) =>
-                @stop_realtime_update notes, $(@), event
+            start: (event) ->
+                self.start_realtime_pos_update notes, $(@), event
+            stop:  (event) ->
+                self.stop_realtime_update notes, $(@), event
 
         note.resizable
-            start: (event) =>
-                @start_realtime_size_update notes, $(@), event
-            stop: (event) =>
-                @stop_realtime_update notes, $(@), event
+            start: (event) ->
+                self.start_realtime_size_update notes, $(@), event
+            stop: (event) ->
+                self.stop_realtime_update notes, $(@), event
 
         note.bind
             mouseenter: ->
