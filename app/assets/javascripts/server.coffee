@@ -31,6 +31,7 @@ class ServerService
             dataType: 'JSON'
             data:
                 socket_id: @pusher.connection.socket_id
+                note_oldid: note.id
                 image_version: image_version
                 comment: note.comment
                 position:

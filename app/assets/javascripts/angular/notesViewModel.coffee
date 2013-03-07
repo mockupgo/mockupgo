@@ -48,12 +48,12 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $scope.comments.pop id
 
     $scope.onDeleteClick = (id) ->
-        wasReal = $scope.notes.get(id)?.oldId?
+        wasReal = $scope.notes.get(id)?.oldid?
         $scope.notes.delete id
         $scope.notes.commitDelete id if wasReal
 
     $scope.onCreate = (note) ->
-        new_note = $ "div[data-id=#{note.oldId}]"
+        new_note = $ "div[data-id=#{note.oldid}]"
         new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment} + '</div>"
 
     $scope.onUpdateAside = (data) ->

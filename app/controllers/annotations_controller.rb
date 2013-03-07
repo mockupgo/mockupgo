@@ -20,9 +20,10 @@ class AnnotationsController < ApplicationController
         @pusher_socket_id = params[:socket_id]
 
         @annotation = Annotation.new
-        @annotation.top     = @position[:top].to_i
-        @annotation.left    = @position[:left].to_i
-        @annotation.width   = @position[:width].to_i
+        @annotation.oldid   = params[:note_oldid]
+        @annotation.top     = @position[:top   ].to_i
+        @annotation.left    = @position[:left  ].to_i
+        @annotation.width   = @position[:width ].to_i
         @annotation.height  = @position[:height].to_i
         @annotation.comment = params[:comment]
         @annotation.image_version  = @image_version

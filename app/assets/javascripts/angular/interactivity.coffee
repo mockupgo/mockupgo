@@ -55,7 +55,7 @@ class Interactivity
 
     stop_realtime_update: (notes, note, event) =>
         clearInterval @interval_timer
-        if note.oldId?
+        if note.oldid?
             notes.commitUpdate @build_note_object note
 
     build_note_object: (obj) ->

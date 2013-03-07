@@ -9,7 +9,7 @@ class ServerMock
                 break unless @notes[realId]?
             realId
 
-        note.oldId = note.id
+        note.oldid = note.id
         note.id = generateRealId()
         @notes[note.id] = note
         for pusher in @pushers

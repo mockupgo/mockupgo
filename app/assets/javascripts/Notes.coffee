@@ -26,7 +26,7 @@ class Notes
                 @push note
 
         @pusher.subscribe "create-note", (note) =>
-            @pop note.oldId
+            @pop note.oldid
             @push note
 
         @pusher.subscribe "client-update-note-size", (note) =>
