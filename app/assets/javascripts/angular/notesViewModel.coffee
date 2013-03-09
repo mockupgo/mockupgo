@@ -13,9 +13,9 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         code = "<div class='note-new note draggable' data-id='#{note.id}'>
                     <a href='javascript:;' ng-click='onDeleteClick(#{note.id})' class='delete-note'>Delete</a>
                     <div class='note-comment'>
-                        #{note.comment}
+                        <span id='arrow'></span>
                         <div class='note-content'>
-                            <div class='comment-text ui-selectee'></div>
+                            <div class='comment-text ui-selectee'>#{note.comment}</div>
                         </div>
                     </div>
                 </div>"

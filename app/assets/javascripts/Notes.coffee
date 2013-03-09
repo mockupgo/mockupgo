@@ -12,7 +12,9 @@ class Notes
     init: =>
         @server.getNotes (notes) =>
             _.forEach notes, (note) =>
-                @push _.cloneDeep note
+                newNote = _.cloneDeep note
+                newNote.oldId = newNote.id
+                @push newNote
             @subscribe()
 
     get: (id) =>
