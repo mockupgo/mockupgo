@@ -18,9 +18,9 @@ class ServerService
             notes[id] =
                 id: id
                 left: parseInt note.css('left')
-                top: parseInt note.attr('top')
-                width: parseInt note.attr('width')
-                height: parseInt note.attr('height')
+                top: parseInt note.css('top')
+                width: parseInt note.css('width')
+                height: parseInt note.css('height')
                 comment: note.find('.comment-text').text()
         callback notes
 
@@ -39,6 +39,7 @@ class ServerService
                     width:  note.width
                     height: note.height
             success: (data) =>
+                data.oldId = note.id unless data.oldId?
                 @notesViewModel.onCreate data
                 @update_aside image_version
 
@@ -52,6 +53,7 @@ class ServerService
                     left:   note.left
                     width:  note.width
                     height: note.height
+                comment: note.comment
 
     delete: (id) =>
         $.ajax "/annotations/#{id}",

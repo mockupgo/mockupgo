@@ -1,6 +1,6 @@
 class Interactivity
 
-    start_realtime_update_for_create: (notes, note, event) =>
+    start_realtime_update_for_create: (notes, comments, note, event) =>
         @interval_timer = setInterval ->
             helper = $ "div.ui-selectable-helper"
             et = $ ".ui-selectable"
@@ -16,6 +16,7 @@ class Interactivity
                 "top":  note.top
                 "left": note.left
                 "comment": "New note by " + $('#userdata').data 'current-user-email'
+            comments.create id: note.id
         , 200
 
     stop_realtime_update_for_create: (note, event) =>

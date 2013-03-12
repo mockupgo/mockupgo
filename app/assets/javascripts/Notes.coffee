@@ -65,8 +65,8 @@ class Notes
         @server.create note
 
     updateSize: (note) =>
-        @push note
-        @pusher.send "client-update-note-size", note
+        @push pusher
+        @note.send "client-update-note-size", note
 
     updatePos: (note) =>
         @push note

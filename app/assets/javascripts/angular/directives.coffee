@@ -37,7 +37,7 @@ window.module.config ($compileProvider) ->
                     scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX, comment:""
                     scope.notes.create scope.newnote
                     $('div.note-new').remove()
-                    $rootScope.interactivity.start_realtime_update_for_create scope.notes, scope.newnote, event
+                    $rootScope.interactivity.start_realtime_update_for_create scope.notes, scope.comments, scope.newnote, event
                 stop: (event) ->
                     return if $(event.toElement).hasClass "delete-note"
                     $rootScope.interactivity.stop_realtime_update_for_create scope.newnote, event
@@ -80,3 +80,35 @@ window.module.config ($compileProvider) ->
                         left:   note_left
                         width:  note_width
                         height: note_height
+
+window.module.config ($compileProvider) ->
+    $compileProvider.directive 'noteCommentUpdateTrigger', ($compile) ->
+        (scope, element, attrs) ->
+            $(document).on "click", ".note-comment", ->
+                comment = $ @
+                id = comment.parents('.note').attr 'data-id'
+                return unless scope.notes.data[id].oldId?
+                scope.$apply ->
+                    return if comment.find("textarea").length > 0
+
+                    comment.html "<span id='arrow'></span>
+                                    <div class='note-content'>
+                                        <div id='comment_bar' class='input_bar'>
+                                            <form method='post' action=''>
+                                                <div class='textarea'>
+                                                    <textarea name='comment' ng-model='comments.data[#{id}].text' id='comment' class='replace' rows='3'></textarea>
+                                                </div>
+                                                <button type='submit' ng-click='onUpdateExistingComment(#{id})' class='black create-button'>
+                                                    Update
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>"
+
+                    $compile(comment.contents()) scope
+
+                scope.unwatchers[id] = scope.$watch "comments.data[#{id}]", (value) ->
+                    return unless value?
+                    scope.notes.get(value.id).comment = value.text
+                    scope.comments.update value
+                , true

@@ -22,10 +22,10 @@ class Comments
         @pusher.subscribe "client-new-note-comment-in-progress", (comment) =>
             @push comment
 
-    push: (comment) =>
+    push: (comment, shouldUpdate = yes) =>
         @count++ unless @data[comment.id]?
         @data[comment.id] = comment
-        @viewModel.onUpdateComment comment
+        @viewModel.onUpdateComment comment if shouldUpdate
 
     pop: (id) =>
         @count-- if @data[id]?
@@ -37,6 +37,10 @@ class Comments
 
     commitCreate: (id) =>
         @notes.commitCreate @notes.data[id]
+
+    update: (comment) =>
+        @push comment, no
+        @pusher.send "client-new-note-comment-in-progress", comment
 
 
 if window?

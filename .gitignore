@@ -23,3 +23,4 @@
 /app/assets/javascripts/node_modules
 /app/assets/node_modules
 /app/assets/javascripts/tests/*.js
+*.map

@@ -1,6 +1,7 @@
 NotesViewModel = ($scope, $rootScope, $compile) ->
 
     $scope.newnote = {}
+    $scope.unwatchers = {}
 
     $scope.$watch 'newnote.comment', (value) ->
         return unless $scope.newnote?.comment?
@@ -10,7 +11,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
             text: value
 
     $scope.appendNote = (note) ->
-        code = "<div class='note-new note draggable' data-id='#{note.id}'>
+        code = "<div class='note draggable' data-id='#{note.id}'>
                     <a href='javascript:;' ng-click='onDeleteClick(#{note.id})' class='delete-note'>Delete</a>
                     <div class='note-comment'>
                         <span id='arrow'></span>
@@ -29,8 +30,11 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $scope.comments.get(id)?.text
 
     $scope.onUpdateComment = (comment) ->
-        return if $scope.newnote.comment is comment.text
-        $("div.note[data-id=#{comment.id}] .note-comment").text comment.text
+        return if $scope.newnote.comment is comment.text and not comment.text
+        if($("div.note[data-id=#{comment.id}] .note-comment textarea").length is 0)
+            $("div.note[data-id=#{comment.id}] .note-comment").text comment.text
+        else
+            $("div.note[data-id=#{comment.id}] .note-comment textarea").val comment.text
 
     $scope.onUpdate = (note) ->
         if $("div.note[data-id='#{note.id}']").length is 0
@@ -53,19 +57,32 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $scope.notes.commitDelete id if wasReal
 
     $scope.onCreate = (note) ->
+        $scope.notes.data[note.oldId] = note
         new_note = $ "div[data-id=#{note.oldId}]"
-        new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment} + '</div>"
+        new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment}</div>"
 
     $scope.onUpdateAside = (data) ->
         $('aside').html data
 
     $scope.onAdd = ->
+        $(".note[data-id=#{$scope.newnote.id}]")
+            .removeClass('note-new')
+            .find(".note-content")
+            .html "<div class='comment-text'>#{$scope.notes.data[$scope.newnote.id].comment}</div>"
         $scope.comments.commitCreate $scope.newnote.id
-        $('.note-new').removeClass('note-new').find('.note-content').html "<div class='comment-text'>#{$scope.newnote.comment}</div>"
         $scope.newnote = {}
 
     $scope.onUpdateScrollPos = (data) ->
         $('.screenshot-portrait').scrollTop data.pos
+
+    $scope.onUpdateExistingComment = (id) ->
+        $("div.note[data-id=#{id}] .note-comment").html "<span id='arrow'></span>
+                                                        <div class='note-content'>
+                                                            <div class='comment-text ui-selectee'>#{$scope.notes.get(id).comment}</div>
+                                                        </div>"
+        $scope.notes.commitUpdate $scope.notes.get(id)
+        $scope.comments.update $scope.comments.data[id]
+        $scope.unwatchers[id]()
 
     $ ->
         window.server = new window.ServerService window.pusher, $scope

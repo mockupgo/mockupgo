@@ -6,7 +6,7 @@
       .image-container.selectable{"data-image-version" => @image_version.id, :style => "position: relative; width: #{@image_version.width}px;"}
         %div{"note-creation-triggers" => ""}
           = image_tag @image_version.image.url
-          .notes
+          .notes{"note-comment-update-trigger" => ""}
             = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
 
 
