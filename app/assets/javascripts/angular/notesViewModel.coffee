@@ -5,6 +5,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
 
     $scope.$watch 'newnote.comment', (value) ->
         return unless $scope.newnote?.comment?
+        return unless $scope.notes.get($scope.newnote.id)
         $scope.notes.get($scope.newnote.id).comment = value
         $scope.comments.create
             id: $scope.newnote.id
