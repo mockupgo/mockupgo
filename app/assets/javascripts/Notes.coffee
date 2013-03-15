@@ -56,7 +56,7 @@ class Notes
     create: (note) =>
         unless note.id?
             loop
-                note.id = parseInt Math.random() * 100000
+                note.id = parseInt Math.random() * 100000 + 10000
                 break unless @data[note.id]?
         @push note
         @pusher.send "client-new-note-in-progress", note
@@ -65,8 +65,8 @@ class Notes
         @server.create note
 
     updateSize: (note) =>
-        @push pusher
-        @note.send "client-update-note-size", note
+        @push note
+        @pusher.send "client-update-note-size", note
 
     updatePos: (note) =>
         @push note

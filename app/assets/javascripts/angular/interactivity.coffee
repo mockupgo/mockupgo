@@ -45,25 +45,28 @@ class Interactivity
     start_realtime_pos_update: (notes, note, event) =>
         note = $ note
         @interval_timer = setInterval =>
-            notes.updatePos @build_note_object note
+            notes.updatePos @build_note_object notes, note
         , 200
 
     start_realtime_size_update: (notes, note, event) =>
         note = $ note
         @interval_timer = setInterval =>
-            notes.updateSize @build_note_object note
+            notes.updateSize @build_note_object notes, note
         , 200
 
     stop_realtime_update: (notes, note, event) =>
         clearInterval @interval_timer
-        if note.oldId?
-            notes.commitUpdate @build_note_object note
+        noteObj = @build_note_object notes, note
+        if noteObj.oldId?
+            notes.commitUpdate noteObj
 
-    build_note_object: (obj) ->
-        "id":     parseInt obj.data 'id'
-        "top":    parseInt obj.css  'top'
-        "left":   parseInt obj.css  'left'
-        "width":  parseInt obj.css  'width'
-        "height": parseInt obj.css  'height'
+    build_note_object: (notes, obj) ->
+        note = notes.get parseInt obj.data 'id'
+        extension =
+            "top":    parseInt obj.css  'top'
+            "left":   parseInt obj.css  'left'
+            "width":  parseInt obj.css  'width'
+            "height": parseInt obj.css  'height'
+        _.extend note, extension
 
 window.Interactivity = Interactivity
