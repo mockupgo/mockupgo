@@ -13,7 +13,7 @@ class Notes
         @server.getNotes (notes) =>
             _.forEach notes, (note) =>
                 newNote = _.cloneDeep note
-                newNote.oldId = newNote.id
+                newNote.id = newNote.id
                 @push newNote
             @subscribe()
 
@@ -28,7 +28,7 @@ class Notes
                 @push note
 
         @pusher.subscribe "create-note", (note) =>
-            @pop note.oldId
+            @pop note.id
             @push note
 
         @pusher.subscribe "client-update-note-size", (note) =>
@@ -80,7 +80,7 @@ class Notes
         @pop id
 
     commitDelete: (id) =>
-        @server.delete id
+        @server.delete @data[id].serverId
 
 if window?
     window.Notes = Notes

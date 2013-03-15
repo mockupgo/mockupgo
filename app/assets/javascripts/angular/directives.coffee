@@ -87,7 +87,7 @@ window.module.config ($compileProvider) ->
             $(document).on "click", ".note-comment", ->
                 comment = $ @
                 id = comment.parents('.note').attr 'data-id'
-                return unless scope.notes.data[id].oldId?
+                return unless scope.notes.data[id].id?
                 scope.$apply ->
                     return if comment.find("textarea").length > 0
 

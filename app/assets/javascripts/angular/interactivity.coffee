@@ -16,7 +16,7 @@ class Interactivity
                 "top":  note.top
                 "left": note.left
                 "comment": "New note by " + $('#userdata').data 'current-user-email'
-            comments.create id: note.id
+            comments.create id: note.id, text: notes.get(note.id).comment
         , 200
 
     stop_realtime_update_for_create: (note, event) =>
@@ -57,7 +57,7 @@ class Interactivity
     stop_realtime_update: (notes, note, event) =>
         clearInterval @interval_timer
         noteObj = @build_note_object notes, note
-        if noteObj.oldId?
+        if noteObj.id?
             notes.commitUpdate noteObj
 
     build_note_object: (notes, obj) ->

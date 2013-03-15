@@ -16,6 +16,7 @@ class ServerService
             note = $ n
             id = note.data 'id'
             notes[id] =
+                serverId: id
                 id: id
                 left: parseInt note.css('left')
                 top: parseInt note.css('top')
@@ -39,12 +40,13 @@ class ServerService
                     width:  note.width
                     height: note.height
             success: (data) =>
-                data.oldId = note.id unless data.oldId?
+                data.serverId = data.id
+                data.id = note.id
                 @notesViewModel.onCreate data
                 @update_aside image_version
 
     update: (note) =>
-        $.ajax "/annotations/#{note.id}",
+        $.ajax "/annotations/#{note.serverId}",
             type: 'PUT'
             dataType: 'JSON'
             data:

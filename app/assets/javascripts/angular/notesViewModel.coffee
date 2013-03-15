@@ -33,7 +33,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
     $scope.onUpdateComment = (comment) ->
         return if $scope.newnote.comment is comment.text and not comment.text
         if($("div.note[data-id=#{comment.id}] .note-comment textarea").length is 0)
-            $("div.note[data-id=#{comment.id}] .note-comment").text comment.text
+            $("div.note[data-id=#{comment.id}] .comment-text").text comment.text
         else
             $("div.note[data-id=#{comment.id}] .note-comment textarea").val comment.text
 
@@ -53,19 +53,22 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $scope.comments.pop id
 
     $scope.onDeleteClick = (id) ->
-        wasReal = $scope.notes.get(id)?.oldId?
-        $scope.notes.delete id
+        wasReal = $scope.notes.get(id)?.id?
         $scope.notes.commitDelete id if wasReal
+        $scope.notes.delete id
 
     $scope.onCreate = (note) ->
-        $scope.notes.data[note.oldId] = note
-        new_note = $ "div[data-id=#{note.oldId}]"
+        $scope.notes.data[note.id] = note
+        $scope.notes.create note
+        new_note = $ "div[data-id=#{note.id}]"
         new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment}</div>"
 
     $scope.onUpdateAside = (data) ->
         $('aside').html data
 
     $scope.onAdd = ->
+        $scope.notes.data[$scope.newnote.id].comment = $scope.notes.data[$scope.newnote.id].comment or "New note by " + $('#userdata').data 'current-user-email'
+        $scope.comments.create id: $scope.newnote.id, text: $scope.notes.data[$scope.newnote.id].comment
         $(".note[data-id=#{$scope.newnote.id}]")
             .removeClass('note-new')
             .find(".note-content")
