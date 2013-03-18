@@ -40,13 +40,11 @@ class ServerService
                     width:  note.width
                     height: note.height
             success: (data) =>
-                data.serverId = data.id
-                data.id = note.id
-                @notesViewModel.onCreate data
+                @notesViewModel.onCreate data, note.id
                 @update_aside image_version
 
     update: (note) =>
-        $.ajax "/annotations/#{note.serverId}",
+        $.ajax "/annotations/#{note.id}",
             type: 'PUT'
             dataType: 'JSON'
             data:

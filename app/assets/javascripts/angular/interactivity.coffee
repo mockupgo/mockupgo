@@ -57,8 +57,7 @@ class Interactivity
     stop_realtime_update: (notes, note, event) =>
         clearInterval @interval_timer
         noteObj = @build_note_object notes, note
-        if noteObj.id?
-            notes.commitUpdate noteObj
+        notes.commitUpdate noteObj unless note.hasClass 'note-new'
 
     build_note_object: (notes, obj) ->
         note = notes.get parseInt obj.data 'id'

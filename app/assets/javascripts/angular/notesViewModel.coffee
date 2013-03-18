@@ -11,7 +11,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
             id: $scope.newnote.id
             text: value
 
-    $scope.appendNote = (note) ->
+    $scope.appendNote = (note, inProgress) ->
         code = "<div class='note draggable' data-id='#{note.id}'>
                     <a href='javascript:;' ng-click='onDeleteClick(#{note.id})' class='delete-note'>Delete</a>
                     <div class='note-comment'>
@@ -22,6 +22,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
                     </div>
                 </div>"
         code = $ code
+        code.addClass 'note-new' if inProgress
         notesDiv = $ '.notes'
         notesDiv.append code
         $compile(notesDiv.contents()) $scope
@@ -37,10 +38,10 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         else
             $("div.note[data-id=#{comment.id}] .note-comment textarea").val comment.text
 
-    $scope.onUpdate = (note) ->
+    $scope.onUpdate = (note, inProgress) ->
         if $("div.note[data-id='#{note.id}']").length is 0
             canCreate = if $scope.newnote? then note.id isnt $scope.newnote.id else yes
-            $scope.appendNote note if canCreate
+            $scope.appendNote note, inProgress if canCreate
 
         $("div.note[data-id='#{note.id}']").css
             top:    note.top
@@ -57,9 +58,10 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $scope.notes.commitDelete id if wasReal
         $scope.notes.delete id
 
-    $scope.onCreate = (note) ->
-        $scope.notes.data[note.id] = note
-        $scope.notes.create note
+    $scope.onCreate = (note, oldId) ->
+        $scope.notes.delete oldId
+        $scope.notes.create _.extend note, inProgress: no
+        $scope.comments.create text:note.comment, id:note.id
         new_note = $ "div[data-id=#{note.id}]"
         new_note.find('div.note-content').html "<div class='comment-text'>#{note.comment}</div>"
 
@@ -80,7 +82,8 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
         $('.screenshot-portrait').scrollTop data.pos
 
     $scope.onUpdateExistingComment = (id) ->
-        $("div.note[data-id=#{id}] .note-comment").html "<span id='arrow'></span>
+        note = $ "div.note[data-id=#{id}]"
+        note.find(".note-comment").html "<span id='arrow'></span>
                                                         <div class='note-content'>
                                                             <div class='comment-text ui-selectee'>#{$scope.notes.get(id).comment}</div>
                                                         </div>"

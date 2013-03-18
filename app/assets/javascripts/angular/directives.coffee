@@ -34,9 +34,9 @@ window.module.config ($compileProvider) ->
                     return if $(event.toElement).hasClass "delete-note"
                     if scope.newnote?
                         scope.notes.delete scope.newnote.id
+                        $("div.note[data-id='#{scope.newnote.id}']").remove()
                     scope.newnote = width:0, height:0, top:event.clientY, left:event.clientX, comment:""
                     scope.notes.create scope.newnote
-                    $('div.note-new').remove()
                     $rootScope.interactivity.start_realtime_update_for_create scope.notes, scope.comments, scope.newnote, event
                 stop: (event) ->
                     return if $(event.toElement).hasClass "delete-note"
@@ -63,7 +63,7 @@ window.module.config ($compileProvider) ->
                     notesDiv = $ '.notes'
                     notesDiv.append code
                     $compile(notesDiv.contents()) scope
-                    $rootScope.interactivity.activate_note scope.notes, $('.note-new') # WHICH NOTES ?
+                    $rootScope.interactivity.activate_note scope.notes, $("div.note[data-id='#{scope.newnote.id}']")
                     helper = $("div.ui-selectable-helper")
                     offset = et.offset()
                     scroll_from_top = parseInt(et.scrollTop())
@@ -75,7 +75,7 @@ window.module.config ($compileProvider) ->
                     if note_width < 4 and note_height < 4
                         return
 
-                    $('.note-new').css
+                    $("div.note[data-id='#{scope.newnote.id}']").css
                         top:    note_top
                         left:   note_left
                         width:  note_width
@@ -86,8 +86,9 @@ window.module.config ($compileProvider) ->
         (scope, element, attrs) ->
             $(document).on "click", ".note-comment", ->
                 comment = $ @
-                id = comment.parents('.note').attr 'data-id'
-                return unless scope.notes.data[id].id?
+                note = comment.parents('.note')
+                id = note.attr 'data-id'
+                return if note.hasClass 'note-new'
                 scope.$apply ->
                     return if comment.find("textarea").length > 0
 

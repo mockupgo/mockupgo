@@ -24,7 +24,7 @@ class Notes
             if note.width < 4 and note.height < 4
                 @delete note.id
             else
-                @push note
+                @push note, note.inProgress
 
         @pusher.subscribe "create-note", (note) =>
             @pop note.id
@@ -47,17 +47,17 @@ class Notes
         delete @data[id]
         @viewModel.onDelete id
 
-    push: (note) =>
+    push: (note, inProgress = yes) =>
         @count++ unless @data[note.id]?
-        @data[note.id] = note
-        @viewModel.onUpdate note
+        @data[note.id] = _.omit(note, 'inProgress')
+        @viewModel.onUpdate @data[note.id], inProgress
 
     create: (note) =>
         unless note.id?
             loop
                 note.id = parseInt Math.random() * 100000 + 10000
                 break unless @data[note.id]?
-        @push note
+        @push note, note.inProgress
         @pusher.send "client-new-note-in-progress", note
 
     commitCreate: (note) =>
@@ -79,7 +79,7 @@ class Notes
         @pop id
 
     commitDelete: (id) =>
-        @server.delete @data[id].serverId
+        @server.delete id
 
 if window?
     window.Notes = Notes
