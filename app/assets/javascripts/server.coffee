@@ -3,10 +3,10 @@ class ServerService
 
     getComments: (callback) ->
         comments = []
-        $(".comment-text").each (i, c) =>
+        $(".note-content").each (i, c) =>
             comment = $ c
             id = comment.parents('.note').data 'id'
-            comments.push text: comment.text(), id: id
+            comments.push text: comment.text().replace(/(^\s+)|(\s+$)/g,''), id: id
         callback comments
 
 
@@ -22,7 +22,7 @@ class ServerService
                 top: parseInt note.css('top')
                 width: parseInt note.css('width')
                 height: parseInt note.css('height')
-                comment: note.find('.comment-text').text()
+                comment: note.find('.note-content').text().replace(/(^\s+)|(\s+$)/g,'')
         callback notes
 
     create: (note) =>

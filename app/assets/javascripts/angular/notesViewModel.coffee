@@ -33,7 +33,7 @@ NotesViewModel = ($scope, $rootScope, $compile) ->
     $scope.onUpdateComment = (comment) ->
         return if $scope.newnote.comment is comment.text and not comment.text
         if($("div.note[data-id=#{comment.id}] .note-comment textarea").length is 0)
-            $("div.note[data-id=#{comment.id}] .comment-text").text comment.text
+            $("div.note[data-id=#{comment.id}] .note-content").text comment.text
         else
             $("div.note[data-id=#{comment.id}] .note-comment textarea").val comment.text
 
