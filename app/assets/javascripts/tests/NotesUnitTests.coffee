@@ -43,7 +43,7 @@ describe 'notes unit tests', ->
             notes.commitCreate tempData[1]
 
         waitsFor ->
-            notes.count is 1 && _.isUndefined notes.data[1]
+            notes.count is 1
         , 'new note with new real id generated at server was added', testConfig.timeouts.response
 
         runs ->

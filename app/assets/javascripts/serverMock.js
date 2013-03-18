@@ -10,20 +10,7 @@
     }
 
     ServerMock.prototype.create = function(note) {
-      var generateRealId, pusher, _i, _len, _ref, _results,
-        _this = this;
-      generateRealId = function() {
-        var realId;
-        while (true) {
-          realId = parseInt(Math.random() * 100000);
-          if (_this.notes[realId] == null) {
-            break;
-          }
-        }
-        return realId;
-      };
-      note.oldid = note.id;
-      note.id = generateRealId();
+      var pusher, _i, _len, _ref, _results;
       this.notes[note.id] = note;
       _ref = this.pushers;
       _results = [];

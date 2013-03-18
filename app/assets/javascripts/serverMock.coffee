@@ -3,14 +3,6 @@ class ServerMock
         @notes = {}
 
     create: (note) ->
-        generateRealId = =>
-            loop
-                realId = parseInt Math.random() * 100000
-                break unless @notes[realId]?
-            realId
-
-        note.id = note.id
-        note.id = generateRealId()
         @notes[note.id] = note
         for pusher in @pushers
             pusher.send "create-note", note
