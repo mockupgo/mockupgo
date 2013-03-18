@@ -19,3 +19,4 @@
 /*.sublime-project
 /*.sublime-workspace
 *.map
+node_modules

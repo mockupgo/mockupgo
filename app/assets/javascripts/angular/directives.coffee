@@ -60,10 +60,6 @@ window.module.config ($compileProvider) ->
                                     </div>
                                 </div>
                             </div>"
-                    notesDiv = $ '.notes'
-                    notesDiv.append code
-                    $compile(notesDiv.contents()) scope
-                    $rootScope.interactivity.activate_note scope.notes, $("div.note[data-id='#{scope.newnote.id}']")
                     helper = $("div.ui-selectable-helper")
                     offset = et.offset()
                     scroll_from_top = parseInt(et.scrollTop())
@@ -74,6 +70,11 @@ window.module.config ($compileProvider) ->
 
                     if note_width < 4 and note_height < 4
                         return
+
+                    notesDiv = $ '.notes'
+                    notesDiv.append code
+                    $compile(notesDiv.contents()) scope
+                    $rootScope.interactivity.activate_note scope.notes, $("div.note[data-id='#{scope.newnote.id}']")
 
                     $("div.note[data-id='#{scope.newnote.id}']").css
                         top:    note_top

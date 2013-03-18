@@ -9,9 +9,10 @@
         .iphone.previous-version
           .version-number= "<b>Version #{version.version_number}</b> (#{time_ago_in_words(version.created_at)} ago)".html_safe
           .screenshot.screenshot-portrait.image-container{"data-image-version" => version.id}
-            = image_tag version.image.url
-            .notes
-              = render :partial => "annotations/annotations", :locals => { :annotations => version.annotations }
+            %div{"note-creation-triggers" => ""}
+              = image_tag version.image.url
+              .notes{"note-comment-update-trigger" => ""}
+                = render :partial => "annotations/annotations", :locals => { :annotations => version.annotations }
 
 
 
@@ -20,7 +21,7 @@
         .screenshot.screenshot-portrait.image-container.selectable{"data-image-version" => @image_version.id}
           %div{"note-creation-triggers" => ""}
             = image_tag @image_version.image.url
-            .notes
+            .notes{"note-comment-update-trigger" => ""}
               = render :partial => "annotations/annotations", :locals => { :annotations => @image_version.annotations }
 
 

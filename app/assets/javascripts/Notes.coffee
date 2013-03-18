@@ -27,8 +27,9 @@ class Notes
                 @push note, note.inProgress
 
         @pusher.subscribe "create-note", (note) =>
+            note = note.message if note.message?
             @pop note.id
-            @push note
+            @push note, no
 
         @pusher.subscribe "client-update-note-size", (note) =>
             @push note
