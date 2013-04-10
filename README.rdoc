@@ -1,3 +1,11 @@
+To launch tests: 
+cd to folder app/assets/javascripts/tests
+run "run_tests.sh" (or launch lines manually if doesn't work)
+
+To compile coffee:
+command "coffee -c -w ./"   (it will be watching for ,modifications and recompiling all files in the current folder and its child folders etc. , remove -w if you don't want watching but I'm not sure it will work with whole folder)
+
+
 
 
 - Add user_id to Comment
